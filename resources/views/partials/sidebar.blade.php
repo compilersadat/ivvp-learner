@@ -6,7 +6,9 @@
                     <li class="">
                         <a href="{{ route('home')}}"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                     </li>
-
+                    <li>
+                        <a href="{{ route('upload.index')}}"> <i class="menu-icon fa fa-file"></i>File Upload</a>
+                    </li>
                     <li>
                         <a href="{{ route('content.index')}}"> <i class="menu-icon fa fa-database"></i>Contents</a>
                     </li>
