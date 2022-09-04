@@ -21,7 +21,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('/ajax-get-facualties',function(){
     $branches=App\Models\Faculty::get();
     return response()->json($branches);
-})->name('ajax-get-trends');
+})->name('ajax-get-facualties');
+
+Route::get('/ajax-get-languages',function(){
+    $branches=App\Models\Language::get();
+    return response()->json($branches);
+})->name('ajax-get-languages');
+
+Route::get('/ajax-get-locations',function(){
+    $branches=App\Models\District::get();
+    return response()->json($branches);
+})->name('ajax-get-locations');
+
 Route::get('/ajax-get-trends',function(){
     $fact = FacadesRequest::get('fac');
     $branches=App\Models\Branch::where('wrtf',$fact)->get();
