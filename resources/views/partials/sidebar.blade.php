@@ -10,6 +10,9 @@
                         <a href="{{ route('upload.index')}}"> <i class="menu-icon fa fa-file"></i>File Upload</a>
                     </li>
                     <li>
+                        <a href="{{ route('slider.index')}}"> <i class="menu-icon fa fa-file"></i>Sliders</a>
+                    </li>
+                    <li>
                         <a href="{{ route('content.index')}}"> <i class="menu-icon fa fa-database"></i>Contents</a>
                     </li>
 

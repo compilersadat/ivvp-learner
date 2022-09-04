@@ -4,29 +4,21 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Data;
+use App\Models\Slider;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Api\ResponseController as ResponseController;
 
-class DataApiController extends Controller
+class DataApiController extends ResponseController
 {
-    public function allData(Request $request){
-        $validator = Validator::make($request->all(), [
+    public function homeData(){
 
-            'chapter_id'=>'required',
-            
-        ]);
+        $slider=Slider::get();
+         $data['sliders']=$slider;
+         $data['subscriptions']=[];
+         $data['study_materials']=[];
+        $success['message'] = "Here is data";
+        $success['data']=$data;
+        return $this->sendResponse($success);
 
-        if ($validator->fails()) {
-            return response()->json([
-                'status'=>'F',
-                'message'=>$validator->errors()->first()
-                ]);
-        }
-
-        $data=Data::where('chapter_id', $request->chapter_id)->get();
-        return response()->json([
-            'status'=>'S',
-            'data'=>$data,
-          ]);
     }
 }

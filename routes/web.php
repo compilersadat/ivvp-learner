@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CkeditorController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\S3uploadController;
+use App\Http\Controllers\Admin\SliderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,10 @@ Route::prefix('admin')->group(function () {
     Route::get('uploads',[S3uploadController::class,'index'])->name('upload.index');
     Route::get('uploads/create',[S3uploadController::class,'create'])->name('upload.create');
     Route::post('uploads/store',[S3uploadController::class,'store'])->name('upload.store');
+
+    Route::get('sliders',[SliderController::class,'index'])->name('slider.index');
+    Route::get('uploads/create',[SliderController::class,'create'])->name('slider.create');
+    Route::post('uploads/store',[SliderController::class,'store'])->name('slider.store');
 
 });
 
