@@ -27,7 +27,7 @@ class AuthController extends ResponseController
             'district'=>'required',
             'year'=>'required',
             'm_toung'=>'required',
-            'image'=>'required'
+
         ]);
 
         if($validator->fails()){
