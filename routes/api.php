@@ -18,6 +18,10 @@ use Illuminate\Support\Facades\Request as FacadesRequest;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/ajax-get-facualties',function(){
+    $branches=App\Models\Faculty::get();
+    return response()->json($branches);
+})->name('ajax-get-trends');
 Route::get('/ajax-get-trends',function(){
     $fact = FacadesRequest::get('fac');
     $branches=App\Models\Branch::where('wrtf',$fact)->get();
