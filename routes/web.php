@@ -38,8 +38,8 @@ Route::prefix('admin')->group(function () {
     Route::post('uploads/store',[S3uploadController::class,'store'])->name('upload.store');
 
     Route::get('sliders',[SliderController::class,'index'])->name('slider.index');
-    Route::get('uploads/create',[SliderController::class,'create'])->name('slider.create');
-    Route::post('uploads/store',[SliderController::class,'store'])->name('slider.store');
+    Route::get('sliders/create',[SliderController::class,'create'])->name('slider.create');
+    Route::post('sliders/store',[SliderController::class,'store'])->name('slider.store');
 
 });
 
