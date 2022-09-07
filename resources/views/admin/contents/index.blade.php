@@ -26,7 +26,7 @@
 
                                             <th>Trade</th>
                                             <th>Month</th>
-                                            <th>Type</th>
+
                                             <th>File</th>
                                             <th>Status</th>
 
@@ -44,9 +44,10 @@
 						               <td>{{App\Models\Faculty::where('faculty_id',$content->faculty)->first()->value('name')}}</td>
                                        <td>{{App\Models\Branch::where('branch_id',$content->branch)->first()->value('name')}}</td>
                                        <td>{{$content->month}}</td>
-                                       <td>{{$content->type}}</td>
-                                       <td>{{App\Models\S3upload::where('id',$content->file_url)->first()->value('title')}}
+
+                                       <td>Title: {{App\Models\S3upload::where('id',$content->file_url)->first()->value('title')}}
                                         <br>
+                                         Type : {{$content->type}}
                                         </td>
                                        <td>{{$content->status==1?"Active":"Inactive"}}</td>
 						               <td>
