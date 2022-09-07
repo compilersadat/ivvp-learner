@@ -21,7 +21,10 @@
                                         <tr>
                                         	<th>SR NO</th>
                                             <th>Title</th>
-                                            <th>File Url</th>
+                                            <th>Description</th>
+                                            <th>Facualty</th>
+                                            <th>Trade</th>
+                                            <th>Month</th>
                                             <th>Type</th>
                                             <th>Status</th>
 
@@ -35,8 +38,11 @@
 						              <tr>
 						               <td>{{$i}}</td>
                                        <td>{{isset($content->title) ? ($content->title) : '-'}}</td>
-						               <td>{{isset($content->file_url) ? ($content->file_url) : '-'}}</td>
-                                       <td>{{isset($content->type) ? ($content->type) : '-'}}</td>
+                                       <td>{!! $content->description !!}</td>
+						               <td>{{App\Models\Faculty::where('faculty_id',$content->faculty)->first()->value('name')}}</td>
+                                       <td>{{App\Models\Branch::where('branch_id',$content->branch)->first()->value('name')}}</td>
+                                       <td>{{$content->month}}</td>
+                                       <td>{{$content->type}}</td>
                                        <td>{{isset($content->status) ? ($content->status) : '-'}}</td>
 						               <td>
 						                  {{-- <a href="{{route('content.edit',$content->id)}}" class="label  "><i class="fa fa-edit fa-1x" style="color: #000"></i> </a> --}}
