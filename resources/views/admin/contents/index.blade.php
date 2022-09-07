@@ -23,9 +23,11 @@
                                             <th>Title</th>
                                             <th>Description</th>
                                             <th>Facualty</th>
+
                                             <th>Trade</th>
                                             <th>Month</th>
                                             <th>Type</th>
+                                            <th>File</th>
                                             <th>Status</th>
 
 
@@ -43,6 +45,9 @@
                                        <td>{{App\Models\Branch::where('branch_id',$content->branch)->first()->value('name')}}</td>
                                        <td>{{$content->month}}</td>
                                        <td>{{$content->type}}</td>
+                                       <td>{{App\Models\S3upload::where('id',$content->file_url)->first()->value('title')}}
+                                        <br>
+                                        </td>
                                        <td>{{$content->status==1?"Active":"Inactive"}}</td>
 						               <td>
 						                  {{-- <a href="{{route('content.edit',$content->id)}}" class="label  "><i class="fa fa-edit fa-1x" style="color: #000"></i> </a> --}}
