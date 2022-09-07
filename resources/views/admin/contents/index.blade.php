@@ -39,7 +39,7 @@
                                        <td>{{isset($content->type) ? ($content->type) : '-'}}</td>
                                        <td>{{isset($content->status) ? ($content->status) : '-'}}</td>
 						               <td>
-						                  <a href="{{route('content.edit',$content->id)}}" class="label  "><i class="fa fa-edit fa-1x" style="color: #000"></i> </a>
+						                  {{-- <a href="{{route('content.edit',$content->id)}}" class="label  "><i class="fa fa-edit fa-1x" style="color: #000"></i> </a> --}}
 						                  {{-- <a href="{{route('content.delete',$content->id)}}" onclick="return confirm('Are you sure you want to delete this item?');" class="label bg-red-active"><i class="fa fa-trash  fa-1x" style="color: #000"></i> </a> --}}
 						                  {{-- <a href="{{route('content.show',$content->id)}}"><span class="label "><i class="fa fa-eye  fa-1x" style="color: #000"></i>&ensp;</span></a> --}}
 						               </td>

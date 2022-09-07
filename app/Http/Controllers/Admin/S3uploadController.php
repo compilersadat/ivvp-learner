@@ -48,4 +48,6 @@ class S3uploadController extends Controller
         session()->flash('status', 'Content Uploaded Successfully');
         return redirect()->route('upload.index');
 }
+
+
 }
