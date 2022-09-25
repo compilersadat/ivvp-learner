@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DataApiController;
+use App\Http\Controllers\Api\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::middleware('auth:sanctum')->group(function(){
   Route::get('/home-data',[DataApiController::class,'homeData']);
+  Route::post('/update-profile',[UserController::class,'updateStudent']);
 });
 
 Route::post('/login',[AuthController::class,'login']);
