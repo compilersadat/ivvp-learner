@@ -7,7 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\ResponseController as ResponseController;
-
+use App\Models\Faculty;
+use App\Http\Resources\StudyMaterial;
 class DataApiController extends ResponseController
 {
     public function homeData(){
@@ -15,7 +16,7 @@ class DataApiController extends ResponseController
         $slider=Slider::get();
          $data['sliders']=$slider;
          $data['subscriptions']=[];
-         $data['study_materials']=[];
+         $data['study_materials']=StudyMaterial::collection(Faculty::all());
         $success['message'] = "Here is data";
         $success['data']=$data;
         return $this->sendResponse($success);
