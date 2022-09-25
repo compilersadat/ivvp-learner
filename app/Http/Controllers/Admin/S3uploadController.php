@@ -30,7 +30,8 @@ class S3uploadController extends Controller
         ]);
         $path="";
              if($request->type==="video"){
-                $path = Storage::disk('s3')->put('videos', $request->content);
+                // $path = Storage::disk('s3')->put('videos', $request->content);
+                $path=$request->link;
              }else{
                 $path = Storage::disk('s3')->put('pdf', $request->content);
              }

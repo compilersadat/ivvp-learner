@@ -47,6 +47,14 @@
                   </div>
 
 
+
+
+
+                  <div class="form-group">
+                    <label for="link" class=" form-control-label">File Link</label>
+                   <input type="text" id="link" name="link" placeholder="File Link" class="form-control">
+                </div>
+
                 <div class="form-group">
                     <input type="file" name="content" class="form-control">
                 </div>
