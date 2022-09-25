@@ -26,13 +26,14 @@ class S3uploadController extends Controller
         $this->validate($request,[
             'title'=> 'required',
             'type' => 'required',
+            'link'=>'required'
         ]);
         $path="";
              if($request->type==="video"){
                 // $path = Storage::disk('s3')->put('videos', $request->content);
                 $path=$request->link;
              }else{
-                $path = Storage::disk('s3')->put('pdf', $request->content);
+                $path = $request->link;
              }
 
 

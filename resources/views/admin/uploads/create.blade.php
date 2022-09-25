@@ -55,9 +55,7 @@
                    <input type="text" id="link" name="link" placeholder="File Link" class="form-control">
                 </div>
 
-                <div class="form-group">
-                    <input type="file" name="content" class="form-control">
-                </div>
+
                 <button type="submit" class="btn btn-primary">Submit</button>
 
             </div>
