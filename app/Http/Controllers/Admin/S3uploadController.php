@@ -25,7 +25,6 @@ class S3uploadController extends Controller
     {
         $this->validate($request,[
             'title'=> 'required',
-            'content' => 'required',
             'type' => 'required',
         ]);
         $path="";
