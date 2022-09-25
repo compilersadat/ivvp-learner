@@ -24,18 +24,52 @@ class BranchResource extends JsonResource
                     "month"=>"January",
                     "content"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","1")->get()),
                 ],
+                [
+                    "month"=>"Febuary",
+                    "content"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","2")->get()),
 
-                // "Febuary"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","2")->get()),
-                // "March"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","3")->get()),
-                // "April"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","4")->get()),
-                // "May"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","5")->get()),
-                // "June"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","6")->get()),
-                // "July"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","7")->get()),
-                // "August"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","8")->get()),
-                // "September"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","9")->get()),
-                // "October"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","10")->get()),
-                // "November"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","11")->get()),
-                // "December"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","12")->get())
+                ],
+                [
+                   "month"=>"March",
+                    "content"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","3")->get()),
+                ],
+                [
+                    "month"=>"April",
+                     "content"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","4")->get()),
+                ],
+                 [
+                    "month"=>"May",
+                     "content"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","5")->get()),
+                 ],
+                 [
+                    "month"=>"June",
+                     "content"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","6")->get()),
+                 ],
+                 [
+                    "month"=>"July",
+                     "content"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","7")->get()),
+                 ],
+                 [
+                    "month"=>"August",
+                     "content"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","8")->get()),
+                 ],
+                 [
+                    "month"=>"September",
+                     "content"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","9")->get()),
+                 ],
+                 [
+                    "month"=>"October",
+                     "content"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","10")->get()),
+                 ],
+                 [
+                    "month"=>"November",
+                     "content"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","11")->get()),
+                 ],
+                 [
+                    "month"=>"December",
+                     "content"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","12")->get()),
+                 ],
+
             ]
         ];
     }
