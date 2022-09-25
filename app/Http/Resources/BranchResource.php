@@ -19,7 +19,7 @@ class BranchResource extends JsonResource
             'id'=>$this->id,
             'branch_id'=>$this->branch_id,
             'name'=>$this->name,
-            'content'=>ContentResource::collection(Content::where('branch',$this->branch_id)->get())
+            'content'=>ContentResource::collection(Content::where('branch',$this->branch_id)->groupBy('month')->get())
         ];
     }
 }
