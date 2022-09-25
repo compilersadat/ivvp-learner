@@ -3,7 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Http\Resources\ContentResource;
+use App\Models\Content;
 class BranchResource extends JsonResource
 {
     /**
@@ -18,7 +19,7 @@ class BranchResource extends JsonResource
             'id'=>$this->id,
             'branch_id'=>$this->branch_id,
             'name'=>$this->name,
-            'content'=>[]
+            'content'=>ContentResource::collection(Content::where('branch',$this->branch_id)->groupBy('month')->get())
         ];
     }
 }
