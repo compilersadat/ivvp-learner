@@ -20,10 +20,12 @@ class UserController extends ResponseController
         $student->year=$request->year;
         $student->m_toung=$request->m_toung;
         if($student->update()){
+            $response['message']="Profile Updated successfully";
+            $response['student']=$student;
             return $this->sendResponse($student);
 
         }else{
-            $error = "Sorry! Registration is not successfull.";
+            $error = "Sorry! Please try again";
             return $this->sendError($error, 401);
         }
 
