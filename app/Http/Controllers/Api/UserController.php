@@ -22,7 +22,7 @@ class UserController extends ResponseController
         if($student->update()){
             $response['message']="Profile Updated successfully";
             $response['student']=$student;
-            return $this->sendResponse($student);
+            return $this->sendResponse($response);
 
         }else{
             $error = "Sorry! Please try again";
