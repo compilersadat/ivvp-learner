@@ -18,7 +18,7 @@ class ContentResource extends JsonResource
             "title"=>$this->title,
             "description"=>$this->description,
             "type"=>$this->type,
-            "file_url"=>S3upload::where('id',$this->file_url)->url,
+            "file_url"=>S3upload::where('id',$this->file_url)->first()->value("url"),
 
         ];
     }
