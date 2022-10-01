@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-
+use App\Models\S3upload;
 class ContentResource extends JsonResource
 {
     /**
@@ -14,6 +14,12 @@ class ContentResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            "title"=>$this->title,
+            "description"=>$this->description,
+            "type"=>$this->type,
+            "file_url"=>S3upload::where('id',$this->file_url)->url,
+
+        ];
     }
 }
