@@ -44,10 +44,10 @@
                       <select class="form-control" name="type">
                         <option value="">{{ __('Select Type') }}</option>
 
-                        <option value="video_lecture">Video Lecture</option>
-                        <option value="file_pdf">File PDF</option>
-                        <option value="free_video">Free Video</option>
-                        <option value="free_pdf">Free PDF</option>
+                        <option value="video_lecture" @if($content->type=="video_lecture") selected @endif>Video Lecture</option>
+                        <option value="file_pdf" @if($content->type=="file_pdf") selected @endif>File PDF</option>
+                        <option value="free_video" @if($content->type=="free_video") selected @endif>Free Video</option>
+                        <option value="free_pdf"  @if($content->type=="free_pdf") selected @endif>Free PDF</option>
                       </select>
 
                   </div>
@@ -79,7 +79,12 @@
 
                         <select class="select w-100 text-16" name="branch" id="tre" required="">
                         <option>Select Branch</option>
+                        @foreach(@App\Models\Branch::all() as $opt)
 
+                        <option value="{{$opt->id}}" {{($content->branch == $opt->id) ? "selected" : ''}}>{{$opt->name}}</option>
+
+
+                        @endforeach
 
                         </select>
 
