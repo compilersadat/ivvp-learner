@@ -61,7 +61,7 @@
                             {{-- <option>Select Faculty</option> --}}
                             @foreach(@App\Models\Faculty::all() as $opt)
 
-                            <option value="{{$opt->id}}" {{($content->faculty == $opt->id) ? "selected" : ''}}>{{$opt->name}}</option>
+                            <option value="{{$opt->id}}" {{($content->faculty == $opt->faculty_id) ? "selected" : ''}}>{{$opt->name}}</option>
 
 
                             @endforeach
@@ -81,7 +81,7 @@
                         <option>Select Branch</option>
                         @foreach(@App\Models\Branch::all() as $opt)
 
-                        <option value="{{$opt->id}}" {{($content->branch == $opt->id) ? "selected" : ''}}>{{$opt->name}}</option>
+                        <option value="{{$opt->id}}" {{($content->branch == $opt->branch_id) ? "selected" : ''}}>{{$opt->name}}</option>
 
 
                         @endforeach
@@ -111,18 +111,18 @@
 
                         <select class="select w-100 text-16" name="month" id="month" required="">
                         <option value="">Select Month</option>
-                        <option value="january">January</option>
-                        <option value="febuary">Febuary</option>
-                        <option value="march">March</option>
-                        <option value="april">April</option>
-                        <option value="may">May</option>
-                        <option value="june">June</option>
-                        <option value="july">July</option>
-                        <option value="august">August</option>
-                        <option value="septempber">September</option>
-                        <option value="october">October</option>
-                        <option value="november">November</option>
-                        <option value="december">December</option>
+                        <option value="january"  @if($content->month==1) selected @endif>January</option>
+                        <option value="febuary"  @if($content->month==2) selected @endif>Febuary</option>
+                        <option value="march" @if($content->month==3) selected @endif>March</option>
+                        <option value="april" @if($content->month==4) selected @endif>April</option>
+                        <option value="may" @if($content->month==5) selected @endif>May</option>
+                        <option value="june" @if($content->month==6) selected @endif>June</option>
+                        <option value="july" @if($content->month==7) selected @endif>July</option>
+                        <option value="august" @if($content->month==8) selected @endif>August</option>
+                        <option value="septempber" @if($content->month==9) selected @endif>September</option>
+                        <option value="october" @if($content->month==10) selected @endif>October</option>
+                        <option value="november" @if($content->month==11) selected @endif>November</option>
+                        <option value="december" @if($content->month==12) selected @endif>December</option>
 
                         </select>
 
