@@ -20,8 +20,8 @@
                                     <thead>
                                         <tr>
                                         	<th>SR NO</th>
-                                            <th>File Url</th>
-
+                                            <th>Slider</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -29,8 +29,9 @@
 						              @foreach($sliders as $content)
 						              <tr>
 						               <td>{{$i}}</td>
-                                       <td>{{isset($content->image) ? ($content->image) : '-'}}</td>
-
+                                       <td><img width="350" src="{{env('S3_STORAGE_BASE_URL').$content->image}}"/></td>
+                                       <td><a href="{{route('slider.delete',$content->id)}}" onclick="return confirm('Are you sure you want to delete this item?');" class="label bg-red-active"><i class="fa fa-trash  fa-1x" style="color: #000"></i> </a>
+                                       </td>
 
 						              </tr>
 						            <?php $i++?>

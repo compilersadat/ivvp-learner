@@ -22,6 +22,7 @@
                                         	<th>SR NO</th>
                                             <th>Title</th>
                                             <th>File Url</th>
+                                            <th>Action</th>
 
                                         </tr>
                                     </thead>
@@ -32,6 +33,7 @@
 						               <td>{{$i}}</td>
                                        <td>{{isset($content->title) ? ($content->title) : '-'}}</td>
 						               <td>{{isset($content->url) ? ($content->url) : '-'}}</td>
+                                       <td>						                  <a href="{{route('upload.delete',$content->id)}}" onclick="return confirm('Are you sure you want to delete this item?');" class="label bg-red-active"><i class="fa fa-trash  fa-1x" style="color: #000"></i> </a>                                       </td>
 
 
 						              </tr>

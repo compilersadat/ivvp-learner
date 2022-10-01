@@ -42,15 +42,15 @@ class DataController extends Controller
             'page_no'=>'required',
             'data'=>'required',
 
-            
-            
+
+
 
         ]);
         $data=new Data();
         $data->chapter_id=$request->chapter_id;
         $data->page_no=$request->page_no;
         $data->data=$request->data;
-       
+
         if($data->save()){
             return redirect()->route('data.index')->with('success',' Data Added successfully.');
         }
@@ -96,15 +96,15 @@ class DataController extends Controller
             'page_no'=>'required',
             'data'=>'required',
 
-            
-            
+
+
 
         ]);
         $data=Data::where('id', $id)->first();
         $data->chapter_id=$request->chapter_id;
         $data->page_no=$request->page_no;
         $data->data=$request->data;
-       
+
         if($data->update()){
             return redirect()->route('data.index')->with('success',' Data Update successfully.');
         }
@@ -121,8 +121,8 @@ class DataController extends Controller
      */
     public function delete($id)
     {
-        $data=Data::findOrFail($id);
-        if($data::where('id',$id)->delete()){
+
+        if(Data::where('id',$id)->delete()){
             return redirect()->back()->with('success',' Data deleted successfully.');
         }
         else{

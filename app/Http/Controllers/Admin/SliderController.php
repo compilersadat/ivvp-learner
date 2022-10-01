@@ -27,11 +27,6 @@ class SliderController extends Controller
 
                 $path = Storage::disk('s3')->put('images', $request->content);
 
-
-
-        // $path = Storage::url($path);
-        /* Store $imageName name in DATABASE from HERE */
-
         $content = Slider::create([
 
              'image'=>$path,
@@ -40,4 +35,27 @@ class SliderController extends Controller
         session()->flash('status', 'Content Uploaded Successfully');
         return redirect()->route('slider.index');
 }
+
+    public function delete($id){
+         $slider=Slider::where('id',$id)->first();
+
+         if(Storage::disk('s3')->exists($slider->image)) {
+            Storage::disk('s3')->delete($slider->image);
+            if(Slider::where('id',$id)->delete()){
+                session()->flash('status', 'Slider Deleted Successfully');
+                return redirect()->route('slider.index');
+            }else{
+                session()->flash('status', 'Error in Deleting Slider');
+                return redirect()->route('slider.index');
+            }
+        }else{
+            if(Slider::where('id',$id)->delete()){
+                session()->flash('status', 'Slider Deleted Successfully');
+                return redirect()->route('slider.index');
+            }else{
+                session()->flash('status', 'Error in Deleting Slider');
+                return redirect()->route('slider.index');
+            }
+        }
+    }
 }

@@ -131,8 +131,15 @@ class ContentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
+    public function delete($id){
+
+           if(Content::where('id',$id)->delete()){
+               session()->flash('status', 'Content Deleted Successfully');
+               return redirect()->route('slider.index');
+           }else{
+               session()->flash('status', 'Content in Deleting Slider');
+               return redirect()->route('slider.index');
+           }
+
+   }
 }

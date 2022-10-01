@@ -24,8 +24,8 @@
                                             <th>Chapter Name</th>
                                             <th>Page Number </th>
                                             <th>Data</th>
-                                          
-                                            
+
+
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -39,7 +39,6 @@
                                        <td>{{$row->page_no}}</td>
                                        <td>{{$row->data}}</td>
 						               <td>
-						                  <a href="{{route('data.edit',$row->id)}}" class="label  "><i class="fa fa-edit fa-1x" style="color: #000"></i> </a>
 						                  <a href="{{route('data.delete',$row->id)}}" onclick="return confirm('Are you sure you want to delete this item?');" class="label bg-red-active"><i class="fa fa-trash  fa-1x" style="color: #000"></i> </a>
 						                  {{-- <a href="{{route('data.show',$row->id)}}"><span class="label "><i class="fa fa-eye  fa-1x" style="color: #000"></i>&ensp;</span></a> --}}
 						               </td>
