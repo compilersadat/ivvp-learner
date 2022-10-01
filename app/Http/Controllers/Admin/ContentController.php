@@ -60,7 +60,7 @@ class ContentController extends Controller
             'year' => isset($request->year) ? ($request->year) : '',
             'status' => 1,
         ]);
-
+ $contents=Content::get();
         session()->flash('status', 'Content Create Successfully');
         return redirect()->route('content.index');
     }
@@ -135,10 +135,10 @@ class ContentController extends Controller
 
            if(Content::where('id',$id)->delete()){
                session()->flash('status', 'Content Deleted Successfully');
-               return redirect()->route('slider.index');
+               return redirect()->route('content.index');
            }else{
                session()->flash('status', 'Content in Deleting Slider');
-               return redirect()->route('slider.index');
+               return redirect()->route('content.index');
            }
 
    }

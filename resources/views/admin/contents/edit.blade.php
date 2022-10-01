@@ -72,7 +72,7 @@
                             {{-- <option>Select Faculty</option> --}}
                             @foreach(@App\Models\Faculty::all() as $opt)
 
-                            <option value="{{$opt->id}}" {{($content->faculty == $opt->faculty_id) ? "selected" : ''}}>{{$opt->name}}</option>
+                            <option value="{{$opt->faculty_id}}" {{($content->faculty == $opt->faculty_id) ? "selected" : ''}}>{{$opt->name}}</option>
 
 
                             @endforeach
@@ -92,7 +92,7 @@
                         <option>Select Branch</option>
                         @foreach(@App\Models\Branch::all() as $opt)
 
-                        <option value="{{$opt->id}}" {{($content->branch == $opt->branch_id) ? "selected" : ''}}>{{$opt->name}}</option>
+                        <option value="{{$opt->branch_id}}" {{($content->branch == $opt->branch_id) ? "selected" : ''}}>{{$opt->name}}</option>
 
 
                         @endforeach
