@@ -59,7 +59,7 @@
                             <label class="text-muted">Select Faculty <font class="text-danger">*</font></label>
                             <select class="select w-100 text-16" name="faculty" id="faculty" required="">
                             {{-- <option>Select Faculty</option> --}}
-                            @foreach(@App\Faculty::all() as $opt)
+                            @foreach(@App\Models\Faculty::all() as $opt)
 
                             <option value="{{$opt->id}}" {{($content->faculty == $opt->id) ? "selected" : ''}}>{{$opt->name}}</option>
 
