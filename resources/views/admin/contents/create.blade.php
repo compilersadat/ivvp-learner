@@ -35,7 +35,7 @@
 
                 <div class="form-group">
                     <div class=" pt-2 ">
-                        <label class="text-muted">Select Faculty <font class="text-danger">*</font></label>
+                        <label class="text-muted">Select File <font class="text-danger">*</font></label>
                         <select class="select w-100 text-16" name="file_url" id="file_url" required="">
                         <option>Select File</option>
                         @foreach(@App\Models\S3upload::all() as $opt)

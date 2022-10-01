@@ -34,8 +34,19 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="pNO" class=" form-control-label">File URL</label>
-                   <input type="text" id="file_url" name="file_url" placeholder="File URL" class="form-control" value="{{$content->file_url}}">
+                    <div class=" pt-2 ">
+                        <label class="text-muted">Select File <font class="text-danger">*</font></label>
+                        <select class="select w-100 text-16" name="file_url" id="file_url" required="">
+                        <option>Select File</option>
+                        @foreach(@App\Models\S3upload::all() as $opt)
+
+                        <option value="{{$opt->id}}" @if($content->file_url) selected @endif>{{$opt->title}}</option>
+
+                        @endforeach
+
+                        </select>
+
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -98,7 +109,9 @@
 
                         <select class="select w-100 text-16" name="year" id="year" required="">
                         <option>Select Year</option>
-
+                          <option value="1"  @if($content->year==1) selected @endif>1</option>
+                          <option value="2"  @if($content->year==2) selected @endif>1</option>
+                          <option value="3"  @if($content->year==3) selected @endif>1</option>
                         </select>
 
                     </div>
