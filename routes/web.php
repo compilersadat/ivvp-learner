@@ -34,6 +34,8 @@ Route::prefix('admin')->group(function () {
     Route::post('contents/store',[ContentController::class,'store'])->name('content.store');
     Route::get('contents/delete/{id}',[ContentController::class,'delete'])->name('content.delete');
     Route::get('contents/edit/{id}',[ContentController::class,'edit'])->name('content.edit');
+    Route::post('contents/update',[ContentController::class,'update'])->name('content.update');
+
 
     Route::get('uploads',[S3uploadController::class,'index'])->name('upload.index');
     Route::get('uploads/create',[S3uploadController::class,'create'])->name('upload.create');
