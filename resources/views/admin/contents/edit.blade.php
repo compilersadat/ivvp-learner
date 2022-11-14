@@ -32,6 +32,10 @@
                     <label for="pNO" class=" form-control-label">Title</label>
                    <input type="text" id="title" name="title" placeholder="Title" class="form-control" value="{{$content->title}}">
                 </div>
+                <div class="form-group">
+                    <label for="pNO" class=" form-control-label">Barcode</label>
+                   <input type="text" id="barcode" name="barcode" placeholder="Enter code" class="form-control" value="{{$content->barcode}}">
+                </div>
 
                 <div class="form-group">
                     <div class=" pt-2 ">

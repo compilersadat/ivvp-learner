@@ -59,6 +59,8 @@ class ContentController extends Controller
             'month' => isset($request->month) ? ($request->month) : '',
             'year' => isset($request->year) ? ($request->year) : '',
             'status' => 1,
+            'barcode'=>isset($request->barcode) ? ($request->barcode) : '',
+
         ]);
  $contents=Content::get();
         session()->flash('status', 'Content Create Successfully');
@@ -118,6 +120,8 @@ class ContentController extends Controller
             'month' => isset($request->month) ? ($request->month) : '',
             'year' => isset($request->year) ? ($request->year) : '',
             'status' => 1,
+            'barcode'=>isset($request->barcode) ? ($request->barcode) : '',
+
         ];
 
         Content::where('id', $id)->first()->update($content);
