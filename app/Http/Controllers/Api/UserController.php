@@ -48,7 +48,7 @@ class UserController extends ResponseController
      $student_package->student_id=$request->student_id;
      $student_package->package_id=$request->package_id;
      $student_package->package_name=$request->package_name;
-     $student_package->number_of_month=$request->number_of_month;
+     $student_package->number_of_months=$request->number_of_month;
      $student_package->price=$request->price;
      $student_package->status=1;
      if($student_package->save()){
@@ -77,7 +77,7 @@ public function updatePackage(Request $request){
  $student_package->student_id=$request->student_id;
  $student_package->package_id=$request->package_id;
  $student_package->package_name=$request->package_name;
- $student_package->number_of_month=$request->number_of_month;
+ $student_package->number_of_months=$request->number_of_month;
  $student_package->price=$request->price;
  $student_package->status=1;
  if($request->payment==true){
