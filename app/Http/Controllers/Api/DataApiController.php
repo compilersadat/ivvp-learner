@@ -13,14 +13,20 @@ use App\Http\Resources\PackageResource;
 use App\Http\Resources\StudentSubscriptionResource;
 use App\Models\Package;
 use App\Models\StudentPackage;
+use App\Models\Content;
+use App\Models\Student;
 class DataApiController extends ResponseController
 {
     public function homeData(Request $request){
-
+        $student=Student::where('id',$request->user()->id)->first();
         $slider=Slider::get();
+         $free_content=Content::where('branch',$student->branch)->where('year',$student->year)->where(function($query){
+            $query->where('type','free_pdf')->orWhere('type','free_video');
+        })->get();
          $data['sliders']=$slider;
          $data['subscriptions']=PackageResource::collection(Package::all());
          $data['study_materials']=StudyMaterial::collection(Faculty::all());
+         $data['free_content']=$free_content;
          $data['paid_plan']=(Object)new StudentSubscriptionResource(StudentPackage::where('student_id',$request->user()->id)->first());
         $success['message'] = "Here is data";
         $success['data']=$data;
