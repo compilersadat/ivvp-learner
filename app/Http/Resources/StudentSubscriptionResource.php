@@ -14,6 +14,15 @@ class StudentSubscriptionResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            "id"=>$this->id,
+            "status"=>$this->status==1?"Pending":"Active",
+           "package_name"=>$this->package_name,
+           "number_of_months"=>$this->number_of_months,
+           "start_date"=>$this->start_date,
+           "start_month"=>$this->start_month,
+           "price"=>$this->price
+
+        ];
     }
 }
