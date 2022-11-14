@@ -24,6 +24,7 @@ class DataApiController extends ResponseController
             $query->where('type','free_pdf')->orWhere('type','free_video');
         })->get();
          $data['sliders']=$slider;
+         $data['user']=$student;
          $data['subscriptions']=PackageResource::collection(Package::all());
          $data['study_materials']=StudyMaterial::collection(Faculty::all());
          $data['free_content']=$free_content;
