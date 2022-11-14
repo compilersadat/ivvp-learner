@@ -14,6 +14,7 @@ use App\Http\Resources\StudentSubscriptionResource;
 use App\Models\Package;
 use App\Models\StudentPackage;
 use App\Models\Content;
+use App\Http\Resources\ContentResource;
 use App\Models\Student;
 class DataApiController extends ResponseController
 {
@@ -24,10 +25,9 @@ class DataApiController extends ResponseController
             $query->where('type','free_pdf')->orWhere('type','free_video');
         })->get();
          $data['sliders']=$slider;
-         $data['user']=$student;
          $data['subscriptions']=PackageResource::collection(Package::all());
          $data['study_materials']=StudyMaterial::collection(Faculty::all());
-         $data['free_content']=$free_content;
+         $data['free_content']=ContentResource::collection($free_content);
          $data['paid_plan']=(Object)new StudentSubscriptionResource(StudentPackage::where('student_id',$request->user()->id)->first());
         $success['message'] = "Here is data";
         $success['data']=$data;
