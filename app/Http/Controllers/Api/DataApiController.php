@@ -28,7 +28,9 @@ class DataApiController extends ResponseController
          $data['subscriptions']=PackageResource::collection(Package::all());
          $data['study_materials']=StudyMaterial::collection(Faculty::all());
          $data['free_content']=ContentResource::collection($free_content);
-         $data['paid_plan']=(Object)new StudentSubscriptionResource(StudentPackage::where('student_id',$request->user()->id)->first());
+         if(StudentPackage::where('student_id',$request->user()->id)->count()){
+            $data['paid_plan']=(Object)new StudentSubscriptionResource(StudentPackage::where('student_id',$request->user()->id)->first());
+         }
         $success['message'] = "Here is data";
         $success['data']=$data;
         return $this->sendResponse($success);
