@@ -73,12 +73,12 @@ Route::prefix('admin')->group(function () {
     Route::get('instructors/edit/{id}',[InstructorController::class,'edit'])->name('instructors.edit');
     Route::post('instructors/update/{id}',[InstructorController::class,'update'])->name('instructors.update');
 
-    Route::get('exams',[InstructorController::class,'index'])->name('exams.index');
-    Route::get('exams/create',[InstructorController::class,'create'])->name('exams.create');
-    Route::post('exams/store',[InstructorController::class,'store'])->name('exams.store');
-    Route::get('exams/delete/{id}',[InstructorController::class,'delete'])->name('exams.delete');
-    Route::get('exams/edit/{id}',[InstructorController::class,'edit'])->name('exams.edit');
-    Route::post('exams/update/{id}',[InstructorController::class,'update'])->name('exams.update');
+    Route::get('exams',[ExamController::class,'index'])->name('exams.index');
+    Route::get('exams/create',[ExamController::class,'create'])->name('exams.create');
+    Route::post('exams/store',[ExamController::class,'store'])->name('exams.store');
+    Route::get('exams/delete/{id}',[ExamController::class,'delete'])->name('exams.delete');
+    Route::get('exams/edit/{id}',[ExamController::class,'edit'])->name('exams.edit');
+    Route::post('exams/update/{id}',[ExamController::class,'update'])->name('exams.update');
 
 });
 
