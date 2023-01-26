@@ -10,7 +10,7 @@ use Validator;
 use Illuminate\Support\Facades\Storage;
 
 
-class ExamController extends Controller
+class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
