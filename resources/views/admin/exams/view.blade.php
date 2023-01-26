@@ -80,7 +80,6 @@
             </form>
              </div>
          </div>
-        </div>
         <div class="col-lg-6">
             <table id="bootstrap-data-table" class="table table-striped table-bordered">
                 <thead>
