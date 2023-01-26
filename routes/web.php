@@ -6,6 +6,7 @@ use App\Http\Controllers\CkeditorController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\S3uploadController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\PackageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,14 @@ Route::prefix('admin')->group(function () {
     Route::get('sliders/create',[SliderController::class,'create'])->name('slider.create');
     Route::post('sliders/store',[SliderController::class,'store'])->name('slider.store');
     Route::get('sliders/delete/{id}',[SliderController::class,'delete'])->name('slider.delete');
+
+    Route::get('packages',[PackageController::class,'index'])->name('packages.index');
+    Route::get('packages/create',[PackageController::class,'create'])->name('packages.create');
+    Route::post('packages/store',[PackageController::class,'store'])->name('packages.store');
+    Route::get('packages/delete/{id}',[PackageController::class,'delete'])->name('packages.delete');
+    Route::get('packages/edit/{id}',[ContentController::class,'edit'])->name('packages.edit');
+    Route::post('packages/update/{id}',[ContentController::class,'update'])->name('packages.update');
+
 });
 
 
