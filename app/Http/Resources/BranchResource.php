@@ -22,7 +22,7 @@ class BranchResource extends JsonResource
             'contents'=>(Array)[
                 [
                     "month"=>"January",
-                    "content"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","1")->get()),
+                    "content"=>ContentResource::collection(Content::where('branch',$this->branch_id)->where("month","1")->get()),        
                 ],
                 [
                     "month"=>"Febuary",

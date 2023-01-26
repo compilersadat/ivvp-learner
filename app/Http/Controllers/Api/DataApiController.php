@@ -16,6 +16,8 @@ use App\Models\StudentPackage;
 use App\Models\Content;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\SlidersResource;
+use App\Http\Resources\ExamResource;
+use App\Models\Exam;
 
 use App\Models\Student;
 class DataApiController extends ResponseController
@@ -36,5 +38,13 @@ class DataApiController extends ResponseController
         $success['message'] = "Here is data";
         $success['data']=$data;
         return $this->sendResponse($success);
+    }
+
+    public function fetchExams(Request $request){
+    $student=Student::where('id',$request->user()->id)->first();
+    $data['exams']=ExamResource::collection(Exam::where('branch',$student->branch)->where('year',$student->year)->get());
+    $success['message'] = "Here is data";
+    $success['data']=$data;
+    return $this->sendResponse($success);
     }
 }
