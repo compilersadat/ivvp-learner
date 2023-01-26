@@ -38,7 +38,7 @@
                         <option>Select Collage</option>
                         @foreach(@App\Models\Collage::all() as $opt)
 
-                        <option value="{{$opt->id}}" @if($data->district===$opt->id) selected @endif>{{$opt->Name}}</option>
+                        <option value="{{$opt->id}}" @if($data->iti===$opt->id) selected @endif>{{$opt->name}}</option>
 
                         @endforeach
 
