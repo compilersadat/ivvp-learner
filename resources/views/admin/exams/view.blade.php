@@ -24,17 +24,14 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="row justify-content-space-between">
+                    <div class="row justify-content-between">
                         <strong>Question for {{$content->title}} | {{$content->marks}} Marks | {{$content->no_questions}} Questions</strong>
-                        <a href="{{route('exams.changeStatus',$content->id)}}" class=" btn btn-sm btn-primary"><i class="fa fa-plus"></i> @if ($content->is_published==0)
+                        <a href="{{route('exams.changeStatus',$content->id)}}" class=" btn btn-sm btn-primary"><i class="fa fa-cloud-upload"></i> @if ($content->is_published==0)
                             Publish
                         @else
                             Deactive
                         @endif</a>
                     </div>
-
-                    <br>
-
                 </div>
                 <div class="card-body card-block">
                     <table id="bootstrap-data-table" class="table table-striped table-bordered">
