@@ -29,7 +29,7 @@
                     <form method="POST" action="{{route('questions.store')}}" enctype="multipart/form-data">
                         @csrf
         
-                       <input type="hidden" value="{{$content->id}}"/>
+                       <input type="hidden" name="exam" value="{{$content->id}}"/>
         
                 <div class="form-group">
                     <label class="form-label">Question</label>
