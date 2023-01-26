@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\S3uploadController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\PackageController;
+use App\Http\Controllers\Admin\CollageController;
+use App\Http\Controllers\Admin\InstructorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +56,21 @@ Route::prefix('admin')->group(function () {
     Route::get('packages/delete/{id}',[PackageController::class,'delete'])->name('packages.delete');
     Route::get('packages/edit/{id}',[PackageController::class,'edit'])->name('packages.edit');
     Route::post('packages/update/{id}',[PackageController::class,'update'])->name('packages.update');
+
+
+    Route::get('collages',[CollageController::class,'index'])->name('collages.index');
+    Route::get('collages/create',[CollageController::class,'create'])->name('collages.create');
+    Route::post('collages/store',[CollageController::class,'store'])->name('collages.store');
+    Route::get('collages/delete/{id}',[CollageController::class,'delete'])->name('collages.delete');
+    Route::get('collages/edit/{id}',[CollageController::class,'edit'])->name('collages.edit');
+    Route::post('collages/update/{id}',[CollageController::class,'update'])->name('collages.update');
+
+    Route::get('instructors',[InstructorController::class,'index'])->name('instructors.index');
+    Route::get('instructors/create',[InstructorController::class,'create'])->name('instructors.create');
+    Route::post('instructors/store',[InstructorController::class,'store'])->name('instructors.store');
+    Route::get('instructors/delete/{id}',[InstructorController::class,'delete'])->name('instructors.delete');
+    Route::get('instructors/edit/{id}',[InstructorController::class,'edit'])->name('instructors.edit');
+    Route::post('instructors/update/{id}',[InstructorController::class,'update'])->name('instructors.update');
 
 });
 

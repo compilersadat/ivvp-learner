@@ -18,6 +18,12 @@
                     <li>
                         <a href="{{ route('packages.index')}}"> <i class="menu-icon fa fa-database"></i>Subscription Plans</a>
                     </li>
+                    <li>
+                        <a href="{{ route('instructors.index')}}"> <i class="menu-icon fa fa-database"></i>Instructors</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('collages.index')}}"> <i class="menu-icon fa fa-database"></i>Collages</a>
+                    </li>
 
                 </ul>
             </div><!-- /.navbar-collapse -->
