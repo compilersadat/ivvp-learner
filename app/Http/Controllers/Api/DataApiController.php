@@ -15,12 +15,14 @@ use App\Models\Package;
 use App\Models\StudentPackage;
 use App\Models\Content;
 use App\Http\Resources\ContentResource;
+use App\Http\Resources\SlidersResource;
+
 use App\Models\Student;
 class DataApiController extends ResponseController
 {
     public function homeData(Request $request){
         $student=Student::where('id',$request->user()->id)->first();
-        $slider=Slider::get();
+        $slider=SlidersResource::collection(Slider::get());
         $free_content=Content::where('branch',$student->branch)->where('year',$student->year)->where(function($query){
             $query->where('type','free_pdf')->orWhere('type','free_video');
         })->get();
