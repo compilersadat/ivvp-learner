@@ -23,7 +23,7 @@
   <div class="col-lg-12">
     <div class="card">
         @include('partials.alerts')
-      <div class="card-header"><strong>ADD NEW EXAM</strong></div>
+      <div class="card-header"><strong>EDIT EXAM</strong></div>
         <div class="card-body card-block">
             <form method="POST" action="{{route('exams.update', $content->id)}}">
                 @csrf

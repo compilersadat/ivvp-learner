@@ -121,7 +121,7 @@
                <input type="number" id="marks" name="marks" placeholder="Title" class="form-control">
             </div>
             <div class="form-group">
-                <label for="pNO" class=" form-control-label">Title</label>
+                <label for="pNO" class=" form-control-label">No Questions</label>
                <input type="number" id="no_questions" name="no_questions" placeholder="Title" class="form-control">
             </div>
             
