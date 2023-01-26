@@ -26,7 +26,6 @@
       <div class="card-header"><strong>EDIT SUBSCRIPTION</strong></div>
         <div class="card-body card-block">
             <form method="POST" action="{{route('packages.update', $data->id)}}" >
-                @method('PATCH')
                 @csrf
                 <div class="form-group">
                     <label for="pNO" class=" form-control-label">Title</label>
