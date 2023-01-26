@@ -109,7 +109,7 @@
                 <div class=" pt-2">
                     <label class="text-muted">Published <font class="text-danger">*</font></label>
 
-                    <select class="select w-100 text-16" name="is_pulished" id="is_pulished" required="">
+                    <select class="select w-100 text-16" name="is_published" id="is_pulished" required="">
                     <option value="0" @if ($content->is_published==0)
                     selected
                     @endif >No</option>

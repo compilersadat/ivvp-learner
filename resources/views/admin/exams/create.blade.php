@@ -109,7 +109,7 @@
                 <div class=" pt-2">
                     <label class="text-muted">Published <font class="text-danger">*</font></label>
 
-                    <select class="select w-100 text-16" name="is_pulished" id="is_pulished" required="">
+                    <select class="select w-100 text-16" name="is_published" id="is_pulished" required="">
                     <option value="0" selected>No</option>
                     <option value="1">Yes</option>
                     </select>
