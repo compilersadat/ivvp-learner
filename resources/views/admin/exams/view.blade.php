@@ -22,48 +22,56 @@
   <div class="col-lg-12">
     <div class="row">
         <div class="col-lg-12">
-            <table id="bootstrap-data-table" class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                        <th>SR NO</th>
-                        <th>Question</th>
-                        <th>Option A</th>
-                        <th>Option B</th>
-    
-                        <th>Option C</th>
-                        <th>Option D</th>
-    
-                        <th>Answer</th>
-    
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($questions as $key=>$question)
-                    <tr>
-                        <td>{{++$key}}</td>
-                        <td>{!! $question->question !!}</td>
-                        <td>{!! $question->option1 !!}</td>
-                        <td>{!! $question->option2 !!}</td>
-                        <td>{!! $question->option3 !!}</td>
-                        <td>{!! $question->option4 !!}</td>
-                        <td>{!! $question->answer !!}</td>
-                        <td>
-                            <a href="{{route('questions.edit',$question->id)}}" class="label  "><i class="fa fa-edit fa-1x" style="color: #000"></i> </a>
-                                              <a href="{{route('questions.delete',$question->id)}}" onclick="return confirm('Are you sure you want to delete this item?');" class="label bg-red-active"><i class="fa fa-trash  fa-1x" style="color: #000"></i> </a>
-                                              
-                        </td>
-    
-                    </tr>
-                    @endforeach
-    
-                </tbody>
-            </table>
+            <div class="card">
+                <div class="card-header"><strong>Question for {{$content->title}}</strong></div>
+                <div class="card-body card-block">
+                    <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>SR NO</th>
+                                <th>Question</th>
+                                <th>Option A</th>
+                                <th>Option B</th>
+            
+                                <th>Option C</th>
+                                <th>Option D</th>
+            
+                                <th>Answer</th>
+            
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($questions as $key=>$question)
+                            <tr>
+                                <td>{{++$key}}</td>
+                                <td>{!! $question->question !!}</td>
+                                <td>{!! $question->option1 !!}</td>
+                                <td>{!! $question->option2 !!}</td>
+                                <td>{!! $question->option3 !!}</td>
+                                <td>{!! $question->option4 !!}</td>
+                                <td>{!! $question->answer !!}</td>
+                                <td>
+                                    <a href="{{route('questions.edit',$question->id)}}" class="label  "><i class="fa fa-edit fa-1x" style="color: #000"></i> </a>
+                                                      <a href="{{route('questions.delete',$question->id)}}" onclick="return confirm('Are you sure you want to delete this item?');" class="label bg-red-active"><i class="fa fa-trash  fa-1x" style="color: #000"></i> </a>
+                                                      
+                                </td>
+            
+                            </tr>
+                            @endforeach
+            
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+            
         </div>
         <div class="col-lg-12">
             <div class="card">
                 @include('partials.alerts')
-              <div class="card-header"><strong>ADD NEW Question</strong></div>
+              <div class="card-header"><strong>ADD NEW QUESTION</strong></div>
                 <div class="card-body card-block">
                     <form method="POST" action="{{route('questions.store')}}" enctype="multipart/form-data">
                         @csrf
