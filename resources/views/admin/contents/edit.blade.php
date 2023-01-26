@@ -66,7 +66,12 @@
                       </select>
 
                   </div>
-
+                  <img width="350" src="{{env('S3_STORAGE_BASE_URL').$content->thumbnail}}"/>
+                  <div class="form-group">
+                    <label for="thumbnail" class=" form-control-label">Select Thumnail</label>
+                   <input type="file" id="thumbnail" name="thumbnail" class="form-control">
+                </div>
+                
 
                 <div class="row">
                     <div class="col-md-6">

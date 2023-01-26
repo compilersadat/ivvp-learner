@@ -113,7 +113,13 @@ class ContentController extends Controller
             'month' => 'required',
             'year' => 'required',
         ]);
-
+        $path='';
+        $cont=Content::where('id', $id)->first();
+        if($request->thumbnail){
+            if(isset($request->thumbnail)){
+                $path = Storage::disk('s3')->put('thumbnails', $request->thumbnail);
+            }  
+        }
         $content = [
             'title' => isset($request->title) ? ($request->title) : '',
             'description' => isset($request->description) ? ($request->description) : '',
