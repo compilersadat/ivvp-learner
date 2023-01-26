@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header"><strong>Question for {{$content->title}}</strong></div>
+                <div class="card-header"><strong>Question for {{$content->title}} | {{$content->marks}} Marks | {{$content->no_questions}} Questions</strong></div>
                 <div class="card-body card-block">
                     <table id="bootstrap-data-table" class="table table-striped table-bordered">
                         <thead>
