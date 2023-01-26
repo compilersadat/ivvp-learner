@@ -18,7 +18,7 @@ class ExamResource extends JsonResource
         return [
             'id'=>$this->id,
             'title'=>$this->title,
-            'total_questions'=>$this->no_question,
+            'total_questions'=>$this->no_questions,
             'marks'=>$this->marks,
             'month'=>$this->month,
             'questions'=>QuestionResource::collection(Question::where('exam_id',$this->id)->get()),
