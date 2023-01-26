@@ -35,8 +35,8 @@
                                        <td>{{$row->name}}</td>
 						               <td>{{@App\Models\Collage::where('id',$row->iti)->value('name')}}</td>
 						               <td>
-						                  <a href="{{route('instructos.delete',$row->id)}}" onclick="return confirm('Are you sure you want to delete this item?');" class="label bg-red-active"><i class="fa fa-trash  fa-1x" style="color: #000"></i> </a>
-						                  <a href="{{route('instructos.edit',$row->id)}}" class="label  "><i class="fa fa-edit fa-1x" style="color: #000"></i> </a>
+						                  <a href="{{route('instructors.delete',$row->id)}}" onclick="return confirm('Are you sure you want to delete this item?');" class="label bg-red-active"><i class="fa fa-trash  fa-1x" style="color: #000"></i> </a>
+						                  <a href="{{route('instructors.edit',$row->id)}}" class="label  "><i class="fa fa-edit fa-1x" style="color: #000"></i> </a>
 						               </td>
 						              </tr>
 						            <?php $i++?>
