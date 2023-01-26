@@ -52,7 +52,7 @@ class ContentController extends Controller
         ]);
         $path='';
         if(isset($request->thumbnail)){
-            $path = Storage::disk('s3')->put('images', $request->thumbnail);
+            $path = Storage::disk('s3')->put('thumbnail', $request->thumbnail);
         }
 
         $content = Content::create([
@@ -119,7 +119,7 @@ class ContentController extends Controller
         $cont=Content::where('id', $id)->first();
         if($request->thumbnail){
             if(isset($request->thumbnail)){
-                $path = Storage::disk('s3')->put('images', $request->thumbnail);
+                $path = Storage::disk('s3')->put('thumbnail', $request->thumbnail);
             }  
         }
         $content = [
@@ -133,6 +133,7 @@ class ContentController extends Controller
             'year' => isset($request->year) ? ($request->year) : '',
             'status' => 1,
             'barcode'=>isset($request->barcode) ? ($request->barcode) : '',
+            'thumbnail'=>$path
 
         ];
 
