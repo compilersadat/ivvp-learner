@@ -52,8 +52,8 @@ Route::prefix('admin')->group(function () {
     Route::get('packages/create',[PackageController::class,'create'])->name('packages.create');
     Route::post('packages/store',[PackageController::class,'store'])->name('packages.store');
     Route::get('packages/delete/{id}',[PackageController::class,'delete'])->name('packages.delete');
-    Route::get('packages/edit/{id}',[ContentController::class,'edit'])->name('packages.edit');
-    Route::post('packages/update/{id}',[ContentController::class,'update'])->name('packages.update');
+    Route::get('packages/edit/{id}',[PackageController::class,'edit'])->name('packages.edit');
+    Route::post('packages/update/{id}',[PackageController::class,'update'])->name('packages.update');
 
 });
 
