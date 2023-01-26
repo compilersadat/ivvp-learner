@@ -41,10 +41,6 @@ class DataController extends Controller
             'chapter_id'=>'required',
             'page_no'=>'required',
             'data'=>'required',
-
-
-
-
         ]);
         $data=new Data();
         $data->chapter_id=$request->chapter_id;
