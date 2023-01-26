@@ -21,7 +21,7 @@ class DataApiController extends ResponseController
     public function homeData(Request $request){
         $student=Student::where('id',$request->user()->id)->first();
         $slider=Slider::get();
-         $free_content=Content::where('branch',$student->branch)->where('year',$student->year)->where(function($query){
+        $free_content=Content::where('branch',$student->branch)->where('year',$student->year)->where(function($query){
             $query->where('type','free_pdf')->orWhere('type','free_video');
         })->get();
          $data['sliders']=$slider;
@@ -34,6 +34,5 @@ class DataApiController extends ResponseController
         $success['message'] = "Here is data";
         $success['data']=$data;
         return $this->sendResponse($success);
-
     }
 }

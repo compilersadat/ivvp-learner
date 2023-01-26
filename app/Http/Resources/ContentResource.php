@@ -19,6 +19,7 @@ class ContentResource extends JsonResource
             "description"=>$this->description,
             "type"=>$this->type,
             "file_url"=>S3upload::where('id',$this->file_url)->first()->value("url"),
+            "thumbnail"=>env('S3_STORAGE_BASE_URL').$this->thumbnail
 
         ];
     }

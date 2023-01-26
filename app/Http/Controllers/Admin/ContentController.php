@@ -48,6 +48,10 @@ class ContentController extends Controller
             'month' => 'required',
             'year' => 'required',
         ]);
+        $path='';
+        if(isset($request->thumbnail)){
+            $path = Storage::disk('s3')->put('thumbnails', $request->thumbnail);
+        }
 
         $content = Content::create([
             'title' => isset($request->title) ? ($request->title) : '',
@@ -60,9 +64,9 @@ class ContentController extends Controller
             'year' => isset($request->year) ? ($request->year) : '',
             'status' => 1,
             'barcode'=>isset($request->barcode) ? ($request->barcode) : '',
+            'thumbnail'=>$path
 
         ]);
- $contents=Content::get();
         session()->flash('status', 'Content Create Successfully');
         return redirect()->route('content.index');
     }
