@@ -15,6 +15,9 @@
                     <li>
                         <a href="{{ route('content.index')}}"> <i class="menu-icon fa fa-database"></i>Contents</a>
                     </li>
+                    <li>
+                        <a href="{{ route('packages.index')}}"> <i class="menu-icon fa fa-database"></i>Subscription Plans</a>
+                    </li>
 
                 </ul>
             </div><!-- /.navbar-collapse -->
