@@ -49,6 +49,19 @@ Route::get('/ajax-get-locations',function(){
     return response()->json($branches);
 })->name('ajax-get-locations');
 
+Route::get('/ajax-get-list-of-collages',function(){
+    $branches=App\Models\Collage::get();
+    return response()->json($branches);
+})->name('ajax-get-list-of-collages');
+
+
+Route::get('/ajax-get-list-of-instructors',function(){
+    $fact = FacadesRequest::get('iti');
+
+    $branches=App\Models\Instructor::where('iti',$fact)->get();
+    return response()->json($branches);
+})->name('ajax-get-list-of-instructors');
+
 Route::get('/ajax-get-trends',function(){
     $fact = FacadesRequest::get('fac');
     $branches=App\Models\Branch::where('wrtf',$fact)->get();
