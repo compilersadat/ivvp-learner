@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\CollageController;
 use App\Http\Controllers\Admin\InstructorController;
+use App\Http\Controllers\Admin\ExamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,13 @@ Route::prefix('admin')->group(function () {
     Route::get('instructors/delete/{id}',[InstructorController::class,'delete'])->name('instructors.delete');
     Route::get('instructors/edit/{id}',[InstructorController::class,'edit'])->name('instructors.edit');
     Route::post('instructors/update/{id}',[InstructorController::class,'update'])->name('instructors.update');
+
+    Route::get('exams',[InstructorController::class,'index'])->name('exams.index');
+    Route::get('exams/create',[InstructorController::class,'create'])->name('exams.create');
+    Route::post('exams/store',[InstructorController::class,'store'])->name('exams.store');
+    Route::get('exams/delete/{id}',[InstructorController::class,'delete'])->name('exams.delete');
+    Route::get('exams/edit/{id}',[InstructorController::class,'edit'])->name('exams.edit');
+    Route::post('exams/update/{id}',[InstructorController::class,'update'])->name('exams.update');
 
 });
 

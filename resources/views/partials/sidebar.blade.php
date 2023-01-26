@@ -24,6 +24,9 @@
                     <li>
                         <a href="{{ route('collages.index')}}"> <i class="menu-icon fa fa-database"></i>Collages</a>
                     </li>
+                    <li>
+                        <a href="{{ route('exams.index')}}"> <i class="menu-icon fa fa-database"></i>Exams</a>
+                    </li>
 
                 </ul>
             </div><!-- /.navbar-collapse -->

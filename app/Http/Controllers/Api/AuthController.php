@@ -27,6 +27,7 @@ class AuthController extends ResponseController
             'district'=>'required',
             'year'=>'required',
             'm_toung'=>'required',
+            'instructor'=>'required'
 
         ]);
 
