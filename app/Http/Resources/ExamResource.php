@@ -22,7 +22,7 @@ class ExamResource extends JsonResource
             'marks'=>$this->marks,
             'month'=>$this->month,
             'questions'=>QuestionResource::collection(Question::where('exam_id',$this->id)->get()),
-            'is_active'=>$this->is_published==1;
+            'is_active'=>$this->is_published==1
         ];
     }
 }
