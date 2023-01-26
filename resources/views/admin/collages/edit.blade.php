@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <div class=" pt-2 ">
                         <label class="text-muted">Select District <font class="text-danger">*</font></label>
-                        <select class="select w-100 text-16" name="faculty" id="faculty" required="">
+                        <select class="select w-100 text-16" name="district" id="faculty" required="">
                         <option>Select District</option>
                         @foreach(@App\Models\District::all() as $opt)
 

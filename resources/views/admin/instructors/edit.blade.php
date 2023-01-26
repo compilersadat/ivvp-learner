@@ -25,7 +25,7 @@
         @include('partials.alerts')
       <div class="card-header"><strong>EDIT COLLAGE</strong></div>
         <div class="card-body card-block">
-            <form method="POST" action="{{route('instructors.update', $data->id)}}" >
+            <form method="POST" action="{{route('intructors.update', $data->id)}}" >
                 @csrf
                 <div class="form-group">
                     <label for="pNO" class=" form-control-label">Name</label>
@@ -34,11 +34,11 @@
                 <div class="form-group">
                     <div class=" pt-2 ">
                         <label class="text-muted">Select Collage <font class="text-danger">*</font></label>
-                        <select class="select w-100 text-16" name="faculty" id="faculty" required="">
+                        <select class="select w-100 text-16" name="iti" id="faculty" required="">
                         <option>Select Collage</option>
                         @foreach(@App\Models\Collage::all() as $opt)
 
-                        <option value="{{$opt->id}}" @if($data->iti===$opt->id) selected @endif>{{$opt->name}}</option>
+                        <option value="{{$opt->id}}" @if($data->district===$opt->id) selected @endif>{{$opt->Name}}</option>
 
                         @endforeach
 

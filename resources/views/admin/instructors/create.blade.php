@@ -23,9 +23,9 @@
   <div class="col-lg-12">
     <div class="card">
         @include('partials.alerts')
-      <div class="card-header"><strong>ADD NEW COLLAGE</strong></div>
+      <div class="card-header"><strong>ADD NEW INSTRUCTOR</strong></div>
         <div class="card-body card-block">
-            <form method="POST" action="{{route('collages.store')}}" >
+            <form method="POST" action="{{route('instructors.store')}}" >
                 @csrf
                 <div class="form-group">
                     <label for="pNO" class=" form-control-label">Name</label>
@@ -33,12 +33,12 @@
                 </div>
                 <div class="form-group">
                     <div class=" pt-2 ">
-                        <label class="text-muted">Select District <font class="text-danger">*</font></label>
-                        <select class="select w-100 text-16" name="faculty" id="faculty" required="">
-                        <option>Select District</option>
-                        @foreach(@App\Models\District::all() as $opt)
+                        <label class="text-muted">Select Collages <font class="text-danger">*</font></label>
+                        <select class="select w-100 text-16" name="iti" id="faculty" required="">
+                        <option>Select Collages</option>
+                        @foreach(@App\Models\Collage::all() as $opt)
 
-                        <option value="{{$opt->id}}">{{$opt->Name}}</option>
+                        <option value="{{$opt->id}}">{{$opt->name}}</option>
 
                         @endforeach
 

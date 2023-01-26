@@ -4,7 +4,7 @@
   <div class="content">
      <div class="row">
     <div class="col-md-12 text-left">
-            <a href="{{route('collages.create')}}" class=" btn btn-sm btn-primary"><i class="fa fa-plus"></i> Create Package </a><br>
+            <a href="{{route('collages.create')}}" class=" btn btn-sm btn-primary"><i class="fa fa-plus"></i> Create COLLAGE </a><br>
           </div>
 </div>
             <div class="animated fadeIn">
