@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\CollageController;
 use App\Http\Controllers\Admin\InstructorController;
 use App\Http\Controllers\Admin\ExamController;
+use App\Http\Controllers\Admin\QuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,6 +80,15 @@ Route::prefix('admin')->group(function () {
     Route::get('exams/delete/{id}',[ExamController::class,'delete'])->name('exams.delete');
     Route::get('exams/edit/{id}',[ExamController::class,'edit'])->name('exams.edit');
     Route::post('exams/update/{id}',[ExamController::class,'update'])->name('exams.update');
+    Route::get('exams/show/{id}',[ExamController::class,'show'])->name('exams.show');
+
+
+    Route::get('questions/create',[QuestionController::class,'create'])->name('questions.create');
+    Route::post('questions/store',[QuestionController::class,'store'])->name('questions.store');
+    Route::get('questions/delete/{id}',[QuestionController::class,'delete'])->name('questions.delete');
+    Route::get('questions/edit/{id}',[QuestionController::class,'edit'])->name('questions.edit');
+    Route::post('questions/update/{id}',[QuestionController::class,'update'])->name('questions.update');
+    Route::get('questions/show/{id}',[QuestionController::class,'show'])->name('questions.show');
 
 });
 

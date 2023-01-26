@@ -20,39 +20,44 @@
 
  </div>
 <div class="row">
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <div class="card">
             @include('partials.alerts')
-          <div class="card-header"><strong>ADD NEW Question</strong></div>
+          <div class="card-header"><strong>Edit Question</strong></div>
             <div class="card-body card-block">
-                <form method="POST" action="{{route('questions.store')}}" enctype="multipart/form-data">
+                <form method="POST" action="{{route('questions.update',$content->id)}}" enctype="multipart/form-data">
                     @csrf
     
-                   <input type="hidden" value="{{$content->id}}"/>
+                   <input type="hidden" value="{{$content->exam_id}}"/>
     
             <div class="form-group">
                 <label class="form-label">Question</label>
                 <textarea id="editor1" class="form-control" name="question" rows="5" cols="40" placeholder="Description">
+                {{$content->question}}
                 </textarea>
             </div>
             <div class="form-group">
                 <label class="form-label">Option One</label>
                 <textarea id="editor1" class="form-control" name="option1" rows="5" cols="40" placeholder="Description">
+                    {{$content->option1}}
                 </textarea>
             </div>
             <div class="form-group">
                 <label class="form-label">Option Two</label>
                 <textarea id="editor1" class="form-control" name="option2" rows="5" cols="40" placeholder="Description">
+                    {{$content->option2}}
                 </textarea>
             </div>
             <div class="form-group">
                 <label class="form-label">Option Three</label>
                 <textarea id="editor1" class="form-control" name="option3" rows="5" cols="40" placeholder="Description">
+                    {{$content->option3}}
                 </textarea>
             </div>
             <div class="form-group">
                 <label class="form-label">Option Four</label>
                 <textarea id="editor1" class="form-control" name="option4" rows="5" cols="40" placeholder="Description">
+                    {{$content->option4}}
                 </textarea>
             </div>
             <div class="form-group">
@@ -60,10 +65,18 @@
                     <label class="text-muted">Answer <font class="text-danger">*</font></label>
     
                     <select class="select w-100 text-16" name="answer" id="answer" required="">
-                    <option value="1" selected>1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
+                    <option value="1" @if ($content->answer=="1")
+                        selected
+                    @endif >1</option>
+                    <option value="2" @if ($content->answer=="2")
+                        selected
+                    @endif >2</option>
+                    <option value="3" @if ($content->answer=="3")
+                        selected
+                    @endif >3</option>
+                    <option value="4" @if ($content->answer=="4")
+                        selected
+                    @endif >4</option>
     
                     </select>
     
@@ -80,45 +93,7 @@
          </div>
      </div>
     </div>
-    <div class="col-lg-6">
-        <table id="bootstrap-data-table" class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>SR NO</th>
-                    <th>Question</th>
-                    <th>Option A</th>
-                    <th>Option B</th>
-
-                    <th>Option C</th>
-                    <th>Option D</th>
-
-                    <th>Answer</th>
-
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($questions as $key=>$question)
-                <tr>
-                    <td>{{$key++}}</td>
-                    <td>{!! $question->question !!}</td>
-                    <td>{!! $question->option1 !!}</td>
-                    <td>{!! $question->option2 !!}</td>
-                    <td>{!! $question->option3 !!}</td>
-                    <td>{!! $question->option4 !!}</td>
-                    <td>{!! $question->answer !!}</td>
-                    <td>
-                        <a href="{{route('questions.edit',$question->id)}}" class="label  "><i class="fa fa-edit fa-1x" style="color: #000"></i> </a>
-						                  <a href="{{route('questions.delete',$question->id)}}" onclick="return confirm('Are you sure you want to delete this item?');" class="label bg-red-active"><i class="fa fa-trash  fa-1x" style="color: #000"></i> </a>
-						                  
-                    </td>
-
-                </tr>
-                @endforeach
-
-            </tbody>
-        </table>
-    </div>
+   
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>

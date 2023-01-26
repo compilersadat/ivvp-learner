@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Exam;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
@@ -77,7 +78,8 @@ class ExamController extends Controller
     public function show($id)
     {
         $content=Exam::where('id', $id)->first();
-        return view('admin.exams.show', compact('content'));
+        $questions=Question::where('exam_id',$content->id)->get();
+        return view('admin.exams.view', compact('content','questions'));
     }
 
     /**
