@@ -43,7 +43,7 @@
                             <option>Select Faculty</option>
                             @foreach(@App\Models\Faculty::all() as $opt)
 
-                            <option value="{{$opt->faculty_id}}" @if($content->faculty==$opt->faculty_id)>{{$opt->name}}</option>
+                            <option value="{{$opt->faculty_id}}" @if($content->faculty==$opt->faculty_id) selected @endif>{{$opt->name}}</option>
 
                             @endforeach
 
