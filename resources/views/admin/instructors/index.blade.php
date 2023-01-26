@@ -4,7 +4,7 @@
   <div class="content">
      <div class="row">
     <div class="col-md-12 text-left">
-            <a href="{{route('collages.create')}}" class=" btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add Collage </a><br>
+            <a href="{{route('instructors.create')}}" class=" btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add Instructor </a><br>
           </div>
 </div>
             <div class="animated fadeIn">
@@ -13,7 +13,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">All Collages</strong>
+                                <strong class="card-title">All Instructors</strong>
                             </div>
                             <div class="card-body">
                                 <table id="bootstrap-data-table" class="table table-striped table-bordered">
