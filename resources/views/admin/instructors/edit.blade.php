@@ -25,7 +25,7 @@
         @include('partials.alerts')
       <div class="card-header"><strong>EDIT COLLAGE</strong></div>
         <div class="card-body card-block">
-            <form method="POST" action="{{route('intructors.update', $data->id)}}" >
+            <form method="POST" action="{{route('instructors.update', $data->id)}}" >
                 @csrf
                 <div class="form-group">
                     <label for="pNO" class=" form-control-label">Name</label>
