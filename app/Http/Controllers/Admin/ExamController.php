@@ -149,4 +149,18 @@ class ExamController extends Controller
            }
 
    }
+
+   public function changeStatus($id){
+    $content=Exam::where('id', $id)->first();
+    if($content->is_published==0){
+        $content->is_published=1;
+    }else{
+        $content->is_published=0;
+    }
+    if($content->update()){
+        session()->flash('status', 'Content Update Successfully');
+        return redirect()->back();
+
+    }
+   }
 }

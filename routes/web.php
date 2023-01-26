@@ -81,6 +81,7 @@ Route::prefix('admin')->group(function () {
     Route::get('exams/edit/{id}',[ExamController::class,'edit'])->name('exams.edit');
     Route::post('exams/update/{id}',[ExamController::class,'update'])->name('exams.update');
     Route::get('exams/show/{id}',[ExamController::class,'show'])->name('exams.show');
+    Route::get('exams/publish/{id}',[ExamController::class,'changeStatus'])->name('exams.changeStatus');
 
 
     Route::get('questions/create',[QuestionController::class,'create'])->name('questions.create');
