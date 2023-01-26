@@ -26,7 +26,7 @@
                 <div class="card-header">
                     <div class="row justify-content-space-between">
                         <strong>Question for {{$content->title}} | {{$content->marks}} Marks | {{$content->no_questions}} Questions</strong>
-                        <a href="{{route('exams.changeStatus')}}" class=" btn btn-sm btn-primary"><i class="fa fa-plus"></i> @if ($content->is_published==0)
+                        <a href="{{route('exams.changeStatus',$content->id)}}" class=" btn btn-sm btn-primary"><i class="fa fa-plus"></i> @if ($content->is_published==0)
                             Publish
                         @else
                             Deactive
