@@ -93,7 +93,7 @@ class InstructorController extends Controller
         $data->name=$request->name;
         $data->iti=$request->iti;
         if($data->update()){
-            return redirect()->route('collages.index')->with('success',' Data Update successfully.');
+            return redirect()->route('instructors.index')->with('success',' Data Update successfully.');
         }
         else{
             return redirect()->back()->with('unsuccess','Failed try again.');
