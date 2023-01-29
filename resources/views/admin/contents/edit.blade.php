@@ -119,8 +119,8 @@
                         <select class="select w-100 text-16" name="year" id="year" required="">
                         <option>Select Year</option>
                           <option value="1"  @if($content->year==1) selected @endif>1</option>
-                          <option value="2"  @if($content->year==2) selected @endif>1</option>
-                          <option value="3"  @if($content->year==3) selected @endif>1</option>
+                          <option value="2"  @if($content->year==2) selected @endif>2</option>
+                          <option value="3"  @if($content->year==3) selected @endif>3</option>
                         </select>
 
                     </div>

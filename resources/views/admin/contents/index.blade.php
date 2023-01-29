@@ -23,6 +23,7 @@
                                             <th>Title</th>
                                             <th>Description</th>
                                             <th>Facualty</th>
+                                            <th>Year</th>
 
                                             <th>Trade</th>
                                             <th>Month</th>
@@ -41,11 +42,12 @@
 						               <td>{{$i}}</td>
                                        <td>{{isset($content->title) ? ($content->title) : '-'}}</td>
                                        <td>{!! $content->description !!}</td>
-						               <td>{{App\Models\Faculty::where('faculty_id',$content->faculty)->first()->value('name')}}</td>
-                                       <td>{{App\Models\Branch::where('branch_id',$content->branch)->first()->value('name')}}</td>
+						               <td>{{App\Models\Faculty::where('faculty_id',$content->faculty)->value('name')}}</td>
+                                       <td>{{$content->year}}</td>
+                                       <td>{{App\Models\Branch::where('branch_id',$content->branch)->value('name')}}</td>
                                        <td>{{$content->month}}</td>
 
-                                       <td>Title: {{App\Models\S3upload::where('id',$content->file_url)->first()->value('title')}}
+                                       <td>Title: {{App\Models\S3upload::where('id',$content->file_url)->value('title')}}
                                         <br>
                                          Type : {{$content->type}}
                                         </td>
