@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Hash;
 
 use App\Models\Student;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Faculty;
+use App\Models\Branch;
+
 class AuthController extends ResponseController
 {
 
@@ -84,6 +87,9 @@ class AuthController extends ResponseController
     {
         //$id = $request->user()->id;
         $user = $request->user();
+        $user->branch=Branch::where('branch_id',$request->user()->branch)->value('name');
+        $user->faculty=Faculty::where('faculty_id',$request->user()->branch)->value('name');
+
         if($user){
             return $this->sendResponse($user);
         }
