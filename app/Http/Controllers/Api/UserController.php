@@ -8,6 +8,9 @@ use App\Http\Controllers\Api\ResponseController as ResponseController;
 use App\Models\Student;
 use Illuminate\Support\Facades\Validator;
 use App\Models\StudentPackage;
+use Razorpay\Api\Api;
+use App\Models\Transaction;
+
 class UserController extends ResponseController
 {
     //
@@ -44,56 +47,62 @@ class UserController extends ResponseController
         if($validator->fails()){
             return $this->sendError($validator->errors());
         }
-     $student_package=new StudentPackage();
-     $student_package->student_id=$request->student_id;
-     $student_package->package_id=$request->package_id;
-     $student_package->package_name=$request->package_name;
-     $student_package->number_of_months=$request->number_of_month;
-     $student_package->price=$request->price;
-     $student_package->status=1;
-     if($student_package->save()){
-        $response['message']="Profile Updated successfully";
-        $response['subscription_details']=$student_package;
-        return $this->sendResponse($response);
-     }else{
-        $error = "Sorry! Please try again";
-        return $this->sendError($error, 401);
-    }
+        $api = new Api(env("RAZOR_PAY_KEY"), env("RAZOR_PAY_SECRETE"));
+        $response=$api->order->create(array('receipt' => md5(mt_rand()), 'amount' => $request->price, 'currency' => 'INR'));
+        if($response){
+            $transaction=new Transaction();
+            $transaction->student_id=$request->student_id;
+            $transaction->package_id=$request->package_id;
+            $transaction->package_name=$request->package_name;
+            $transaction->number_of_months=$request->number_of_month;
+            $transaction->price=$request->price;
+            $transaction->order_id=$response['id'];
+            $transaction->reciept=$response['receipt'];
+            $transaction->status=$response['status'];
+            if($transaction->save()){
+                $response['message']="Order Created.";
+                $response['subscription_details']=$student_package;
+                return $this->sendResponse($response);
+             }else{
+                $error = "Sorry! Please try again";
+                return $this->sendError($error, 401);
+            }
+        }
 }
 
 public function updatePackage(Request $request){
     $validator = Validator::make($request->all(), [
-        'student_id'=>'required',
-        'package_name'=>'required',
-        'package_id'=>'required',
-        'number_of_month'=>'required',
-        'price'=>'required',
-        'payment'=>'required',
+        'order_id'=>'required',
+       'transaction_id'=>'required'
     ]);
     if($validator->fails()){
         return $this->sendError($validator->errors());
     }
- $student_package=StudentPackage::where('student_id',$request->student_id)->first();
- $student_package->student_id=$request->student_id;
- $student_package->package_id=$request->package_id;
- $student_package->package_name=$request->package_name;
- $student_package->number_of_months=$request->number_of_month;
- $student_package->price=$request->price;
- $student_package->status=1;
- if($request->payment==true){
-    $student_package->start_date=date('d-m-y');
-    $student_package->start_month=date('m');
-    $student_package->status=2;
+    $transaction=Transaction::where('order_id',$request->order_id)->first();
 
- }
-
- if($student_package->update()){
-    $response['message']="Profile Updated successfully";
-    $response['subscription_details']=$student_package;
-    return $this->sendResponse($response);
- }else{
-    $error = "Sorry! Please try again";
-    return $this->sendError($error, 401);
-}
+    $transaction->status="compeleted";
+    $transaction->transaction_id=$request->transaction_id;
+    $transaction->update();
+    $count=StudentPackage::where('student_id',$request->student_id)->count();
+        $student_package=new StudentPackage();
+        if($count){
+            $student_package=StudentPackage::where('student_id',$request->student_id)->first();
+        }
+        $student_package->student_id=$transaction->student_id;
+        $student_package->package_id=$transaction->package_id;
+        $student_package->package_name=$transaction->package_name;
+        $student_package->number_of_months=$transaction->number_of_month;
+        $student_package->price=$transaction->price;
+        $student_package->start_date=date('d-m-y');
+        $student_package->start_month=date('m');
+        $student_package->status=2;
+        if($count==0?$student_package->save():$student_package->update()){
+            $response['message']="Subscription Activated";
+            $response['subscription_details']=$student_package;
+            return $this->sendResponse($response);
+        }else{
+            $error = "Sorry! Please try again";
+            return $this->sendError($error, 401);
+        }
 }
 }
