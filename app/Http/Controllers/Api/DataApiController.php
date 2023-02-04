@@ -67,9 +67,9 @@ class DataApiController extends ResponseController
         for($i=$start;$i<=$no_months;$i++){
             if($i>12){
                 $p=sprintf("%u",(12-$i));
-                array_push($p,$range);
+                array_push($range,$p);
             }
-            array_push($i,$range);
+            array_push($range,$i);
         }
         return $range;
     }
