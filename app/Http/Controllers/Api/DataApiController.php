@@ -64,7 +64,7 @@ class DataApiController extends ResponseController
 
     public function calculateRangeOfMonths($start,$no_months){
         $range=array();
-        for($i=$start,$i<=$no_months;$i++){
+        for($i=$start;$i<=$no_months;$i++){
             if($i>12){
                 $p=sprintf("%u",(12-$i))
                 array_push($p);
