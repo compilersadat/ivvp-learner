@@ -31,7 +31,7 @@ class DataApiController extends ResponseController
         $student_pro=StudentPackage::where('student_id',$request->user()->id)->first();
         if($student_pro && $student_pro->status==2){
                 
-                $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->where('month','>=',$student_pro->start_month)->where('month','<=',$student_pro->start_month+$student_pro->number_of_months-1)->get();
+                $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$this->calculateRangeOfMonths($student_pro->start_month,$student_pro->number_of_months))->get();
                 $data['prime_content']=ContentResource::collection($prime_content);
                 $data['free_content']=[];
                 $data['study_materials']=[];
@@ -60,5 +60,17 @@ class DataApiController extends ResponseController
     $success['message'] = "Here is data";
     $success['data']=$data;
     return $this->sendResponse($success);
+    }
+
+    public function calculateRangeOfMonths($start,$no_months){
+        $range=array();
+        for($i=$start,$i<=$no_months;$i++){
+            if($i>12){
+                $p=sprintf("%u",(12-$i))
+                array_push($p);
+            }
+            array_push($i);
+        }
+        return $range;
     }
 }
