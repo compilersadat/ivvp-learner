@@ -91,7 +91,7 @@ class AuthController extends ResponseController
         $user->faculty=Faculty::where('faculty_id',$request->user()->branch)->value('name');
 
         if($user){
-            return $this->sendResponse({});
+            return $this->sendResponse($user);
         }
         else{
             $error = "user not found";

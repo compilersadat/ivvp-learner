@@ -18,9 +18,6 @@ use App\Http\Controllers\Api\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
 Route::middleware('auth:sanctum')->group(function(){
   Route::get('/home-data',[DataApiController::class,'homeData']);
@@ -28,6 +25,8 @@ Route::middleware('auth:sanctum')->group(function(){
   Route::post('/update-profile',[UserController::class,'updateStudent']);
   Route::post('/subscribe-package',[UserController::class,'subscribPackage']);
   Route::post('/update-package',[UserController::class,'updatePackage']);
+  Route::get('/user',[AuthController::class,'getUser']);
+
 });
 
 Route::post('/login',[AuthController::class,'login']);
