@@ -40,7 +40,6 @@ class DataApiController extends ResponseController
             })->get();
              $data['study_materials']=StudyMaterial::collection(Faculty::all());
              $data['free_content']=ContentResource::collection($free_content);   
-             $data['paid_plan']={}; 
         }
 
 
