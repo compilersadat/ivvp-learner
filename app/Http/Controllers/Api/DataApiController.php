@@ -30,16 +30,21 @@ class DataApiController extends ResponseController
         //check premium user.
         $student_pro=StudentPackage::where('student_id',$request->user()->id)->first();
         if($student_pro && $student_pro->status==2){
+                
+                $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->where('month','>=',$student_pro->start_month)->where('month','<=',$student_pro->start_month+$student_pro->number_of_months-1)->get();
+                $data['prime_content']=ContentResource::collection($prime_content);
                 $data['free_content']=[];
                 $data['study_materials']=[];
                 $data['subscriptions']=[];
                 $data['paid_plan']=(Object)new StudentSubscriptionResource($student_pro);
+                $data['is_prime']=true;
         }else{
             $free_content=Content::where('branch',$student->branch)->where('year',$student->year)->where(function($query){
                 $query->where('type','free_pdf')->orWhere('type','free_video');
             })->get();
              $data['study_materials']=StudyMaterial::collection(Faculty::all());
              $data['free_content']=ContentResource::collection($free_content);   
+             $data['is_prime']=false;
         }
 
 
