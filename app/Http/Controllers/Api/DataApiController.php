@@ -25,16 +25,26 @@ class DataApiController extends ResponseController
     public function homeData(Request $request){
         $student=Student::where('id',$request->user()->id)->first();
         $slider=SlidersResource::collection(Slider::get());
-        $free_content=Content::where('branch',$student->branch)->where('year',$student->year)->where(function($query){
-            $query->where('type','free_pdf')->orWhere('type','free_video');
-        })->get();
-         $data['sliders']=$slider;
-         $data['subscriptions']=PackageResource::collection(Package::all());
-         $data['study_materials']=StudyMaterial::collection(Faculty::all());
-         $data['free_content']=ContentResource::collection($free_content);
-         if(StudentPackage::where('student_id',$request->user()->id)->count()){
-            $data['paid_plan']=(Object)new StudentSubscriptionResource(StudentPackage::where('student_id',$request->user()->id)->first());
-         }
+        $data['sliders']=$slider;
+
+        //check premium user.
+        $student_pro=StudentPackage::where('student_id',$request->user()->id)->first();
+        if($student_pro && $student_pro->status==2){
+                $data['free_content']=[];
+                $data['study_materials']=[];
+                $data['subscriptions']=[];
+                $data['paid_plan']=(Object)new StudentSubscriptionResource($student_pro);
+        }else{
+            $free_content=Content::where('branch',$student->branch)->where('year',$student->year)->where(function($query){
+                $query->where('type','free_pdf')->orWhere('type','free_video');
+            })->get();
+             $data['study_materials']=StudyMaterial::collection(Faculty::all());
+             $data['free_content']=ContentResource::collection($free_content);   
+             $data['paid_plan']={}; 
+        }
+
+
+         
         $success['message'] = "Here is data";
         $success['data']=$data;
         return $this->sendResponse($success);
