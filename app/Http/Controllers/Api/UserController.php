@@ -91,7 +91,7 @@ public function updatePackage(Request $request){
         $student_package->student_id=$transaction->student_id;
         $student_package->package_id=$transaction->package_id;
         $student_package->package_name=$transaction->package_name;
-        $student_package->number_of_months=$transaction->number_of_month;
+        $student_package->number_of_months=$transaction->number_of_months;
         $student_package->price=$transaction->price;
         $student_package->start_date=date('d-m-y');
         $student_package->start_month=date('m');
