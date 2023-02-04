@@ -142,10 +142,10 @@ class ExamController extends Controller
 
            if(Exam::where('id',$id)->delete()){
                session()->flash('status', 'Content Deleted Successfully');
-               return redirect()->route('content.index');
+               return redirect()->route('exams.index');
            }else{
                session()->flash('status', 'Content in Deleting Slider');
-               return redirect()->route('content.index');
+               return redirect()->route('exams.index');
            }
 
    }

@@ -24,6 +24,7 @@
                                             <th>Facualty</th>
                                             <th>Trade</th>
                                             <th>Month</th>
+                                            <th>Year</th>
                                             <th>Status</th>
                                             <th>Marks</th>
                                             <th>Number</th>
@@ -36,10 +37,10 @@
 						              <tr>
 						               <td>{{$i}}</td>
                                        <td>{{isset($content->title) ? ($content->title) : '-'}}</td>
-						               <td>{{App\Models\Faculty::where('faculty_id',$content->faculty)->first()->value('name')}}</td>
-                                       <td>{{App\Models\Branch::where('branch_id',$content->branch)->first()->value('name')}}</td>
+						               <td>{{App\Models\Faculty::where('faculty_id',$content->faculty)->value('name')}}</td>
+                                       <td>{{App\Models\Branch::where('branch_id',$content->branch)->value('name')}}</td>
                                        <td>{{$content->month}}</td>
-
+                                       <td>{{$content->year}}</td>
                                       <td>{{$content->is_published==1?"Published":"Inactive"}}</td>
                                       <td>{{$content->marks}}</td>
                                       <td>{{$content->no_questions}}</td>
