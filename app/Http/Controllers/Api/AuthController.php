@@ -88,7 +88,7 @@ class AuthController extends ResponseController
         //$id = $request->user()->id;
         $user = $request->user();
         $user['branch']=Branch::where('branch_id',$request->user()->branch)->value('name');
-        $user->faculty=Faculty::where('faculty_id',$request->user()->branch)->value('name');
+        $user->faculty=Faculty::where('faculty_id',$request->user()->faculty)->value('name');
 
         if($user){
             return $this->sendResponse($user);
