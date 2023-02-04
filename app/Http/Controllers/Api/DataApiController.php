@@ -35,7 +35,7 @@ class DataApiController extends ResponseController
                 $data['prime_content']=ContentResource::collection($prime_content);
                 $data['free_content']=[];
                 $data['study_materials']=[];
-                $data['subscriptions']=[];
+                $data['subscriptions']=$this->calculateRangeOfMonths($student_pro->start_month,$student_pro->number_of_months);
                 $data['paid_plan']=(Object)new StudentSubscriptionResource($student_pro);
                 $data['is_prime']=true;
         }else{
