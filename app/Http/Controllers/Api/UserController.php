@@ -96,6 +96,7 @@ public function updatePackage(Request $request){
         $student_package->start_date=date('d-m-y');
         $student_package->start_month=date('m');
         $student_package->status=2;
+        $student_package->payment_status="compeleted";
         if($count==0?$student_package->save():$student_package->update()){
             $response['message']="Subscription Activated";
             $response['subscription_details']=$student_package;
