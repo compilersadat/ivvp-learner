@@ -61,7 +61,7 @@ class UserController extends ResponseController
             $transaction->status=$response['status'];
             if($transaction->save()){
                 $response['message']="Order Created.";
-                $response['subscription_details']=$student_package;
+                $response['subscription_details']=$transaction;
                 return $this->sendResponse($response);
              }else{
                 $error = "Sorry! Please try again";
