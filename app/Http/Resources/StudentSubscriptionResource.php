@@ -63,9 +63,9 @@ class StudentSubscriptionResource extends JsonResource
         while($i<=$no_months){
             if($next_month>12){
                 $p=0-(12-$next_month);
-                array_push($range,$months[$p]);
+                array_push($range,$months[$p-1]);
             }else{
-                array_push($range,$months[$next_month]);
+                array_push($range,$months[$next_month-1]);
             }
             $i++;
             $next_month=$next_month+1;
