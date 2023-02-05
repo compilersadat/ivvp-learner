@@ -31,7 +31,7 @@ class DataApiController extends ResponseController
         $student_pro=StudentPackage::where('student_id',$request->user()->id)->first();
         if($student_pro && $student_pro->status==2){
                 
-                $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$this->calculateRangeOfMonths($student_pro->start_month,$student_pro->number_of_months))->get();
+                $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->get();
                 $data['prime_content']=ContentResource::collection($prime_content);
                 $data['free_content']=[];
                 $data['study_materials']=[];
@@ -69,8 +69,7 @@ class DataApiController extends ResponseController
         $next_month=$start;
         while($i<=$no_months){
             if($next_month>12){
-                $p=(12-$next_month);
-                $p=0-$p;
+                $p=0-(12-$next_month);
                 array_push($range,$p);
             }else{
                 array_push($range,$next_month);
