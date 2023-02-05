@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Request as FacadesRequest;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DataApiController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\ExamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,8 @@ Route::middleware('auth:sanctum')->group(function(){
   Route::post('/subscribe-package',[UserController::class,'subscribPackage']);
   Route::post('/update-package',[UserController::class,'updatePackage']);
   Route::get('/user',[AuthController::class,'getUser']);
+  Route::post('/start-exam',[ExamController::class,'startExam']);
+  Route::post('/submit-exam',[ExamController::class,'submitExam']);
 
 });
 
