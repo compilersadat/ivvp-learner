@@ -39,6 +39,7 @@ class ExamController extends ResponseController
 
     public function submitExam(Request $request){
         $student_result=StudentResult::where('exam_id',$request->exam_id)->where('student_id',$request->user()->id)->first();
+        return $request->answers;
         foreach($request->answers as $answer){
             $answerDb=new StudentAnswer();
             $answerDb->question_id=$answer->question_id;
