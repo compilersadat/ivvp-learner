@@ -84,7 +84,8 @@ class DataApiController extends ResponseController
         }
        
         $success['message'] = "Here is data";
-                    $success['data']=[];
+                    $data['exams']=[];
+                    $success['data']=$data;
                     return $this->sendResponse($success);
     }
 
