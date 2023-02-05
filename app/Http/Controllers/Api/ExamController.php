@@ -10,6 +10,9 @@ use App\Models\Exam;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\ResponseController as ResponseController;
 use App\Models\StudentAnswer;
+use App\Models\StudentPackage;
+
+
 class ExamController extends ResponseController
 {
     public function startExam(Request $request){
@@ -19,21 +22,32 @@ class ExamController extends ResponseController
         if($validator->fails()){
             return $this->sendError($validator->errors());
         }
-    $exam=Exam::where('id',$request->exam_id)->first();
-    $student_result=StudentResult::where('exam_id',$exam->id)->where('student_id',$request->user()->id)->first();
-    if($student_result){
-        $success['message'] = "Already Stared or Submitted.";
-        return $this->sendResponse($success);
-    }else{
-        $result=new StudentResult();
-        $result->exam_id=$exam->id;
-        $result->student_id=$request->user()->id;
-        $result->status="started";
-        if($result->save()){
-            $success['message'] = "Exam Stared.";
-            return $this->sendResponse($success);   
+        $student_pro=StudentPackage::where('student_id',$request->user()->id)->first();
+        if($student_pro){
+            if($student_pro->status==2){
+                $exam=Exam::where('id',$request->exam_id)->first();
+                $student_result=StudentResult::where('exam_id',$exam->id)->where('student_id',$request->user()->id)->first();
+                if($student_result){
+                    $success['message'] = "Already Stared or Submitted.";
+                    return $this->sendResponse($success);
+                }else{
+                    $result=new StudentResult();
+                    $result->exam_id=$exam->id;
+                    $result->student_id=$request->user()->id;
+                    $result->status="started";
+                    if($result->save()){
+                        $success['message'] = "Exam Stared.";
+                        return $this->sendResponse($success);   
+                    }
+                }
+            }else{
+                $success['message'] = "Please Subscribe.";
+                return $this->sendResponse($success);  
+            }
         }
-    }
+    
+
+    
 
     }
 
