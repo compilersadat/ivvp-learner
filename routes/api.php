@@ -21,6 +21,7 @@ use App\Http\Controllers\Api\UserController;
 
 Route::middleware('auth:sanctum')->group(function(){
   Route::get('/home-data',[DataApiController::class,'homeData']);
+  Route::get('/prime-content',[DataApiController::class,'primeContent']);
   Route::get('/fetch-exams',[DataApiController::class,'fetchExams']);
   Route::post('/update-profile',[UserController::class,'updateStudent']);
   Route::post('/subscribe-package',[UserController::class,'subscribPackage']);

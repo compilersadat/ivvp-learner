@@ -31,14 +31,13 @@ class DataApiController extends ResponseController
         $student_pro=StudentPackage::where('student_id',$request->user()->id)->first();
         if($student_pro && $student_pro->status==2){
                 
-                $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$this->calculateRangeOfMonths($student_pro->start_month,$student_pro->number_of_months))->get();
+                $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$this->calculateRangeOfMonths($student_pro->start_month,$student_pro->number_of_months))->take(10);
                 $data['prime_content']=ContentResource::collection($prime_content);
                 $data['free_content']=[];
                 $data['study_materials']=[];
                 $data['subscriptions']=[];
                 $data['paid_plan']=(Object)new StudentSubscriptionResource($student_pro);
                 $data['is_prime']=true;
-                $data['dates']=$this->calculateRangeOfMonths($student_pro->start_month,$student_pro->number_of_months);
         }else{
             $free_content=Content::where('branch',$student->branch)->where('year',$student->year)->where(function($query){
                 $query->where('type','free_pdf')->orWhere('type','free_video');
@@ -55,12 +54,23 @@ class DataApiController extends ResponseController
         return $this->sendResponse($success);
     }
 
+    public function primeContent(Request $request){
+        $student=Student::where('id',$request->user()->id)->first();
+        $student_pro=StudentPackage::where('student_id',$request->user()->id)->first();
+        $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$this->calculateRangeOfMonths($student_pro->start_month,$student_pro->number_of_months))->get();
+        $data['prime_content']=ContentResource::collection($prime_content);
+        $success['message'] = "Here is data";
+        $success['data']=$data;
+        return $this->sendResponse($success);
+
+    }
+
     public function fetchExams(Request $request){
-    $student=Student::where('id',$request->user()->id)->first();
-    $data['exams']=ExamResource::collection(Exam::where('branch',$student->branch)->where('year',$student->year)->get());
-    $success['message'] = "Here is data";
-    $success['data']=$data;
-    return $this->sendResponse($success);
+        $student=Student::where('id',$request->user()->id)->first();
+        $data['exams']=ExamResource::collection(Exam::where('branch',$student->branch)->where('year',$student->year)->get());
+        $success['message'] = "Here is data";
+        $success['data']=$data;
+        return $this->sendResponse($success);
     }
 
     public function calculateRangeOfMonths($start,$no_months){
