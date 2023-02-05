@@ -72,11 +72,20 @@ class DataApiController extends ResponseController
 
     public function fetchExams(Request $request){
         $student=Student::where('id',$request->user()->id)->first();
-        $exclude_exams=StudentResult::where('student_id',$request->user()->id)->where('status','completed')->pluck('exam_id');
-        $data['exams']=ExamResource::collection(Exam::where('branch',$student->branch)->where('year',$student->year)->whereNotIn('id',$exclude_exams)->get());
+        $student_pro=StudentPackage::where('student_id',$request->user()->id)->first();
+        if($student_pro){
+                if($student_pro->status==2){
+                    $exclude_exams=StudentResult::where('student_id',$request->user()->id)->where('status','completed')->pluck('exam_id');
+                    $data['exams']=ExamResource::collection(Exam::where('branch',$student->branch)->where('year',$student->year)->whereNotIn('id',$exclude_exams)->get());
+                    $success['message'] = "Here is data";
+                    $success['data']=$data;
+                    return $this->sendResponse($success);
+                }
+        }
+       
         $success['message'] = "Here is data";
-        $success['data']=$data;
-        return $this->sendResponse($success);
+                    $success['data']=[];
+                    return $this->sendResponse($success);
     }
 
     public function calculateRangeOfMonths($start,$no_months){
