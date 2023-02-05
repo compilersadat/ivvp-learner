@@ -12,7 +12,7 @@ use App\Http\Controllers\Api\ResponseController as ResponseController;
 use App\Models\StudentAnswer;
 class ExamController extends ResponseController
 {
-    function public startExam(Request $request){
+    public function startExam(Request $request){
         $validator = Validator::make($request->all(), [
             'exam_id'=>'required',
         ]);
@@ -37,7 +37,7 @@ class ExamController extends ResponseController
 
     }
 
-    function public submitExam(Request $request){
+    public function submitExam(Request $request){
         $student_result=StudentResult::where('exam_id',$request->exam_id)->where('student_id',$request->user()->id)->first();
         foreach($request->answers as $answer){
             $answerDb=new Answer();
