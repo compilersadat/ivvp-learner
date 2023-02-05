@@ -34,7 +34,7 @@ class ContentResource extends JsonResource
             "type"=>$this->type,
             "file_url"=>S3upload::where('id',$this->file_url)->value("url"),
             "thumbnail"=>env('S3_STORAGE_BASE_URL').$this->thumbnail,
-            "month"=>$months[$this->month]
+            "month"=>$months[$this->month-1]
         ];
     }
 }
