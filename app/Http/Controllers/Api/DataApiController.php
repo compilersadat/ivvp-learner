@@ -38,6 +38,7 @@ class DataApiController extends ResponseController
                 $data['subscriptions']=[];
                 $data['paid_plan']=(Object)new StudentSubscriptionResource($student_pro);
                 $data['is_prime']=true;
+                $data['dates']=$this->calculateRangeOfMonths($student_pro->start_month,$student_pro->number_of_months);
         }else{
             $free_content=Content::where('branch',$student->branch)->where('year',$student->year)->where(function($query){
                 $query->where('type','free_pdf')->orWhere('type','free_video');
