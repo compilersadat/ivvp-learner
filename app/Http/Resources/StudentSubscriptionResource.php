@@ -35,7 +35,7 @@ class StudentSubscriptionResource extends JsonResource
            "number_of_months"=>$this->number_of_months,
            "start_date"=>$this->start_date,
            "start_month"=>$this->start_month,
-           "start_month_name"=>implode(" ",calculateRangeOfMonths($this->start_month,$this->number_of_months)),
+           "start_month_name"=>implode(" ",$this->calculateRangeOfMonths($this->start_month,$this->number_of_months)),
            "price"=>$this->price
 
         ];
