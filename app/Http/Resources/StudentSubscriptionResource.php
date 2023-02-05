@@ -12,23 +12,23 @@ class StudentSubscriptionResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-    $months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December'
-        ];
+    
     public function toArray($request)
     {
-        
+        $months = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+            ];
        
         return [
             "status"=>$this->status==1?"Pending":"Active",
@@ -43,6 +43,20 @@ class StudentSubscriptionResource extends JsonResource
     }
 
     public function calculateRangeOfMonths($start,$no_months){
+        $months = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December'
+            ];
         $range=array();
         $i=1;
         $next_month=$start;
