@@ -37,6 +37,8 @@ class DataApiController extends ResponseController
                     $data['is_prime']=true;
                     $data['study_materials']=[];
                     $data['free_content']=[];
+                    $data['subscriptions']=[];
+
 
                 }
         }else{
@@ -46,6 +48,8 @@ class DataApiController extends ResponseController
              $data['study_materials']=StudyMaterial::collection(Faculty::all());
              $data['free_content']=ContentResource::collection($free_content);   
              $data['is_prime']=false;
+             $data['subscriptions']=PackageResource::collection(Package::all());
+
         }
 
 
