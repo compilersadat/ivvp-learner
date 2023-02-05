@@ -35,6 +35,9 @@ class DataApiController extends ResponseController
                     $data['prime_content']=ContentResource::collection($prime_content);
                     $data['paid_plan']=(Object)new StudentSubscriptionResource($student_pro);
                     $data['is_prime']=true;
+                    $data['study_materials']=[];
+                    $data['free_content']=[];
+
                 }
         }else{
             $free_content=Content::where('branch',$student->branch)->where('year',$student->year)->where(function($query){
