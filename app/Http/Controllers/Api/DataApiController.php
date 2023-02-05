@@ -64,12 +64,16 @@ class DataApiController extends ResponseController
 
     public function calculateRangeOfMonths($start,$no_months){
         $range=array();
-        for($i=$start;$i<=$no_months;$i++){
-            if($i>12){
-                $p=sprintf("%u",(12-$i));
+        $i=1;
+        $next_month=$start;
+        while($i<=$no_months){
+            if($next_month>12){
+                $p=sprintf("%u",(12-$next_month));
                 array_push($range,$p);
             }
-            array_push($range,$i);
+            array_push($range,$next_month);
+            $i++;
+            $next_month=$next_month+1;
         }
         return $range;
     }
