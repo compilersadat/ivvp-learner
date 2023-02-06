@@ -51,7 +51,7 @@ class UserController extends ResponseController
         $response=$api->order->create(array('receipt' => md5(mt_rand()), 'amount' => $request->price, 'currency' => 'INR'));
         if($response){
             $transaction=new Transaction();
-            $transaction->student_id=$request->student_id;
+            $transaction->student_id=$request->user()->id;
             $transaction->package_id=$request->package_id;
             $transaction->package_name=$request->package_name;
             $transaction->number_of_months=$request->number_of_month;
@@ -83,10 +83,10 @@ public function updatePackage(Request $request){
     $transaction->status="compeleted";
     $transaction->transaction_id=$request->transaction_id;
     $transaction->update();
-    $count=StudentPackage::where('student_id',$request->student_id)->count();
+    $count=StudentPackage::where('student_id',$request->user()->id)->count();
         $student_package=new StudentPackage();
         if($count){
-            $student_package=StudentPackage::where('student_id',$request->student_id)->first();
+            $student_package=StudentPackage::where('student_id',$request->user()->id)->first();
         }
         $student_package->student_id=$transaction->student_id;
         $student_package->package_id=$transaction->package_id;
