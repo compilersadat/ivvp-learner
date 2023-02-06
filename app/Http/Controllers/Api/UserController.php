@@ -18,10 +18,7 @@ class UserController extends ResponseController
         $student=Student::where('id',$request->id)->first();
         $student->name=$request->name;
         $student->phone=$request->phone;
-        $student->collage=$request->collage;
         $student->district=$request->district;
-        $student->year=$request->year;
-        $student->m_toung=$request->m_toung;
         if($student->update()){
             $response['message']="Profile Updated successfully";
             $response['student']=$student;
