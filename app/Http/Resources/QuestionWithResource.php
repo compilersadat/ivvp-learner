@@ -13,9 +13,10 @@ class QuestionWithResource extends JsonResource
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
 
-    $student_answer=StudentAnswer::where('exam_id',$this->exam_id)->where('question_id',$this->id)->first();
     public function toArray($request)
     {
+        $student_answer=StudentAnswer::where('exam_id',$this->exam_id)->where('question_id',$this->id)->first();
+
         return [
             'id'=>$this->id,
             'question'=>$this->question,
