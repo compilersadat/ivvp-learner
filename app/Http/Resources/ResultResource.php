@@ -39,6 +39,8 @@ class ResultResource extends JsonResource
         return [
             'id'=>$this->id,
             'exam_title'=>$exam->title,
+            'month'=>$months[$exam->month-1],
+
             'total_questions'=>$exam->no_questions,
             'total_marks'=>$exam->marks,
             'questions'=>QuestionWithResource::collection(Question::where('exam_id',$exam->id)->get()),
