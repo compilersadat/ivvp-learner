@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\ResponseController as ResponseController;
 use App\Models\StudentAnswer;
 use App\Models\StudentPackage;
+use App\Http\Resources\ResultResource;
 
 
 class ExamController extends ResponseController
@@ -67,6 +68,17 @@ class ExamController extends ResponseController
             return $this->sendResponse($success);   
         }
 
+    }
+
+    public function fetchResult(Request $request){
+        $result=StudentResult::where('student_id',$request->user()->id)->where('status','completed')->get();
+        $exams=ResultResource::collection($result);
+        $data['exams']=$exams;
+        $success['message'] = "Exam Submitted.";
+        $success['data']=$data;
+        return $this->sendResponse($success); 
+
+        
     }
 
 }

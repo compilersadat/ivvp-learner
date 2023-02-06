@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->group(function(){
   Route::get('/user',[AuthController::class,'getUser']);
   Route::post('/start-exam',[ExamController::class,'startExam']);
   Route::post('/submit-exam',[ExamController::class,'submitExam']);
+  Route::get('/fetch-result',[ExamController::class,'fetchResult']);
 
 });
 
