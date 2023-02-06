@@ -15,6 +15,7 @@ class QuestionWithResource extends JsonResource
 
     public function toArray($request)
     {
+        $ABCD=["A","B","C","D"];
         $student_answer=StudentAnswer::where('exam_id',$this->exam_id)->where('question_id',$this->id)->first();
 
         return [
@@ -25,7 +26,7 @@ class QuestionWithResource extends JsonResource
             'option3'=>$this->option3,
             'option4'=>$this->option4,
             'answer'=>$this->answer,
-            'student_answer'=>$student_answer->answer,
+            'student_answer'=>$ABCD[$student_answer->answer-1],
             'is_right'=>$this->answer==$student_answer->answer
         ];
     }
