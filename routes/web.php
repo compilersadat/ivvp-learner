@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\CollageController;
 use App\Http\Controllers\Admin\InstructorController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\QuestionController;
+use App\Http\Controllers\Admin\StudentPurchaseController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +92,8 @@ Route::prefix('admin')->group(function () {
     Route::get('questions/edit/{id}',[QuestionController::class,'edit'])->name('questions.edit');
     Route::post('questions/update/{id}',[QuestionController::class,'update'])->name('questions.update');
     Route::get('questions/show/{id}',[QuestionController::class,'show'])->name('questions.show');
+
+    
 
 });
 

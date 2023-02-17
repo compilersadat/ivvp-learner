@@ -20,6 +20,7 @@ use App\Http\Resources\ExamResource;
 use App\Models\Exam;
 use App\Models\StudentResult;
 use App\Models\Student;
+use App\Models\AppUpdate;
 class DataApiController extends ResponseController
 {
     public function homeData(Request $request){
@@ -105,4 +106,14 @@ class DataApiController extends ResponseController
         }
         return $range;
     }
+
+    public function appUpdate(Request $request){
+        $appUpdate=AppUpdate::where('device',$request->device)->first();
+        $data['is_update_required']=$appUpdate->version_number!=$request->version_number;
+        $success['message'] = "Here is data";
+        $success['data']=$data;
+        return $this->sendResponse($success);
+    }
+
+
 }

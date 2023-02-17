@@ -19,7 +19,7 @@ use App\Http\Controllers\Api\ExamController;
 |
 */
 
-
+Route::post('/get-updates',[DataApiController::class,'appUpdate']);
 Route::middleware('auth:sanctum')->group(function(){
   Route::get('/home-data',[DataApiController::class,'homeData']);
   Route::get('/prime-content',[DataApiController::class,'primeContent']);
