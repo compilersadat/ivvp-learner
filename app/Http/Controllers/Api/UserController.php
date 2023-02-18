@@ -45,7 +45,7 @@ class UserController extends ResponseController
             return $this->sendError($validator->errors());
         }
         $api = new Api(env("RAZOR_PAY_KEY"), env("RAZOR_PAY_SECRETE"));
-        $response=$api->order->create(array('receipt' => md5(mt_rand()), 'amount' => $request->price, 'currency' => 'INR'));
+        $response=$api->order->create(array('receipt' => md5(mt_rand()), 'amount' => $request->price*100, 'currency' => 'INR'));
         if($response){
             $transaction=new Transaction();
             $transaction->student_id=$request->user()->id;
