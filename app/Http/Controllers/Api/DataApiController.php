@@ -109,7 +109,7 @@ class DataApiController extends ResponseController
 
     public function appUpdate(Request $request){
         $appUpdate=AppUpdate::where('device',$request->device)->first();
-        $data['is_update_required']=$appUpdate->version_number!=$request->version_number;
+        $data['is_update_required']=$appUpdate->version_number!=$request->version;
         $success['message'] = "Here is data";
         $success['data']=$data;
         return $this->sendResponse($success);
