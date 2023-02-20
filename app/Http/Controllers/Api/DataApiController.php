@@ -32,7 +32,7 @@ class DataApiController extends ResponseController
         $student_pro=StudentPackage::where('student_id',$request->user()->id)->first();
         if($student_pro){
                 if($student_pro->status==2){
-                    $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$this->calculateRangeOfMonths($student_pro->start_month,$student_pro->number_of_months))->take(10)->get();
+                    $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$this->calculateRangeOfMonths($student_pro->start_month,$student_pro->number_of_months))->get();
                     $data['prime_content']=ContentResource::collection($prime_content);
                     $data['paid_plan']=(Object)new StudentSubscriptionResource($student_pro);
                     $data['is_prime']=true;
