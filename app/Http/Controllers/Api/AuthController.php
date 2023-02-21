@@ -13,6 +13,7 @@ use App\Models\Student;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Faculty;
 use App\Models\Branch;
+use App\Models\PersonalAccessToken;
 
 class AuthController extends ResponseController
 {
@@ -75,6 +76,11 @@ class AuthController extends ResponseController
             return $this->sendError($error, 401);
         }
         $user =  Auth::guard('api')->user();
+        $token=PersonalAccessToken::where('tokenable_id',$user->id)->get();
+        if($token->count()>0){
+            $error = "Unauthorized";
+            return $this->sendError($error, 401);
+        }
         $success['token'] =  $user->createToken('token')->plainTextToken;
         $success['user'] = $user;
         return $this->sendResponse($success);
@@ -97,5 +103,13 @@ class AuthController extends ResponseController
             $error = "user not found";
             return $this->sendResponse($error);
         }
+    }
+
+    public function logout(Request $request){
+        $token=PersonalAccessToken::where('tokenable_id',$request->user())->delete();
+        $success['message']="Logged Out";
+        return $this->sendResponse($success);
+
+
     }
 }

@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->group(function(){
   Route::post('/start-exam',[ExamController::class,'startExam']);
   Route::post('/submit-exam',[ExamController::class,'submitExam']);
   Route::get('/fetch-result',[ExamController::class,'fetchResult']);
+  Route::get('/logout',[AuthController::class,'logout']);
 
 });
 
