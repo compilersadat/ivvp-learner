@@ -96,10 +96,10 @@ class DataApiController extends ResponseController
         $i=1;
         $next_month=$start;
         while($i<=$no_months){
-            if($next_month==7){
+            if($next_month==7 || $next_month==8){
                 $no_months=$no_months+1;
             }
-            if($next_month!=7){
+            if($next_month!=7 || $next_month!=8){
 
                 if($next_month>12){
                     $p=0-(12-$next_month);
