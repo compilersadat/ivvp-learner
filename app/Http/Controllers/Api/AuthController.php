@@ -106,7 +106,7 @@ class AuthController extends ResponseController
     }
 
     public function logout(Request $request){
-        $token=PersonalAccessToken::where('tokenable_id',$request->user())->delete();
+        $token=PersonalAccessToken::where('tokenable_id',$request->user()->id)->delete();
         $success['message']="Logged Out";
         return $this->sendResponse($success);
 
