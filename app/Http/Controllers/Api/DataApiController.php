@@ -57,7 +57,6 @@ class DataApiController extends ResponseController
          
         $success['message'] = "Here is data";
         $success['data']=$data;
-        $success['range']=$this->calculateRangeOfMonths($student_pro->start_month,$student_pro->number_of_months);
         return $this->sendResponse($success);
     }
 
