@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CkeditorController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\S3uploadController;
+use App\Http\Controllers\Admin\UploadStudentController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\CollageController;
@@ -48,6 +49,11 @@ Route::prefix('admin')->group(function () {
     Route::get('uploads/create',[S3uploadController::class,'create'])->name('upload.create');
     Route::post('uploads/store',[S3uploadController::class,'store'])->name('upload.store');
     Route::get('uploads/delete/{id}',[S3uploadController::class,'delete'])->name('upload.delete');
+
+    Route::get('uploadstudents',[uploadStudentController::class,'index'])->name('uploadstudent.index');
+    Route::get('uploadstudents/create',[uploadStudentController::class,'create'])->name('uploadstudent.create');
+    Route::post('uploadstudents/store',[uploadStudentController::class,'store'])->name('uploadstudent.store');
+
 
     Route::get('sliders',[SliderController::class,'index'])->name('slider.index');
     Route::get('sliders/create',[SliderController::class,'create'])->name('slider.create');
