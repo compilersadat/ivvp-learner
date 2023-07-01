@@ -25,6 +25,8 @@
         @include('partials.alerts')
       <div class="card-header"><strong>ADD NEW Files</strong></div>
         <div class="card-body card-block">
+            <a href="{{ route('uploadstudent.download') }}" class="btn btn-primary">Download File</a><br> <br>
+
             <form method="POST" action="{{route('uploadstudent.store')}}" enctype="multipart/form-data">
                 @csrf
 

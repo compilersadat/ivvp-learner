@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+
 class UploadStudentController extends Controller
 {
     public function index()
@@ -18,6 +21,16 @@ class UploadStudentController extends Controller
     public function create()
     {
         return view('admin.uploadstudents.create');
+    }
+
+    public function download()
+    {
+        $filePath = public_path("IVVP_student_data.xlsx");
+        $headers = ['Content-Type: application/xlsx'];
+        $fileName = 'IVVP_student_data.xlsx';
+
+        return response()->download($filePath, $fileName, $headers);
+        
     }
 
     public function store(Request $request)

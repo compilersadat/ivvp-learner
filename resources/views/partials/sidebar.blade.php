@@ -30,6 +30,9 @@
                     <li>
                         <a href="{{ route('uploadstudent.create')}}"> <i class="menu-icon fa fa-database"></i>Upload Students</a>
                     </li>
+                    <li>
+                        <a href="{{ route('student.index')}}"> <i class="menu-icon fa fa-database"></i>Students</a>
+                    </li>
 
                 </ul>
             </div><!-- /.navbar-collapse -->
