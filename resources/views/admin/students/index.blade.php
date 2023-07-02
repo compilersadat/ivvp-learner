@@ -22,8 +22,9 @@
                                     <thead>
                                         <tr>
                                         	<th>SR NO</th>
-                                            <th>name</th>
+                                            <th class="w-75">name</th>
                                             <th>email</th>
+                                            <th>paid</th>
                                             <th>phone</th>
                                             <th>faculty</th>
                                             <th>branch</th>
@@ -31,10 +32,10 @@
                                             <th>instructor</th>
                                             <th>district</th>
                                             <th>year</th>
-                                            <th>m_toung</th>
+                                            <th>Mother tongue</th>
                                             <th>image</th>
-                                            <th>first</th>
-                                            <th>paid</th>
+                                            
+                                            
 
 
                                             <th>Action</th>
@@ -47,22 +48,31 @@
 						               <td>{{$i}}</td>
                                        <td>{{$student->name}}</td>
                                         <td>{{$student->email}}</td>
+                                        <td>
+                                            
+                                            @if($student->paid == 0)
+                                                <span class="badge badge-danger">Free</span>
+                                            @elseif($student->paid == 1)
+                                                <span class="badge badge-success">Premium</span>
+                                            @endif
+
+                                        </td>
                                         <td>{{$student->phone}}</td>
-                                        <td>{{$student->faculty}}</td>
-                                        <td>{{$student->branch}}</td>
+                                        <td>{{App\Models\Faculty::where('faculty_id', $student->faculty)->value('name')}}</td>
+                                        <td>{{App\Models\Branch::where('branch_id', $student->branch)->value('name')}}</td>
                                         <td>{{$student->collage}}</td>
                                         <td>{{$student->instructor}}</td>
                                         <td>{{$student->district}}</td>
                                         <td>{{$student->year}}</td>
-                                        <td>{{$student->m_toung}}</td>
-                                        <td>{{$student->image}}</td>
-                                        <td>{{$student->first}}</td>
-                                        <td>{{$student->paid}}</td>
+                                        <td>{{App\Models\Language::where('iso', $student->m_toung)->value('name')}}</td>
+                                        <td><img width="350" src="{{$student->image}}"/></td>
+                                        
+                                        
                 
 						               <td>
-						                  {{-- <a href="{{route('student.edit',$student->id)}}" class="label  "><i class="fa fa-edit fa-1x" style="color: #000"></i> </a>
-						                  <a href="{{route('student.delete',$student->id)}}" onclick="return confirm('Are you sure you want to delete this item?');" class="label bg-red-active"><i class="fa fa-trash  fa-1x" style="color: #000"></i> </a> --}}
-						                  {{-- <a href="{{route('student.show',$student->id)}}"><span class="label "><i class="fa fa-eye  fa-1x" style="color: #000"></i>&ensp;</span></a> --}}
+						                  <a href="{{route('student.edit',$student->id)}}" class="label  "><i class="fa fa-edit fa-1x" style="color: #000"></i> </a>
+						                  {{-- <a href="{{route('student.delete',$student->id)}}" onclick="return confirm('Are you sure you want to delete this item?');" class="label bg-red-active"><i class="fa fa-trash  fa-1x" style="color: #000"></i> </a> --}}
+						                  <a href="{{route('student.show',$student->id)}}"><span class="label "><i class="fa fa-eye  fa-1x" style="color: #000"></i>&ensp;</span></a>
 						               </td>
 						              </tr>
 						            <?php $i++?>
