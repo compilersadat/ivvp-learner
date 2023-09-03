@@ -11,7 +11,11 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
-        "league/flysystem-aws-s3-v3": "^3.2"
+        "league/flysystem-aws-s3-v3": "^3.2",
+        "razorpay/razorpay": "2.*"
+        "maatwebsite/excel": "*",
+        "phpoffice/phpexcel": "^1.8",
+        "psr/simple-cache": "2.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

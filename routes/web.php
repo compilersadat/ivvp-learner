@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CkeditorController;
 use App\Http\Controllers\Admin\ContentController;
 use App\Http\Controllers\Admin\S3uploadController;
+use App\Http\Controllers\Admin\UploadStudentController;
+use App\Http\Controllers\Admin\StudentController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\CollageController;
@@ -43,11 +45,22 @@ Route::prefix('admin')->group(function () {
     Route::get('contents/edit/{id}',[ContentController::class,'edit'])->name('content.edit');
     Route::post('contents/update/{id}',[ContentController::class,'update'])->name('content.update');
 
+    Route::get('students',[StudentController::class,'index'])->name('student.index');
+    Route::get('students/edit/{id}',[StudentController::class,'edit'])->name('student.edit');
+    Route::get('students/show/{id}',[StudentController::class,'show'])->name('student.show');
+    Route::post('students/update/{id}',[StudentController::class,'update'])->name('student.update');
 
     Route::get('uploads',[S3uploadController::class,'index'])->name('upload.index');
     Route::get('uploads/create',[S3uploadController::class,'create'])->name('upload.create');
     Route::post('uploads/store',[S3uploadController::class,'store'])->name('upload.store');
     Route::get('uploads/delete/{id}',[S3uploadController::class,'delete'])->name('upload.delete');
+
+    Route::get('uploadstudents',[uploadStudentController::class,'index'])->name('uploadstudent.Create');
+    Route::get('uploadstudents/create',[uploadStudentController::class,'create'])->name('uploadstudent.create');
+    Route::post('uploadstudents/store',[uploadStudentController::class,'store'])->name('uploadstudent.store');
+    Route::get('/download', [uploadStudentController::class,'download'])->name('uploadstudent.download');
+
+
 
     Route::get('sliders',[SliderController::class,'index'])->name('slider.index');
     Route::get('sliders/create',[SliderController::class,'create'])->name('slider.create');
