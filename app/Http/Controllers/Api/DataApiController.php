@@ -41,6 +41,8 @@ class DataApiController extends ResponseController
                     $data['study_materials']=[];
                     $data['free_content']=[];
                     $data['subscriptions']=[];
+                    $data['month']=date('m');
+
 
                 }
         }else{
