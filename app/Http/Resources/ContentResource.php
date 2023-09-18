@@ -14,6 +14,7 @@ class ContentResource extends JsonResource
      */
     public function toArray($request)
     {
+        $cdn_url=substr_replace(S3upload::where('id',$this->file_url)->value("url"),"https://d2wjfv6ktdr3yg.cloudfront.net",0,47);
         $months = [
             'January',
             'February',
@@ -32,7 +33,7 @@ class ContentResource extends JsonResource
             "title"=>$this->title,
             "description"=>$this->description,
             "type"=>$this->type,
-            "file_url"=>S3upload::where('id',$this->file_url)->value("url"),
+            "file_url"=>$cdn_url,
             "thumbnail"=>env('S3_STORAGE_BASE_URL').$this->thumbnail,
             "month"=>$months[$this->month-1]
         ];
