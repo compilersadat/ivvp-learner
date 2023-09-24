@@ -58,7 +58,7 @@ Route::get('/ajax-get-locations',function(){
 Route::get('/ajax-get-list-of-collages',function(){
     $dist = FacadesRequest::get('district');
     $ids=App\Models\District::where('name',$dist)->pluck('id');
-    $branches=App\Models\Collage::whereIn('id',$ids)->get();
+    $branches=App\Models\Collage::whereIn('district',$ids)->get();
     return response()->json($branches);
 })->name('ajax-get-list-of-collages');
 
