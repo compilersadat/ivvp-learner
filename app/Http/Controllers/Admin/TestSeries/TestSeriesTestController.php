@@ -31,7 +31,7 @@ class TestSeriesTestController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+       
         $this->validate($request,[
             'title'=> 'required',
             'test_series_id' => 'required'
@@ -39,7 +39,7 @@ class TestSeriesTestController extends Controller
         
         $tests = TestSeriesTest::create([
             'title' => isset($request->title) ? ($request->title) : '',
-            'test_series_id' => isset($request->test_series_id) ? ($request->test_series_id) : 0,
+            'test_series_id' => $request->test_series_id,
         ]);
         session()->flash('status', 'Test  Create Successfully');
         return redirect()->route('testseries.test.index');
