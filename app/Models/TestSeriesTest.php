@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class TestSeriesTest extends Model
 {
     protected $guarded =['id'];
-    protected $table = "test_serires_tests";
+    protected $table = "test_series_tests";
 }
