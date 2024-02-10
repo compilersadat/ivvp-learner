@@ -105,6 +105,7 @@ Route::prefix('admin')->group(function () {
     Route::get('testseries/edit/{id}',[TestSeriesController::class,'edit'])->name('testseries.edit');
     Route::post('testseries/update/{id}',[TestSeriesController::class,'update'])->name('testseries.update');
     Route::get('testseries/publish/{id}',[TestSeriesController::class,'changeStatus'])->name('testseries.changeStatus');
+    Route::get('testseries/show/{id}',[TestSeriesController::class,'show'])->name('testseries.show');
 
    
     Route::get('questions/create',[QuestionController::class,'create'])->name('questions.create');
