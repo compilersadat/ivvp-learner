@@ -46,6 +46,8 @@
                                 <th>Option D</th>
             
                                 <th>Answer</th>
+                                <th>Marks</th>
+                                <th>Negative Marks</th>
             
                                 <th>Action</th>
                             </tr>
@@ -60,9 +62,11 @@
                                 <td>{!! $question->option3 !!}</td>
                                 <td>{!! $question->option4 !!}</td>
                                 <td>{!! $question->answer !!}</td>
+                                <td>{{$question->marks}}</td>
+                                <td>{{$question->negative_marks}}</td>
                                 <td>
-                                    <a href="{{route('questions.edit',$question->id)}}" class="label  "><i class="fa fa-edit fa-1x" style="color: #000"></i> </a>
-                                                      <a href="{{route('questions.delete',$question->id)}}" onclick="return confirm('Are you sure you want to delete this item?');" class="label bg-red-active"><i class="fa fa-trash  fa-1x" style="color: #000"></i> </a>
+                                    <a href="{{route('test.questions.edit',$question->id)}}" class="label  "><i class="fa fa-edit fa-1x" style="color: #000"></i> </a>
+                                                      <a href="{{route('test.questions.delete',$question->id)}}" onclick="return confirm('Are you sure you want to delete this item?');" class="label bg-red-active"><i class="fa fa-trash  fa-1x" style="color: #000"></i> </a>
                                                       
                                 </td>
             
@@ -125,6 +129,16 @@
                         </select>
         
                     </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Marks</label>
+                    <input  class="form-control" name="marks" placeholder="Marks"/>
+                    
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Negative Marks</label>
+                    <input  class="form-control" name="negative_marks" placeholder="Negative Marks"/>
+                    
                 </div>
             </div>
         

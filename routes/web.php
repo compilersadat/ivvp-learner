@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\StudentPurchaseController;
 use App\Http\Controllers\Admin\TestSeries\TestSeriesController;
 use App\Http\Controllers\Admin\TestSeries\TestSeriesTestController;
+use App\Http\Controllers\Admin\TestSeries\TestSeriesQuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,12 +118,12 @@ Route::prefix('admin')->group(function () {
     Route::get('test/publish/{id}',[TestSeriesTestController::class,'changeStatus'])->name('testseries.test.changeStatus');
     Route::get('test/show/{id}',[TestSeriesTestController::class,'show'])->name('testseries.test.show');
    
-    Route::get('questions/create',[QuestionController::class,'create'])->name('questions.create');
-    Route::post('questions/store',[QuestionController::class,'store'])->name('questions.store');
-    Route::get('questions/delete/{id}',[QuestionController::class,'delete'])->name('questions.delete');
-    Route::get('questions/edit/{id}',[QuestionController::class,'edit'])->name('questions.edit');
-    Route::post('questions/update/{id}',[QuestionController::class,'update'])->name('questions.update');
-    Route::get('questions/show/{id}',[QuestionController::class,'show'])->name('questions.show');
+    Route::get('questions/create',[TestSeriesQuestionController::class,'create'])->name('test.questions.create');
+    Route::post('questions/store',[TestSeriesQuestionController::class,'store'])->name('test.questions.store');
+    Route::get('questions/delete/{id}',[TestSeriesQuestionController::class,'delete'])->name('test.questions.delete');
+    Route::get('questions/edit/{id}',[TestSeriesQuestionController::class,'edit'])->name('qtest.uestions.edit');
+    Route::post('questions/update/{id}',[TestSeriesQuestionController::class,'update'])->name('test.questions.update');
+    Route::get('questions/show/{id}',[TestSeriesQuestionController::class,'show'])->name('test.questions.show');
 
     
 
