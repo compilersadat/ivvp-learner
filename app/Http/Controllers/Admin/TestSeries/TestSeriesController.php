@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\TestSeries;
 
 use App\Models\TestSeries;
 use App\Models\TestSeriesTest;
