@@ -86,7 +86,7 @@ class TestSeriesTestController extends Controller
     {
         $test=TestSeriesTest::where('id', $id)->first();
         $questions=TestSeriesQuestion::where('test_id',$test->id)->get();
-        return view('admin.test_series.test.view', compact('questions','test'));
+        return view('admin.test_series_test.view', compact('questions','test'));
     }
     public function delete($id){
 
