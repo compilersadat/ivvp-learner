@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 use App\Models\Student;
+use App\Models\TestSeriesUser;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Faculty;
 use App\Models\Branch;
@@ -57,6 +58,33 @@ class AuthController extends ResponseController
 
 
 
+    public function signupTestSeriesUser(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|',
+            'email' => 'required|string|email|unique:students',
+            'password' => 'required',
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError($validator->errors());
+        }
+
+        $input = $request->all();
+        $input['password'] = Hash::make($input['password']);
+        $user = TestSeriesUser::create($input);
+        if($user){
+            $success['token'] =  $user->createToken('token')->plainTextToken;
+            $success['message'] = "Registration successfull..";
+            $success['user']=$user;
+            return $this->sendResponse($success);
+        }
+        else{
+            $error = "Sorry! Registration is not successfull.";
+            return $this->sendError($error, 401);
+        }
+
+    }
 
     //login
     public function login(Request $request)
@@ -82,6 +110,29 @@ class AuthController extends ResponseController
         return $this->sendResponse($success);
     }
 
+    //login
+    public function loginTestSeriesUser(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email',
+            'password' => 'required'
+        ]);
+
+        if($validator->fails()){
+            return $this->sendError($validator->errors());
+        }
+
+        $credentials = request(['email', 'password']);
+        if(!Auth::guard('testseriesapi')->attempt($credentials)){
+            $error = "Unauthorized";
+            return $this->sendError($error, 401);
+        }
+        $user =  Auth::guard('testseriesapi')->user();
+        $token=PersonalAccessToken::where('tokenable_id',$user->id)->delete();
+        $success['token'] =  $user->createToken('token')->plainTextToken;
+        $success['user'] = $user;
+        return $this->sendResponse($success);
+    }
 
 
     //getuser

@@ -14,7 +14,7 @@ use App\Http\Controllers\Admin\InstructorController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\StudentPurchaseController;
-
+use App\Http\Controller\Admin\TestSeries\TestSeriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -98,7 +98,15 @@ Route::prefix('admin')->group(function () {
     Route::get('exams/show/{id}',[ExamController::class,'show'])->name('exams.show');
     Route::get('exams/publish/{id}',[ExamController::class,'changeStatus'])->name('exams.changeStatus');
 
+    Route::get('testseries',[TestSeriesController::class,'index'])->name('testseries.index');
+    Route::get('testseries/create',[TestSeriesController::class,'create'])->name('testseries.create');
+    Route::post('testseries/store',[TestSeriesController::class,'store'])->name('testseries.store');
+    Route::get('testseries/delete/{id}',[TestSeriesController::class,'delete'])->name('testseries.delete');
+    Route::get('testseries/edit/{id}',[TestSeriesController::class,'edit'])->name('testseries.edit');
+    Route::post('testseries/update/{id}',[TestSeriesController::class,'update'])->name('testseries.update');
+    Route::get('testseries/publish/{id}',[TestSeriesController::class,'changeStatus'])->name('testseries.changeStatus');
 
+   
     Route::get('questions/create',[QuestionController::class,'create'])->name('questions.create');
     Route::post('questions/store',[QuestionController::class,'store'])->name('questions.store');
     Route::get('questions/delete/{id}',[QuestionController::class,'delete'])->name('questions.delete');

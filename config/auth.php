@@ -43,6 +43,10 @@ return [
         'api'=>[
             'driver'=>'session',
             'provider'=>'students'
+        ],
+        'testseriesapi'=>[
+            'driver'=>'session',
+            'provider'=>'test_series_users'
         ]
     ],
 
@@ -77,6 +81,10 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'test_series_users'=>[
+            'driver' => 'eloquent',
+            'model' => App\Models\TestSeriesUser::class,
+        ]
     ],
 
     /*
