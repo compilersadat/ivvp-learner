@@ -31,6 +31,7 @@ class TestSeriesTestController extends Controller
      */
     public function store(Request $request)
     {
+        return $request;
         $this->validate($request,[
             'title'=> 'required',
             'test_series_id' => 'required'
