@@ -39,7 +39,7 @@ class TestSeriesTestController extends Controller
         
         $tests = TestSeriesTest::create([
             'title' => isset($request->title) ? ($request->title) : '',
-            'test_series_id' => $request->test_series_id,
+            'testseries_id' => $request->test_series_id,
         ]);
         session()->flash('status', 'Test  Create Successfully');
         return redirect()->route('testseries.test.index');
@@ -74,7 +74,7 @@ class TestSeriesTestController extends Controller
         ]);
         $content = [
             'title' => isset($request->title) ? ($request->title) : '',
-            'test_series_id' => isset($request->test_series_id) ? ($request->test_series_id) : 0,
+            'testseries_id' => isset($request->test_series_id) ? ($request->test_series_id) : 0,
            ];
 
         TestSeriesTest::where('id', $id)->first()->update($content);
