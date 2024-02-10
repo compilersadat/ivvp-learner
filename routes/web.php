@@ -14,7 +14,7 @@ use App\Http\Controllers\Admin\InstructorController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\StudentPurchaseController;
-use App\Http\Controller\Admin\TestSeries\TestSeriesController;
+use App\Http\Controller\Admin\TestSeriesController;
 
 /*
 |--------------------------------------------------------------------------
