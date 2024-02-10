@@ -25,12 +25,12 @@
         @include('partials.alerts')
       <div class="card-header"><strong>Edit test series</strong></div>
         <div class="card-body card-block">
-            <form method="POST" action="{{route('testseries.update', $content->id)}}">
+            <form method="POST" action="{{route('testseries.update', $test->id)}}">
                 @csrf
 
                 <div class="form-group">
                     <label for="name" class=" form-control-label">Name</label>
-                   <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="{{$content->name}}">
+                   <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="{{$test->name}}">
                 </div>
             
 
