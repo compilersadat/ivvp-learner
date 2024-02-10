@@ -26,7 +26,7 @@
                 <div class="card-header">
                     <div class="row justify-content-between">
                         <strong>Tests for {{$test->title}} | {{$questions->count()}} Questions | {{$questions->sum('marks')}}</strong>
-                        <a href="{{route('test.changeStatus',$testseries->id)}}" class=" btn btn-sm btn-primary"><i class="fa fa-cloud-upload"></i> @if ($testseries->is_published==0)
+                        <a href="{{route('test.changeStatus',$test->id)}}" class=" btn btn-sm btn-primary"><i class="fa fa-cloud-upload"></i> @if ($test->is_published==0)
                             Publish
                         @else
                             Deactive
