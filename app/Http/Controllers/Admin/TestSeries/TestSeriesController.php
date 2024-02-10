@@ -94,5 +94,18 @@ class TestSeriesController extends Controller
         }
 
 }
+public function changeStatus($id){
+    $content=TestSeries::where('id', $id)->first();
+    if($content->is_featured==0){
+        $content->is_featured=1;
+    }else{
+        $content->is_featured=0;
+    }
+    if($content->update()){
+        session()->flash('status', 'Test Series Update Successfully');
+        return redirect()->back();
+
+    }
+   }
 
 }
