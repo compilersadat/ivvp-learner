@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\TestSeriesTest;
+namespace App\Http\Controllers\Admin\TestSeries;
 
 use App\Models\TestSeriesTest;
 use Illuminate\Http\Request;

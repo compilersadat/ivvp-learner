@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\StudentPurchaseController;
 use App\Http\Controllers\Admin\TestSeries\TestSeriesController;
+use App\Http\Controllers\Admin\TestSeries\TestSeriesTestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -107,6 +108,14 @@ Route::prefix('admin')->group(function () {
     Route::get('testseries/publish/{id}',[TestSeriesController::class,'changeStatus'])->name('testseries.changeStatus');
     Route::get('testseries/show/{id}',[TestSeriesController::class,'show'])->name('testseries.show');
 
+    Route::get('test',[TestSeriesController::class,'index'])->name('testseries.test.index');
+    Route::get('test/create',[TestSeriesController::class,'create'])->name('testseries.test.create');
+    Route::post('test/store',[TestSeriesController::class,'store'])->name('testseries.test.store');
+    Route::get('test/delete/{id}',[TestSeriesController::class,'delete'])->name('testseries.test.delete');
+    Route::get('test/edit/{id}',[TestSeriesController::class,'edit'])->name('testseries.test.edit');
+    Route::post('test/update/{id}',[TestSeriesController::class,'update'])->name('testseries.test.update');
+    Route::get('test/publish/{id}',[TestSeriesController::class,'changeStatus'])->name('testseries.test.changeStatus');
+    Route::get('test/show/{id}',[TestSeriesController::class,'show'])->name('testseries.test.show');
    
     Route::get('questions/create',[QuestionController::class,'create'])->name('questions.create');
     Route::post('questions/store',[QuestionController::class,'store'])->name('questions.store');
