@@ -121,7 +121,7 @@ Route::prefix('admin')->group(function () {
     Route::get('questions/create',[TestSeriesQuestionController::class,'create'])->name('test.questions.create');
     Route::post('questions/store',[TestSeriesQuestionController::class,'store'])->name('test.questions.store');
     Route::get('questions/delete/{id}',[TestSeriesQuestionController::class,'delete'])->name('test.questions.delete');
-    Route::get('questions/edit/{id}',[TestSeriesQuestionController::class,'edit'])->name('qtest.uestions.edit');
+    Route::get('questions/edit/{id}',[TestSeriesQuestionController::class,'edit'])->name('test.questions.edit');
     Route::post('questions/update/{id}',[TestSeriesQuestionController::class,'update'])->name('test.questions.update');
     Route::get('questions/show/{id}',[TestSeriesQuestionController::class,'show'])->name('test.questions.show');
 
