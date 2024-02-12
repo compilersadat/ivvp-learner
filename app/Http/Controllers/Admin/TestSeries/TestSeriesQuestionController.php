@@ -142,7 +142,7 @@ class TestSeriesQuestionController extends Controller
                return redirect()->route('content.index');
            }else{
                session()->flash('status', 'Content in Deleting Slider');
-               return redirect()->route('content.index');
+               return redirect()->route('admin.test_series_test.view');
            }
 
    }
