@@ -59,7 +59,7 @@ class TestSeriesQuestionController extends Controller
             'option2' => isset($request->option2) ? ($request->option2) : '',
             'option3' => isset($request->option3) ? ($request->option3) : '',
             'option4' => isset($request->option4) ? ($request->option4) : '',
-            'exam_id' => isset($request->exam) ? ($request->exam) : '',
+            'test_id' => isset($request->exam) ? ($request->exam) : '',
             'answer' => isset($request->answer) ? ($request->answer) : '',
             'marks' => isset($request->marks) ? ($request->marks) : 0,
             'negative_marks' => isset($request->negative_marks) ? ($request->negative_marks) : 0,
