@@ -44,20 +44,26 @@
             </div>
             <div class="form-group">
                 <label class="form-label">Option Two</label>
-                <textarea id="editor1" class="form-control" name="option2" rows="5" cols="40" placeholder="Description">
+                <textarea id="editor2" class="form-control" name="option2" rows="5" cols="40" placeholder="Description">
                     {{$content->option2}}
                 </textarea>
             </div>
             <div class="form-group">
                 <label class="form-label">Option Three</label>
-                <textarea id="editor1" class="form-control" name="option3" rows="5" cols="40" placeholder="Description">
+                <textarea id="editor3" class="form-control" name="option3" rows="5" cols="40" placeholder="Description">
                     {{$content->option3}}
                 </textarea>
             </div>
             <div class="form-group">
                 <label class="form-label">Option Four</label>
-                <textarea id="editor1" class="form-control" name="option4" rows="5" cols="40" placeholder="Description">
+                <textarea id="editor4" class="form-control" name="option4" rows="5" cols="40" placeholder="Description">
                     {{$content->option4}}
+                </textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Option Five</label>
+                <textarea id="editor5" class="form-control" name="option5" rows="5" cols="40" placeholder="Description">
+                    {{$content->option5}}
                 </textarea>
             </div>
             <div class="form-group">
@@ -77,7 +83,9 @@
                     <option value="4" @if ($content->answer=="4")
                         selected
                     @endif >4</option>
-    
+                    <option value="5" @if ($content->answer=="5")
+                        selected
+                    @endif >5</option>
                     </select>
     
                 </div>
@@ -118,7 +126,27 @@
         filebrowserUploadUrl: "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}",
         filebrowserUploadMethod: 'form'
     });
-
+    CKEDITOR.replace('editor2', {
+          filebrowserUploadUrl: "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}",
+          filebrowserUploadMethod: 'form'
+      });
+    CKEDITOR.replace('editor3', {
+          filebrowserUploadUrl: "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}",
+          filebrowserUploadMethod: 'form'
+      });
+    CKEDITOR.replace('editor4', {
+          filebrowserUploadUrl: "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}",
+          filebrowserUploadMethod: 'form'
+      });
+    CKEDITOR.replace('editor5', {
+          filebrowserUploadUrl: "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}",
+          filebrowserUploadMethod: 'form'
+      });
+    CKEDITOR.replace('editor6', {
+          filebrowserUploadUrl: "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}",
+          filebrowserUploadMethod: 'form'
+      });
+  
 
 </script>
 

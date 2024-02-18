@@ -33,10 +33,12 @@ class TestSeriesController extends Controller
     {
         $this->validate($request,[
             'name'=> 'required',
+            'price' => 'required'
         ]);
         
         $tests = TestSeries::create([
             'name' => isset($request->name) ? ($request->name) : '',
+            'price' => isset($request->price) ? ($request->price) : 0,
         ]);
         session()->flash('status', 'Test Series Create Successfully');
         return redirect()->route('testseries.index');
@@ -67,9 +69,11 @@ class TestSeriesController extends Controller
     {
         $this->validate($request,[
             'name'=> 'required',
+            'price' => 'required'
         ]);
         $content = [
             'name' => isset($request->name) ? ($request->name) : '',
+            'price' => isset($request->price) ? ($request->price) : 0,
            ];
 
         TestSeries::where('id', $id)->first()->update($content);

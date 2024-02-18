@@ -32,8 +32,10 @@
                     <label for="name" class=" form-control-label">Name</label>
                    <input type="text" id="name" name="name" placeholder="Title" class="form-control">
                 </div>
-            
-            
+                <div class="form-group">
+                   <label for="price" class=" form-control-label">Price</label>
+                   <input type="text" id="price" name="price" placeholder="Price" class="form-control">
+                </div>
 
        
 

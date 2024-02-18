@@ -117,6 +117,11 @@
                     </textarea>
                 </div>
                 <div class="form-group">
+                    <label class="form-label">Option Five</label>
+                    <textarea id="editor6" class="form-control" name="option5" rows="5" cols="40" placeholder="Description">
+                    </textarea>
+                </div>
+                <div class="form-group">
                     <div class=" pt-2">
                         <label class="text-muted">Answer <font class="text-danger">*</font></label>
         
@@ -125,7 +130,8 @@
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
-        
+                        <option value="5">5</option>
+
                         </select>
         
                     </div>
@@ -191,6 +197,10 @@
           filebrowserUploadMethod: 'form'
       });
       CKEDITOR.replace('editor5', {
+          filebrowserUploadUrl: "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}",
+          filebrowserUploadMethod: 'form'
+      });
+      CKEDITOR.replace('editor6', {
           filebrowserUploadUrl: "{{route('ckeditor.upload', ['_token' => csrf_token() ])}}",
           filebrowserUploadMethod: 'form'
       });

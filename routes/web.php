@@ -62,8 +62,6 @@ Route::prefix('admin')->group(function () {
     Route::post('uploadstudents/store',[uploadStudentController::class,'store'])->name('uploadstudent.store');
     Route::get('/download', [uploadStudentController::class,'download'])->name('uploadstudent.download');
 
-
-
     Route::get('sliders',[SliderController::class,'index'])->name('slider.index');
     Route::get('sliders/create',[SliderController::class,'create'])->name('slider.create');
     Route::post('sliders/store',[SliderController::class,'store'])->name('slider.store');
@@ -75,7 +73,6 @@ Route::prefix('admin')->group(function () {
     Route::get('packages/delete/{id}',[PackageController::class,'delete'])->name('packages.delete');
     Route::get('packages/edit/{id}',[PackageController::class,'edit'])->name('packages.edit');
     Route::post('packages/update/{id}',[PackageController::class,'update'])->name('packages.update');
-
 
     Route::get('collages',[CollageController::class,'index'])->name('collages.index');
     Route::get('collages/create',[CollageController::class,'create'])->name('collages.create');

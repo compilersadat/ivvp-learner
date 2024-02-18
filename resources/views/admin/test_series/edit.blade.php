@@ -27,17 +27,14 @@
         <div class="card-body card-block">
             <form method="POST" action="{{route('testseries.update', $test->id)}}">
                 @csrf
-
                 <div class="form-group">
                     <label for="name" class=" form-control-label">Name</label>
                    <input type="text" id="name" name="name" placeholder="Name" class="form-control" value="{{$test->name}}">
                 </div>
-            
-
-       
-
-
-
+                <div class="form-group">
+                    <label for="price" class=" form-control-label">Price</label>
+                    <input type="text" id="price" name="price" placeholder="Price" class="form-control" value="{{$test->price}}">
+                 </div>
      <div class="card">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
