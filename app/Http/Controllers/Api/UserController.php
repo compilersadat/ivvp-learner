@@ -41,7 +41,6 @@ class UserController extends ResponseController
           $transaction=new Transaction();
           $transaction->student_id=$orderData[3];
           $transaction->package_id=$orderData[1];
-          $transaction->package_name=$requestData->package_name;
           $transaction->number_of_months=$requestData[2];
           $transaction->price=$requestData['data']['amount'];
           $transaction->transaction_id=$requestData['data']['transactionId'];
