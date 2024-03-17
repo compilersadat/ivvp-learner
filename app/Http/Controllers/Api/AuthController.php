@@ -104,7 +104,7 @@ class AuthController extends ResponseController
             return $this->sendError($error, 401);
         }
         $user =  Auth::guard('api')->user();
-        $token=PersonalAccessToken::where('tokenable_id',$user->id)->delete();
+        // $token=PersonalAccessToken::where('tokenable_id',$user->id)->delete();
         $success['token'] =  $user->createToken('token')->plainTextToken;
         $success['user'] = $user;
         return $this->sendResponse($success);
