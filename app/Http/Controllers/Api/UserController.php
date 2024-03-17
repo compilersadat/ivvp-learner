@@ -48,9 +48,27 @@ class UserController extends ResponseController
           $transaction->reciept=$requestData['data']['paymentInstrument']['pgTransactionId'];
           $transaction->status=$requestData['data']['state'];
           if($transaction->save()){
-              $responses['message']="Order Created.";
-              $responses['subscription_details']=$transaction;
-              return $this->sendResponse($responses);
+            $count=StudentPackage::where('student_id',$transaction->student_id)->count();
+            $student_package=new StudentPackage();
+            if($count){
+                $student_package=StudentPackage::where('student_id',$transaction->student_id)->first();
+            }
+            $student_package->student_id=$transaction->student_id;
+            $student_package->package_id=$transaction->package_id;
+            $student_package->number_of_months=$transaction->number_of_months;
+            $student_package->price=$transaction->price;
+            $student_package->start_date=date('d-m-y');
+            $student_package->start_month=date('m');
+            $student_package->status=2;
+            $student_package->payment_status="compeleted";
+            if($count==0?$student_package->save():$student_package->update()){
+                $response['message']="Subscription Activated";
+                $response['subscription_details']=$student_package;
+                return $this->sendResponse($response);
+            }else{
+                $error = "Sorry! Please try again";
+                return $this->sendError($error, 401);
+            }
            }else{
               $error = "Sorry! Please try again";
               return $this->sendError($error, 401);
