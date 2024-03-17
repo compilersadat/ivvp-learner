@@ -35,7 +35,8 @@ class UserController extends ResponseController
     }
 
     public function paymentCallback(Request $request){
-        if($request->response){
+        $request_json = json_decode($request);
+        if($request_json->response){
           $requestData = json_decode(base64_decode($request['response']),true);
        
           $orderData = explode('#',$requestData['data']['merchantTransactionId']);
