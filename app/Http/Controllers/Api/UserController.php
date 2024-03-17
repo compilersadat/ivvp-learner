@@ -45,7 +45,7 @@ class UserController extends ResponseController
           $transaction->number_of_months=$orderData[2];
           $transaction->price=$requestData['data']['amount'];
           $transaction->transaction_id=$requestData['data']['transactionId'];
-          $transaction->reciept=$requestData['data']['pgTransactionId'];
+          $transaction->reciept=$requestData['data']['paymentInstrument']['pgTransactionId'];
           $transaction->status=$requestData['data']['state'];
           if($transaction->save()){
               $responses['message']="Order Created.";
