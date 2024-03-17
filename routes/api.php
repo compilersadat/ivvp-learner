@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function(){
   Route::get('/fetch-result',[ExamController::class,'fetchResult']);
   Route::get('/logout',[AuthController::class,'logout']);
 });
+Route::post('/phonepe-callback',[UserController::class,'paymentCallback']);
 
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/register',[AuthController::class,'signup']);

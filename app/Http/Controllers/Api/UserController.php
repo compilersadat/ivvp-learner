@@ -34,6 +34,29 @@ class UserController extends ResponseController
 
     }
 
+    public function paymentCallback(Request $request){
+        if($request->response){
+          $requestData = json_decode(base64_decode($request['response']),true);
+          $orderData = $explode('#',requestData['data']['merchantTransactionId']);
+          $transaction=new Transaction();
+          $transaction->student_id=$orderData[3];
+          $transaction->package_id=$orderData[1];
+          $transaction->package_name=$requestData->package_name;
+          $transaction->number_of_months=$requestData[2];
+          $transaction->price=$requestData['data']['amount'];
+          $transaction->transaction_id=$requestData['data']['transactionId'];
+          $transaction->reciept=$requestData['data']['pgTransactionId'];
+          $transaction->status=$requestData['data']['state'];
+          if($transaction->save()){
+              $responses['message']="Order Created.";
+              $responses['subscription_details']=$transaction;
+              return $this->sendResponse($responses);
+           }else{
+              $error = "Sorry! Please try again";
+              return $this->sendError($error, 401);
+          }
+        }
+    }
     public function subscribPackage(Request $request){
         $validator = Validator::make($request->all(), [
             'student_id'=>'required',
