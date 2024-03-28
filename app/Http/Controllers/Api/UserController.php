@@ -97,7 +97,7 @@ class UserController extends ResponseController
             $transaction->package_name=$request->package_name;
             $transaction->number_of_months=$request->number_of_month;
             $transaction->price=$request->price;
-            $transaction->order_id=$request->merch_order_id;
+            $transaction->order_id=md5(time());
             $transaction->status='ordered';
             if($transaction->save()){
                 $responses['message']="Order Created.";
