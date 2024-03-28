@@ -132,6 +132,7 @@ public function updatePackage(Request $request){
                 ->withHeader('X-MERCHANT-ID:'.$request->order_id)
                 ->get();
         $response = json_decode($response_encoded);
+        return $response;
         if($response->success){
                 $transaction->status="compeleted";
                 $transaction->transaction_id=$response->data->transaction_id;
