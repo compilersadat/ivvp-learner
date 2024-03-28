@@ -131,10 +131,10 @@ public function updatePackage(Request $request){
                 ->withHeader('X-VERIFY:'.$finalXHeader)
                 ->withHeader('X-MERCHANT-ID:'.$request->order_id)
                 ->get();
-        $response = json_decode($response_encoded);
-        if($response->success){
+        $res = json_decode($response_encoded);
+        if($res->success){
                 $transaction->status="compeleted";
-                $transaction->transaction_id=$response->data->transactionId;
+                $transaction->transaction_id=$res->data->transactionId;
                 $transaction->update();
                 $count=StudentPackage::where('student_id',$request->user()->id)->count();
                     $student_package=new StudentPackage();
@@ -160,12 +160,12 @@ public function updatePackage(Request $request){
                     }
             
         }else{
-            if($response == 'PAYMENT_PENDING'){
+            if($res == 'PAYMENT_PENDING'){
                 $transaction->status="pending";
                 $transaction->update();
             }
-            $error = $response->message;
-            if($response == 'PAYMENT_ERROR'){
+            $error = $res->message;
+            if($res == 'PAYMENT_ERROR'){
                 $error .= ' '.$response->data->responseCodeDescription;
             }
             return $this->sendError($error, 500);
