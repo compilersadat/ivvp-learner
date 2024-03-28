@@ -119,13 +119,13 @@ public function updatePackage(Request $request){
     }
 
     $transaction=Transaction::where('order_id',$request->order_id)->first();
-    $saltKey = env('PHONE_PE_SALT_KEY_DEV');
-    $saltIndex = env('PHONE_PE_SALT_INDEX_DEV');
-    $merchant_id = env('PHONE_PE_MERCHANTID_DEV');
+    $saltKey = env('PHONE_PE_SALT_KEY_PROD');
+    $saltIndex = env('PHONE_PE_SALT_INDEX_PROD');
+    $merchant_id = env('PHONE_PE_MERCHANTID_PROD');
 
         $finalXHeader = hash('sha256','/pg/v1/status/'.$merchant_id.'/'.$request->order_id.$saltKey).'###'.$saltIndex;
 
-        $response_encoded = Curl::to('https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/status/'.$merchant_id.'/'.$request->order_id)
+        $response_encoded = Curl::to('https://api.phonepe.com/apis/hermes/pg/v1/status/'.$merchant_id.'/'.$request->order_id)
                 ->withHeader('Content-Type:application/json')
                 ->withHeader('accept:application/json')
                 ->withHeader('X-VERIFY:'.$finalXHeader)
