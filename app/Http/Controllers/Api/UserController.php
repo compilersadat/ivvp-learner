@@ -124,7 +124,7 @@ public function updatePackage(Request $request){
     $merchant_id = env('PHONE_PE_MERCHANTID_PROD');
 
         $finalXHeader = hash('sha256','/pg/v1/status/'.$merchant_id.'/'.$request->order_id.$saltKey).'###'.$saltIndex;
-
+        return $finalXHeader;
         $response_encoded = Curl::to('https://api.phonepe.com/apis/hermes/pg/v1/status/'.$merchant_id.'/'.$request->order_id)
                 ->withHeader('Content-Type:application/json')
                 ->withHeader('accept:application/json')
