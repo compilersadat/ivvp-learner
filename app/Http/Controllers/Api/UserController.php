@@ -124,7 +124,6 @@ public function updatePackage(Request $request){
     $merchant_id = env('PHONE_PE_MERCHANTID_PROD');
 
         $finalXHeader = hash('sha256','/pg/v1/status/'.$merchant_id.'/'.$request->order_id.$saltKey).'###'.$saltIndex;
-        return $finalXHeader;
         $response_encoded = Curl::to('https://api.phonepe.com/apis/hermes/pg/v1/status/'.$merchant_id.'/'.$request->order_id)
                 ->withHeader('Content-Type:application/json')
                 ->withHeader('accept:application/json')
@@ -132,7 +131,6 @@ public function updatePackage(Request $request){
                 ->withHeader('X-MERCHANT-ID:'.$merchant_id)
                 ->get();
         $res = json_decode($response_encoded);
-        return $res;
         if($res->success){
                 $transaction->status="compeleted";
                 $transaction->transaction_id=$res->data->transactionId;
