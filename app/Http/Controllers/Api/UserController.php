@@ -129,7 +129,7 @@ public function updatePackage(Request $request){
                 ->withHeader('Content-Type:application/json')
                 ->withHeader('accept:application/json')
                 ->withHeader('X-VERIFY:'.$finalXHeader)
-                ->withHeader('X-MERCHANT-ID:'.$request->order_id)
+                ->withHeader('X-MERCHANT-ID:'.$merchant_id)
                 ->get();
         $res = json_decode($response_encoded);
         return $res;
