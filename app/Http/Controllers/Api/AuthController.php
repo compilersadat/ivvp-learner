@@ -40,11 +40,12 @@ class AuthController extends ResponseController
             $errors = $validator->errors();
             $error = '';
             foreach ($validator->errors() as $key=>$e){
+                return $key;
                 foreach($errors[$key] as $se){
-                    $error .= $se.' .';
+                    $error = $error.' '.$se.' .';
                 }
             }
-            return $this->sendError($error,401);
+            return $this->sendError($error,402);
         }
 
         $input = $request->all();
