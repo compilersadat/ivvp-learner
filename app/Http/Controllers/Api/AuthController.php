@@ -97,17 +97,24 @@ class AuthController extends ResponseController
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email',
+            'email' => 'required|string|email|exists:students',
             'password' => 'required'
         ]);
 
         if($validator->fails()){
-            return $this->sendError($validator->errors());
+            $errors = $validator->errors()->toArray();
+            $error = '';
+            foreach ($errors as $key=>$e){
+                foreach($errors[$key] as $se){
+                    $error = $error.' '.$se;
+                }
+            }
+            return $this->sendError($error,422);
         }
 
         $credentials = request(['email', 'password']);
         if(!Auth::guard('api')->attempt($credentials)){
-            $error = "Unauthorized";
+            $error = "Wrong email and password";
             return $this->sendError($error, 401);
         }
         $user =  Auth::guard('api')->user();
