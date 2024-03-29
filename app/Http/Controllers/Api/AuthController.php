@@ -41,7 +41,7 @@ class AuthController extends ResponseController
             $error = '';
             foreach ($errors as $key=>$e){
                 foreach($errors[$key] as $se){
-                    $error = $error.' '.$se.' .';
+                    $error = $error.' '.$se;
                 }
             }
             return $this->sendError($error,422);
