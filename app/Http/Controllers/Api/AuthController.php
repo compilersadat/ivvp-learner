@@ -43,7 +43,7 @@ class AuthController extends ResponseController
              $error .= $e; 
                 
             }
-            return $this->sendError($error,402);
+            return $this->sendError($errors,402);
         }
 
         $input = $request->all();
