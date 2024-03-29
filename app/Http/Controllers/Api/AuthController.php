@@ -114,7 +114,7 @@ class AuthController extends ResponseController
 
         $credentials = request(['email', 'password']);
         if(!Auth::guard('api')->attempt($credentials)){
-            $error = "Wrong email and password";
+            $error = "Wrong email or password";
             return $this->sendError($error, 401);
         }
         $user =  Auth::guard('api')->user();
