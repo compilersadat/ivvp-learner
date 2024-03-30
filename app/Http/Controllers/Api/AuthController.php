@@ -135,7 +135,7 @@ class AuthController extends ResponseController
     public function loginTestSeriesUser(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'email' => 'required|string|email',
+            'email' => 'required|string|email|exists:test_series_users',
             'password' => 'required'
         ]);
 
