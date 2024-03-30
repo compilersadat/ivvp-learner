@@ -74,7 +74,14 @@ class AuthController extends ResponseController
         ]);
 
         if($validator->fails()){
-            return $this->sendError($validator->errors());
+            $errors = $validator->errors()->toArray();
+            $error = '';
+            foreach ($errors as $key=>$e){
+                foreach($errors[$key] as $se){
+                    $error = $error.' '.$se;
+                }
+            }
+            return $this->sendError($error,422);
         }
 
         $input = $request->all();
@@ -133,16 +140,22 @@ class AuthController extends ResponseController
         ]);
 
         if($validator->fails()){
-            return $this->sendError($validator->errors());
+            $errors = $validator->errors()->toArray();
+            $error = '';
+            foreach ($errors as $key=>$e){
+                foreach($errors[$key] as $se){
+                    $error = $error.' '.$se;
+                }
+            }
+            return $this->sendError($error,422);
         }
 
         $credentials = request(['email', 'password']);
         if(!Auth::guard('testseriesapi')->attempt($credentials)){
-            $error = "Unauthorized";
+            $error = "Wrong email or password";
             return $this->sendError($error, 401);
         }
         $user =  Auth::guard('testseriesapi')->user();
-        $token=PersonalAccessToken::where('tokenable_id',$user->id)->delete();
         $success['token'] =  $user->createToken('token')->plainTextToken;
         $success['user'] = $user;
         return $this->sendResponse($success);

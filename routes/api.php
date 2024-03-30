@@ -38,6 +38,14 @@ Route::post('/phonepe-callback',[UserController::class,'paymentCallback']);
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/register',[AuthController::class,'signup']);
 
+// Test series
+Route::prefix('test-series')->group(function () {
+    Route::post('/login',[AuthController::class,'loginTestSeriesUser']);
+    Route::post('/register',[AuthController::class,'signupTestSeriesUser']);
+    
+});
+
+
 
 
 Route::get('/ajax-get-facualties',function(){
