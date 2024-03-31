@@ -42,7 +42,7 @@ Route::post('/register',[AuthController::class,'signup']);
 Route::prefix('test-series')->group(function () {
     Route::post('/login',[AuthController::class,'loginTestSeriesUser']);
     Route::post('/register',[AuthController::class,'signupTestSeriesUser']);
-    Route::middleware(['auth:sanctum','guard:testseriesapi'])->group(function(){
+    Route::middleware(['auth:sanctum'])->group(function(){
         Route::get('/home-data',[DataApiController::class,'testSeriesHomData']);
     });
 });
