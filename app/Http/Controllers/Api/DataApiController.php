@@ -14,9 +14,11 @@ use App\Http\Resources\StudentSubscriptionResource;
 use App\Models\Package;
 use App\Models\StudentPackage;
 use App\Models\Content;
+use App\Models\TestSeries;
 use App\Http\Resources\ContentResource;
 use App\Http\Resources\SlidersResource;
 use App\Http\Resources\ExamResource;
+use App\Http\Resources\TestSeriesResource;
 use App\Models\Exam;
 use App\Models\StudentResult;
 use App\Models\Student;
@@ -42,8 +44,6 @@ class DataApiController extends ResponseController
                     $data['free_content']=[];
                     $data['subscriptions']=[];
                     $data['month']=date('m');
-
-
                 }
         }else{
             $free_content=Content::where('branch',$student->branch)->where('year',$student->year)->where(function($query){
@@ -56,8 +56,6 @@ class DataApiController extends ResponseController
 
         }
 
-
-         
         $success['message'] = "Here is data";
         $success['data']=$data;
         return $this->sendResponse($success);
@@ -126,5 +124,13 @@ class DataApiController extends ResponseController
         return $this->sendResponse($success);
     }
 
+    // Test series apis
+    public function testSeriesHomData (Request $request){
+        $series =TestSeriesResource::collection(TestSeries::where('is_live',0)->get());
+        $data['serieses'] = $series;
+        $success['message'] = "Here is data";
+        $success['data']=$data;
+        return $this->sendResponse($success);
+    }
 
 }
