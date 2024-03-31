@@ -11,7 +11,9 @@ class TestSeriesController extends ResponseController
 {
     public function fetchQuestion($id){
         $questions = QuestionResource::collection(TestSeriesQuestion::where('test_id',$id)->get());
+
         $success['message'] = "Please Subscribe.";
+        $success['test_id'] = $id;
         $success['questions'] =  $questions;
         return $this->sendResponse($success);  
     }
