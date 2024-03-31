@@ -19,6 +19,7 @@ class TestSeriesResource extends JsonResource
         return [
             'id'=>$this->id,
             'name'=>$this->name,
+            'number_of_tests' => $tests->count(),
             'tests' => $tests
         ];
     }
