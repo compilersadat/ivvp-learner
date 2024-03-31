@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DataApiController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ExamController;
+use App\Http\Controllers\Api\TestSeriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,7 @@ Route::prefix('test-series')->group(function () {
     Route::post('/register',[AuthController::class,'signupTestSeriesUser']);
     Route::middleware(['auth:sanctum'])->group(function(){
         Route::get('/home-data',[DataApiController::class,'testSeriesHomData']);
+        Route::get('/questions/{id}',[TestSeriesController::class,'fetchQuestion']);
     });
 });
 
