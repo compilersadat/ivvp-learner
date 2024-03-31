@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\TestSeriesTest;
+use App\Http\Resources\TestResource;
 
 class TestSeriesResource extends JsonResource
 {
@@ -20,7 +21,7 @@ class TestSeriesResource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->name,
             'number_of_tests' => $tests->count(),
-            'tests' => $tests
+            'tests' => TestResource::collection($tests)
         ];
     }
 }
