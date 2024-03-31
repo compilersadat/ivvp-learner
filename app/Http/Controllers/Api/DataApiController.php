@@ -126,7 +126,7 @@ class DataApiController extends ResponseController
 
     // Test series apis
     public function testSeriesHomData (Request $request){
-        $series =TestSeriesResource::collection(TestSeries::where('is_live',0)->get());
+        $series =TestSeriesResource::collection(TestSeries::where('is_live',1)->get());
         $data['serieses'] = $series;
         $success['message'] = "Here is data";
         $success['data']=$data;
