@@ -15,7 +15,7 @@ class TestSeriesResource extends JsonResource
      */
     public function toArray($request)
     {
-        $tests = TestSeriesTest::where('testseries_id',$this->id);
+        $tests = TestSeriesTest::where('testseries_id',$this->id)->where('is_published',0)->get();
         return [
             'id'=>$this->id,
             'name'=>$this->name,
