@@ -11,9 +11,10 @@ class AnswerSheetResource extends JsonResource
 {
     public function toArray($request)
     {
+        $request->request->add(['attempt'=>$this->id]);
         return[
          'id' => $this->id,
-         "questions" => QuestionWithAnswerResource::collection(TestSeriesQuestion::where('test_id',$this->test_id)->get())->attempt($this->id),
+         "questions" => QuestionWithAnswerResource::collection(TestSeriesQuestion::where('test_id',$this->test_id)->get()),
          "date" => date('d-m-yyyy',$this->created_at),
         ];
     }
