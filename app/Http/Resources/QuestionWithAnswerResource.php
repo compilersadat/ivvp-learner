@@ -27,9 +27,7 @@ class QuestionWithAnswerResource extends JsonResource
             'option3'=>$this->option3,
             'option4'=>$this->option4,
             'answer'=>$this->answer,
-            'student_answer'=>$ABCD[$student_answer->answer-1],
-            'solution' => $this->solution,
-            'is_right'=>$this->answer==$student_answer->answer
+            
         ];
     }
 }
