@@ -22,22 +22,24 @@ class TestSeriesController extends ResponseController
 
     public function submitExam(Request $request){
         $student_attempt=TestSeriesStudentAttempt::where('test_id',$request->exam_id)->where('student_id',$request->user()->id)->count();
-        foreach($request->answers as $answer){
-            $answerDb=new TestSeriesStudentAnswer();
-            $answerDb->question_id=$answer['question_id'];
-            $answerDb->answer=$answer['answer'];
-            $answerDb->student_id=$request->user()->id;
-            $answerDb->exam_id=$request->exam_id;
-            $answerDb->save();
-        }
         $attempt = new TestSeriesStudentAttempt();
         $attempt->student_id = $request->user()->id;
         $attempt->test_id= $request->exam_id;
         $attempt->attempt= $student_attempt++;
         if($attempt->save()){
+            foreach($request->answers as $answer){
+                $answerDb=new TestSeriesStudentAnswer();
+                $answerDb->question_id=$answer['question_id'];
+                $answerDb->answer=$answer['answer'];
+                $answerDb->student_id=$request->user()->id;
+                $answerDb->exam_id=$request->exam_id;
+                $answerDb->attempt=$attempt->id;
+                $answerDb->save();
+            }
             $success['message'] = "Exam Submitted.";
             return $this->sendResponse($success);   
         }
-
+        $success['message'] = "Exam Submitted.";
+            return $this->sendResponse($success);
     }
 }
