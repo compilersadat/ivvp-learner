@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\ResponseController as ResponseController;
 use App\Http\Resources\QuestionResource;
-
+use App\Http\Resources\AnswerSheetResource;
 class TestSeriesController extends ResponseController
 {
     public function fetchQuestion($id){
@@ -41,5 +41,11 @@ class TestSeriesController extends ResponseController
         }
         $success['message'] = "Exam Submitted.";
             return $this->sendResponse($success);
+    }
+
+    public function fetchResult(Request $request){
+        $student_attempt=TestSeriesStudentAttempt::where('test_id',$request->exam_id)->where('student_id',$request->user()->id)->get();
+        $success['data']=AnswerSheetResource::collection($student_attempt);
+        return $this->sendResponse($success);
     }
 }
