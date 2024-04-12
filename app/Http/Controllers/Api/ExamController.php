@@ -70,6 +70,8 @@ class ExamController extends ResponseController
 
     }
 
+    
+
     public function fetchResult(Request $request){
         $result=StudentResult::where('student_id',$request->user()->id)->where('status','completed')->get();
         $exams=ResultResource::collection($result);

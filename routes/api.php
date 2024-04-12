@@ -46,6 +46,7 @@ Route::prefix('test-series')->group(function () {
     Route::middleware(['auth:sanctum'])->group(function(){
         Route::get('/home-data',[DataApiController::class,'testSeriesHomData']);
         Route::get('/questions/{id}',[TestSeriesController::class,'fetchQuestion']);
+        Route::post('/submit-exam',[TestSeriesController::class,'submitExam']);
     });
 });
 
