@@ -15,7 +15,7 @@ class AnswerSheetResource extends JsonResource
         return[
          'id' => $this->id,
          "questions" => QuestionWithAnswerResource::collection(TestSeriesQuestion::where('test_id',$this->test_id)->get()),
-         "date" => date('d-m-yyyy',strtotime($this->created_at)),
+         "date" => date('d-m-y',strtotime($this->created_at)),
         ];
     }
 }
