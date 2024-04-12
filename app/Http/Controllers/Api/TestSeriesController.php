@@ -34,7 +34,7 @@ class TestSeriesController extends ResponseController
         $attempt->student_id = $request->user()->id;
         $attempt->test_id= $request->exam_id;
         $attempt->attempt= $student_attempt++;
-        if($student_result->save()){
+        if($attempt->save()){
             $success['message'] = "Exam Submitted.";
             return $this->sendResponse($success);   
         }
