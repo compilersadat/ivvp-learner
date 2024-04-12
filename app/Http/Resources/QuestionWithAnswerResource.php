@@ -17,7 +17,7 @@ class QuestionWithAnswerResource extends JsonResource
     public function toArray($request)
     {
         $ABCD=["A","B","C","D"];
-        $student_answer=TestSeriesStudentAnswer::where('exam_id',$this->exam_id)->where('student_id',$request->user()->id)->where('question_id',$this->id)->where('attempt',$request->attempt)->first();
+        $student_answer=TestSeriesStudentAnswer::where('exam_id',$this->test_id)->where('student_id',$request->user()->id)->where('question_id',$this->id)->where('attempt',$request->attempt)->first();
 
         return [
             'id'=>$this->id,
@@ -27,9 +27,9 @@ class QuestionWithAnswerResource extends JsonResource
             'option3'=>$this->option3,
             'option4'=>$this->option4,
             'answer'=>$this->answer,
+            'student_answer'=>$ABCD[$student_answer->answer-1],
             'solution' => $this->solution,
-            'student_answer'=>$student_answer->answer,
-         
+            'is_right'=>$this->answer==$student_answer->answer
         ];
     }
 }
