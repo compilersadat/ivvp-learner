@@ -10,7 +10,7 @@ class AnswerSheetResource extends JsonResource
 {
     public function toArray($request)
     {
-        $request->add(['attempt'=>$this->id]);
+        request()->add(['attempt'=>$this->id]);
         $marks=TestSeriesStudentAnswer::where('exam_id',$this->exam_id)->where('student_id',$request->user()->id)->where('attempt',$this->id)->sum('');
 
         return[
