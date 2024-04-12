@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\QuestionWithAnswerResource;
 use App\Models\TestSeriesStudentAttempt;
+use App\Models\TestSeriesQuestion;
 
 class AnswerSheetResource extends JsonResource
 {
