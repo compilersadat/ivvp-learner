@@ -39,7 +39,7 @@ class DataApiController extends ResponseController
                         if($st_package->status==2){
                             $package = Package::where('id',$st_package->package_id)->first();
                             array_merge($month_range,$this->calculateRangeOfMonths($package->month,$st_package->number_of_months));
-                            return $this->calculateRangeOfMonths($package->month,$st_package->number_of_months);
+                            return $this->sendResponse($this->calculateRangeOfMonths($package->month,$st_package->number_of_months));
                         }
                     }
 
