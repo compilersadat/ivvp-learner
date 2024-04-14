@@ -42,15 +42,15 @@ class DataApiController extends ResponseController
                         }
                     }
                     $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$month_range)->get();
-                    $current_month_videos=Content::where('branch',$student->branch)->where('year',$student->year)->where('month',date('n'))->where('type','video_lecture')->get();
+                    $current_month_videos=Content::where('branch',$student->branch)->where('year',$student->year)->where('month',$month_range[0])->where('type','video_lecture')->get();
                     $data['prime_content']=ContentResource::collection($prime_content);
                     $data['current_month_videos']=ContentResource::collection($current_month_videos);
                     $data['paid_plans']=StudentSubscriptionResource::collection($student_pro);
                     $data['is_prime']=true;
                     $data['study_materials']=[];
                     $data['free_content']=[];
-                    $data['subscriptions']=PackageResource::collection(Package::where('month','!=',$package->month)->get());
-                    $data['month']=$package->month;
+                    $data['subscriptions']=PackageResource::collection(Package::whereNotIn('month',$month_range)->get());
+                    $data['month']=$month_range[0];
         }else{
             $free_content=Content::where('branch',$student->branch)->where('year',$student->year)->where(function($query){
                 $query->where('type','free_pdf')->orWhere('type','free_video');
