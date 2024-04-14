@@ -45,7 +45,7 @@ class DataApiController extends ResponseController
                     $current_month_videos=Content::where('branch',$student->branch)->where('year',$student->year)->where('month',date('n'))->where('type','video_lecture')->get();
                     $data['prime_content']=ContentResource::collection($prime_content);
                     $data['current_month_videos']=ContentResource::collection($current_month_videos);
-                    $data['paid_plans']=StudentSubscriptionResource::collections($student_pro);
+                    $data['paid_plans']=StudentSubscriptionResource::collection($student_pro);
                     $data['is_prime']=true;
                     $data['study_materials']=[];
                     $data['free_content']=[];
