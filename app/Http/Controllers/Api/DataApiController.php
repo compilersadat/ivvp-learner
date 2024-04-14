@@ -33,12 +33,13 @@ class DataApiController extends ResponseController
         //check premium user.
         $student_pro=StudentPackage::where('student_id',$request->user()->id)->get();
         
-        if($student_pro){
-                if($student_pro->status==2){
+        if($student_pro->count()){
                     $month_range = array();
                     foreach($student_pro as $st_package){
-                        $package = Package::where('id',$student_pro->package_id)->first();
-                        array_push($month_range,$this->calculateRangeOfMonths($package->month,$st_package->number_of_months));
+                        if($st_package->status==2){
+                            $package = Package::where('id',$student_pro->package_id)->first();
+                            array_push($month_range,$this->calculateRangeOfMonths($package->month,$st_package->number_of_months));
+                        }
                     }
                     $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$month_range)->get();
                     $current_month_videos=Content::where('branch',$student->branch)->where('year',$student->year)->where('month',date('n'))->where('type','video_lecture')->get();
@@ -50,7 +51,6 @@ class DataApiController extends ResponseController
                     $data['free_content']=[];
                     $data['subscriptions']=$student_pro->number_of_months==10?[]:PackageResource::collection(Package::where('month','!=',$package->month)->get());
                     $data['month']=$package->month;
-                }
         }else{
             $free_content=Content::where('branch',$student->branch)->where('year',$student->year)->where(function($query){
                 $query->where('type','free_pdf')->orWhere('type','free_video');
