@@ -31,15 +31,20 @@ class DataApiController extends ResponseController
         $data['sliders']=$slider;
 
         //check premium user.
-        $student_pro=StudentPackage::where('student_id',$request->user()->id)->first();
-        $package = Package::where('id',$student_pro->package_id)->first();
+        $student_pro=StudentPackage::where('student_id',$request->user()->id)->get();
+        
         if($student_pro){
                 if($student_pro->status==2){
-                    $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$this->calculateRangeOfMonths($package->month,$student_pro->number_of_months))->get();
+                    $month_range = array();
+                    foreach($student_pro as $st_package){
+                        $package = Package::where('id',$student_pro->package_id)->first();
+                        array_push($month_range,$this->calculateRangeOfMonths($package->month,$st_package->number_of_months));
+                    }
+                    $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$month_range)->get();
                     $current_month_videos=Content::where('branch',$student->branch)->where('year',$student->year)->where('month',date('n'))->where('type','video_lecture')->get();
                     $data['prime_content']=ContentResource::collection($prime_content);
                     $data['current_month_videos']=ContentResource::collection($current_month_videos);
-                    $data['paid_plan']=(Object)new StudentSubscriptionResource($student_pro);
+                    $data['paid_plans']=StudentSubscriptionResource::collections($student_pro);
                     $data['is_prime']=true;
                     $data['study_materials']=[];
                     $data['free_content']=[];
