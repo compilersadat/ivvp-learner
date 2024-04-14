@@ -87,15 +87,20 @@ class DataApiController extends ResponseController
 
     public function fetchExams(Request $request){
         $student=Student::where('id',$request->user()->id)->first();
-        $student_pro=StudentPackage::where('student_id',$request->user()->id)->first();
+        $student_pro=StudentPackage::where('student_id',$request->user()->id)->get();
         if($student_pro){
-                if($student_pro->status==2){
+            $month_range = array();
+                    foreach($student_pro as $st_package){
+                        if($st_package->status==2){
+                            $package = Package::where('id',$st_package->package_id)->first();
+                            $month_range= (array)$month_range+(array)$this->calculateRangeOfMonths($package->month,$st_package->number_of_months);
+                        }
+                    }
                     $exclude_exams=StudentResult::where('student_id',$request->user()->id)->where('status','completed')->pluck('exam_id');
-                    $data['exams']=ExamResource::collection(Exam::where('branch',$student->branch)->where('year',$student->year)->whereNotIn('id',$exclude_exams)->get());
+                    $data['exams']=ExamResource::collection(Exam::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$month_range)->whereNotIn('id',$exclude_exams)->get());
                     $success['message'] = "Here is data";
                     $success['data']=$data;
                     return $this->sendResponse($success);
-                }
         }
        
         $success['message'] = "Here is data";
