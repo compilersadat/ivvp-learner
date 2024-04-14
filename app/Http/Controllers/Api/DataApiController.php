@@ -43,7 +43,7 @@ class DataApiController extends ResponseController
                     $data['is_prime']=true;
                     $data['study_materials']=[];
                     $data['free_content']=[];
-                    $data['subscriptions']=$student_pro->number_of_months==10?[]:PackageResource::collection(Package::where('month','!=',$package->month));
+                    $data['subscriptions']=$student_pro->number_of_months==10?[]:PackageResource::collection(Package::where('month','!=',$package->month)->get());
                     $data['month']=$package->month;
                 }
         }else{
