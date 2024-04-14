@@ -35,7 +35,7 @@ class DataApiController extends ResponseController
         $package = Package::where('id',$student_pro->package_id)->first();
         if($student_pro){
                 if($student_pro->status==2){
-                    $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$this->calculateRangeOfMonths($package,$student_pro->number_of_months))->get();
+                    $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$this->calculateRangeOfMonths($package->month,$student_pro->number_of_months))->get();
                     $current_month_videos=Content::where('branch',$student->branch)->where('year',$student->year)->where('month',date('n'))->where('type','video_lecture')->get();
                     $data['prime_content']=ContentResource::collection($prime_content);
                     $data['current_month_videos']=ContentResource::collection($current_month_videos);
