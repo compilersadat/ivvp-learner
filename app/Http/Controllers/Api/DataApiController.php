@@ -38,7 +38,7 @@ class DataApiController extends ResponseController
                     foreach($student_pro as $st_package){
                         if($st_package->status==2){
                             $package = Package::where('id',$st_package->package_id)->first();
-                            array_push($month_range,$this->calculateRangeOfMonths($package->month,$st_package->number_of_months));
+                            array_merge($month_range,$this->calculateRangeOfMonths($package->month,$st_package->number_of_months));
                         }
                     }
                     $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$month_range)->get();
