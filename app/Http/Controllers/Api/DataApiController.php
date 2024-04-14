@@ -49,7 +49,7 @@ class DataApiController extends ResponseController
                     $data['is_prime']=true;
                     $data['study_materials']=[];
                     $data['free_content']=[];
-                    $data['subscriptions']=PackageResource::collection(Package::whereNotIn('month',$month_range)->get());
+                    $data['subscriptions']=PackageResource::collection(Package::whereNotIn('month',$month_range)->where('active',1)->get());
                     $data['month']=$month_range[0];
         }else{
             $free_content=Content::where('branch',$student->branch)->where('year',$student->year)->where(function($query){
@@ -58,7 +58,7 @@ class DataApiController extends ResponseController
              $data['study_materials']=StudyMaterial::collection(Faculty::all());
              $data['free_content']=ContentResource::collection($free_content);   
              $data['is_prime']=false;
-             $data['subscriptions']=PackageResource::collection(Package::all());
+             $data['subscriptions']=PackageResource::collection(Package::where('active',1)->get());
 
         }
 
@@ -93,7 +93,7 @@ class DataApiController extends ResponseController
                     foreach($student_pro as $st_package){
                         if($st_package->status==2){
                             $package = Package::where('id',$st_package->package_id)->first();
-                            $month_range= (array)$month_range+(array)$this->calculateRangeOfMonths($package->month,$st_package->number_of_months);
+                            $month_range = (array)$month_range + (array)$this->calculateRangeOfMonths($package->month,$st_package->number_of_months);
                         }
                     }
                     $exclude_exams=StudentResult::where('student_id',$request->user()->id)->where('status','completed')->pluck('exam_id');
