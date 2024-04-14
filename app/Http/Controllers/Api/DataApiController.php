@@ -69,8 +69,15 @@ class DataApiController extends ResponseController
 
     public function primeContent(Request $request){
         $student=Student::where('id',$request->user()->id)->first();
-        $student_pro=StudentPackage::where('student_id',$request->user()->id)->first();
-        $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$this->calculateRangeOfMonths($student_pro->start_month,$student_pro->number_of_months))->get();
+        $student_pro=StudentPackage::where('student_id',$request->user()->id)->get();
+        $month_range = array();
+        foreach($student_pro as $st_package){
+            if($st_package->status==2){
+                $package = Package::where('id',$st_package->package_id)->first();
+                $month_range= (array)$month_range+(array)$this->calculateRangeOfMonths($package->month,$st_package->number_of_months);
+            }
+        }
+        $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$month_range)->get();
         $data['prime_content']=ContentResource::collection($prime_content);
         $success['message'] = "Here is data";
         $success['data']=$data;
