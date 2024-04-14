@@ -41,12 +41,14 @@ class PackageController extends Controller
             'name'=>'required',
             'number'=>'required',
             'price'=>'required',
+            'month'=>'required'
         ]);
         $data=new Package();
         $data->name=$request->name;
         $data->number=$request->number;
         $data->price=$request->price;
         $data->description=$request->description;
+        $data->month=$request->month;
 
         if($data->save()){
             return redirect()->route('packages.index')->with('success',' Data Added successfully.');
@@ -92,13 +94,15 @@ class PackageController extends Controller
             'name'=>'required',
             'number'=>'required',
             'price'=>'required',
+            'month'=>'required'
+
         ]);
         $data=Package::where('id', $id)->first();
         $data->name=$request->name;
         $data->number=$request->number;
         $data->price=$request->price;
         $data->description=$request->description;
-
+        $data->month=$request->month;
         if($data->update()){
             return redirect()->route('packages.index')->with('success',' Data Update successfully.');
         }

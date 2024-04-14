@@ -46,7 +46,12 @@
 
      
 
-    
+     <div class="form-group">
+       
+        <label for="pNO" class=" form-control-label">Month</label>
+       <input type="number" id="pNo" name="month" placeholder="Month" class="form-control" value="{{$data->month}}">
+    </div>
+
         <div class="form-group">
             <label class="form-label">Description</label>
             <textarea id="editor1" class="form-control" name="description" rows="5" cols="40" placeholder="Enter Data">

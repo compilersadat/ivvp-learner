@@ -22,6 +22,7 @@
                                         	<th>SR NO</th>
                                             <th>Package Name</th>
                                             <th>Number Of Months</th>
+                                            <th>Month</th>
                                             <th>Price</th>
 
 
@@ -35,6 +36,7 @@
 						               <td>{{$i}}</td>
                                        <td>{{$row->name}}</td>
 						               <td>{{$row->number}}</td>
+                                       <td>{{$row->month}}</td>
                                        <td>{{$row->price}}</td>
 						               <td>
 						                  <a href="{{route('packages.delete',$row->id)}}" onclick="return confirm('Are you sure you want to delete this item?');" class="label bg-red-active"><i class="fa fa-trash  fa-1x" style="color: #000"></i> </a>

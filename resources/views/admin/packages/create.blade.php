@@ -41,10 +41,14 @@
      <div class="form-group">
        
          <label for="pNO" class=" form-control-label">Number Of Months</label>
-        <input type="number" id="pNo" name="number" placeholder="Page Number" class="form-control">
+        <input type="number" id="pNo" name="number" placeholder="Number of month" class="form-control">
      </div>
 
-     
+     <div class="form-group">
+       
+        <label for="pNO" class=" form-control-label">Month</label>
+       <input type="number" id="pNo" name="month" placeholder="Month" class="form-control">
+    </div>
 
     
         <div class="form-group">
