@@ -82,7 +82,6 @@ class UserController extends ResponseController
     }
     public function subscribPackage(Request $request){
         $validator = Validator::make($request->all(), [
-            'student_id'=>'required',
             'package_name'=>'required',
             'number_of_month'=>'required',
             'price'=>'required',

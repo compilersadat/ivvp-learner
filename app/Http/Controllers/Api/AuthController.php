@@ -125,7 +125,11 @@ class AuthController extends ResponseController
             return $this->sendError($error, 401);
         }
         $user =  Auth::guard('api')->user();
-        // $token=PersonalAccessToken::where('tokenable_id',$user->id)->delete();
+        $token=PersonalAccessToken::where('tokenable_id',$user->id)->get();
+        if($token->count()>0){
+            $error = "User Already Logged in on another device";
+            return $this->sendError($error, 401);
+        }
         $success['token'] =  $user->createToken('token')->plainTextToken;
         $success['user'] = $user;
         return $this->sendResponse($success);
