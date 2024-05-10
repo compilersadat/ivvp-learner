@@ -50,9 +50,9 @@
                                         <td>{{$student->email}}</td>
                                         <td>
                                             
-                                            @if($student->paid == 0)
+                                            @if(@App\Models\StudentPackage::where('student_id',$student->id)->where('status',2)->get()->count()<=0)
                                                 <span class="badge badge-danger">Free</span>
-                                            @elseif($student->paid == 1)
+                                            @else
                                                 <span class="badge badge-success">Premium</span>
                                             @endif
 
