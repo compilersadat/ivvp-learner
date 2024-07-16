@@ -86,7 +86,7 @@
                 <div class=" pt-2 ">
                     <label class="text-muted">Select Branch<font class="text-danger">*</font></label>
                     <select class="select w-100 text-16" name="wrts" id="branch" >
-                        <option value="" >Select Branch</option>
+                        <option value="" >Select Subject</option>
                     @foreach($subjects as $opt)
                     <option value="{{$opt->subject_id}}">{{$opt->name}}</option>
 
