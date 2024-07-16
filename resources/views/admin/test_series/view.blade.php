@@ -34,6 +34,7 @@
                     </div>
                 </div>
                 <div class="card-body card-block">
+                    <div class="card-header"><strong>Add new Section</strong></div>
                     <form method="POST" action="{{route('testseries.store.section')}}">
                         @csrf
         
@@ -41,7 +42,7 @@
                             <label for="name" class=" form-control-label">Name</label>
                            <input type="text" id="name" name="name" placeholder="Title" class="form-control">
                         </div>
-                        <input type="text" id="test_series_id" name="test_series_id" class="form-control" hidden>
+                        <input type="text" id="test_series_id" name="test_series_id" class="form-control" hidden  value="{{$testseries->id}}">
         
                
         
