@@ -132,6 +132,7 @@ Route::prefix('admin')->group(function () {
     Route::get('questions/show/{id}',[QuestionController::class,'show'])->name('questions.show');
 
     Route::get('practice-tests',[PracticeQuestionController::class,'index'])->name('practice.questions.index');
+    Route::post('practice-filter',[PracticeQuestionController::class,'filter'])->name('practice.questions.filter');
     Route::get('practice-tests/create',[PracticeQuestionController::class,'create'])->name('practice.questions.create');
     Route::post('practice-tests/store',[PracticeQuestionController::class,'store'])->name('practice.questions.store');
     Route::get('practice-tests/delete/{id}',[PracticeQuestionController::class,'delete'])->name('practice.questions.delete');
