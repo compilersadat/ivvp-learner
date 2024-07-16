@@ -47,6 +47,9 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
+<div class="col-md-12 text-left">
+    <a href="{{route('practice.questions.create')}}" class=" btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add Question </a><br>
+  </div>
         <table id="bootstrap-data-table" class="table table-striped table-bordered">
             <thead>
                 <tr>
