@@ -34,6 +34,7 @@
                     </div>
                 </div>
                 <div class="card-body card-block">
+                    <div class="card-header"><strong>Test series sections</strong></div>
                     <table id="bootstrap-data-table" class="table table-striped table-bordered">
                         <thead>
                             <tr>
