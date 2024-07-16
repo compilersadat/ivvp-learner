@@ -79,7 +79,7 @@
      </div>
  </div>
  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+  <script src="https://cdn.ckeditor.com/4.24.0-lts/standard/ckeditor.js"></script>
   <script src="{{ asset('js/lib/data-table/datatables.min.js')}}"></script>
       <script src="{{ asset('js/lib/data-table/dataTables.bootstrap.min.js')}}"></script>
       <script src="{{ asset('js/lib/data-table/dataTables.buttons.min.js')}}"></script>

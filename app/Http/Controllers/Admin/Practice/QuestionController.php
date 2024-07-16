@@ -7,6 +7,7 @@ use Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\PracticeQuestion;
 use App\Models\Branch;
+use App\Models\Subject;
 
 class QuestionController extends Controller{
 
@@ -20,5 +21,13 @@ class QuestionController extends Controller{
         $questions = PracticeQuestion::where('wrtb',$request->branch)->get();
         $branch = Branch::where('wrtf','FAC-1')->get();
         return view('admin.practice.questions.index', compact('questions','branch'));
+    }
+
+    public function create()
+    {
+        $branches = Branch::where('wrtf','FAC-1')->get();
+        $branches_ids= Branch::where('wrtf','FAC-1')->pluck('branch_id');
+        $subjects = Subject::whereIn('wrtb',$branches_ids)->get();
+        return view('admin.practice.questions.create',compact('branches','subjects'));
     }
 }
