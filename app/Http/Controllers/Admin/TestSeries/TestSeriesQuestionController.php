@@ -67,6 +67,8 @@ class TestSeriesQuestionController extends Controller
             'answer' => isset($request->answer) ? ($request->answer) : '',
             'marks' => isset($request->marks) ? ($request->marks) : 0,
             'negative_marks' => isset($request->negative_marks) ? ($request->negative_marks) : 0,
+            'section_id' => isset($request->section_id) ? ($request->section_id) : 0
+
         ]);
         session()->flash('status', 'Question added Successfully');
         return redirect()->back();
@@ -94,6 +96,8 @@ class TestSeriesQuestionController extends Controller
     public function edit($id)
     {
         $content=TestSeriesQuestion::where('id', $id)->first();
+        $sections = TestSeriesSection::where('test_series_id',$test->test_seriesid)->get();
+
         return view('admin.questions.edit', compact('content'));
     }
 
@@ -129,6 +133,8 @@ class TestSeriesQuestionController extends Controller
             'answer' => isset($request->answer) ? ($request->answer) : '',
             'marks' => isset($request->marks) ? ($request->marks) : 0,
             'negative_marks' => isset($request->negative_marks) ? ($request->negative_marks) : 0,
+            'section_id' => isset($request->section_id) ? ($request->section_id) : 0
+
         ];
         TestSeriesQuestion::where('id', $id)->first()->update($content);
         session()->flash('status', 'Content Update Successfully');

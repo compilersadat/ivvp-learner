@@ -151,6 +151,21 @@
                     <input  class="form-control" name="negative_marks" placeholder="Negative Marks"/>
                     
                 </div>
+
+                <div class="col-md-12">
+                    <div class=" pt-2 ">
+                        <label class="text-muted">Select section <font class="text-danger">*</font></label>
+                        <select class="select w-100 text-16" name="section" id="section" required="">
+                        @foreach($sections as $opt)
+                        <option value="">Select Section</option>
+                        <option value="{{$opt->id}}">{{$opt->name}}</option>
+
+                        @endforeach
+
+                        </select>
+
+                    </div>
+                </div>
             </div>
         
         

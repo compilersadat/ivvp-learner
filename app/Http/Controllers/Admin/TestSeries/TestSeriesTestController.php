@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Validator;
 use Illuminate\Support\Facades\Storage;
 use App\Models\TestSeriesQuestion;
+use App\Models\TestSeriesSection;
 
 
 class TestSeriesTestController extends Controller
@@ -86,7 +87,8 @@ class TestSeriesTestController extends Controller
     {
         $test=TestSeriesTest::where('id', $id)->first();
         $questions=TestSeriesQuestion::where('test_id',$test->id)->get();
-        return view('admin.test_series_test.view', compact('questions','test'));
+        $sections = TestSeriesSection::where('test_series_id',$test->test_seriesid)->get();
+        return view('admin.test_series_test.view', compact('questions','test','sections'));
     }
     public function delete($id){
 

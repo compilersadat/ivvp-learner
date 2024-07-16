@@ -32,7 +32,7 @@
 						              <tr>
 						               <td>{{$i}}</td>
                                        <td>{{isset($content->title) ? ($content->title) : '-'}}</td>
-						               <td>{{@App\Models\TestSeries::where('id',$content->testseries_id)->first()->value('name')}}</td>
+						               <td>{{@App\Models\TestSeries::where('id',$content->testseries_id)->value('name')}}</td>
                                       <td>{{$content->is_published?'Yes':'No'}}</td>
 
 						               <td>

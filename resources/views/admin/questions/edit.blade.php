@@ -90,6 +90,21 @@
     
                 </div>
             </div>
+            <div class="form-group">
+                <label class="form-label">Solution</label>
+                <textarea id="editor7" class="form-control" name="solution" rows="5" cols="40" placeholder="Description">
+                </textarea>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Marks</label>
+                <input  class="form-control" name="marks" placeholder="Marks"/>
+                
+            </div>
+            <div class="form-group">
+                <label class="form-label">Negative Marks</label>
+                <input  class="form-control" name="negative_marks" placeholder="Negative Marks"/>
+                
+            </div>
         </div>
     
     
