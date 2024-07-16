@@ -39,6 +39,9 @@
                     <li>
                         <a href="{{ route('testseries.test.index')}}"> <i class="menu-icon fa fa-database"></i>Tests</a>
                     </li>
+                    <li>
+                        <a href="{{ route('practice.questions.index')}}"> <i class="menu-icon fa fa-database"></i>Question</a>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

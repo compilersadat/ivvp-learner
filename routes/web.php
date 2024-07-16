@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\StudentPurchaseController;
 use App\Http\Controllers\Admin\TestSeries\TestSeriesController;
 use App\Http\Controllers\Admin\TestSeries\TestSeriesTestController;
 use App\Http\Controllers\Admin\TestSeries\TestSeriesQuestionController;
+use App\Http\Controllers\Admin\Practice\QuestionController as PracticeQuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -129,7 +130,14 @@ Route::prefix('admin')->group(function () {
     Route::get('questions/edit/{id}',[QuestionController::class,'edit'])->name('questions.edit');
     Route::post('questions/update/{id}',[QuestionController::class,'update'])->name('questions.update');
     Route::get('questions/show/{id}',[QuestionController::class,'show'])->name('questions.show');
-    
+
+    Route::get('practice-tests',[PracticeQuestionController::class,'index'])->name('practice.questions.index');
+    Route::get('practice-tests/create',[PracticeQuestionController::class,'create'])->name('practice.questions.create');
+    Route::post('practice-tests/store',[PracticeQuestionController::class,'store'])->name('practice.questions.store');
+    Route::get('practice-tests/delete/{id}',[PracticeQuestionController::class,'delete'])->name('practice.questions.delete');
+    Route::get('practice-tests/edit/{id}',[PracticeQuestionController::class,'edit'])->name('practice.questions.edit');
+    Route::post('practice-tests/update/{id}',[PracticeQuestionController::class,'update'])->name('practice.questions.update');
+    Route::get('test/show/{id}',[PracticeQuestionController::class,'show'])->name('practice.questions.show');
 
 });
 
