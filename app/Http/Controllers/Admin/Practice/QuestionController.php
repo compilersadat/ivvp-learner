@@ -46,10 +46,10 @@ class QuestionController extends Controller{
         
         $content = PracticeQuestion::create([
             'question' => isset($request->question) ? ($request->question) : '',
-            'A' => isset($request->option1) ? ($request->option1) : '',
-            'B' => isset($request->option2) ? ($request->option2) : '',
-            'C' => isset($request->option3) ? ($request->option3) : '',
-            'D' => isset($request->option4) ? ($request->option4) : '',
+            'A' => isset($request->A) ? ($request->A) : '',
+            'B' => isset($request->B) ? ($request->B) : '',
+            'C' => isset($request->C) ? ($request->C) : '',
+            'D' => isset($request->D) ? ($request->D) : '',
             'answer' => isset($request->answer) ? ($request->answer) : '',
             'wrtf' => isset($request->wrtf) ? ($request->wrtf) : 'FAC-1',
             'wrtb' => isset($request->wrtb) ? ($request->wrtb) : '',
