@@ -87,12 +87,12 @@
         </div>
         <div class="form-group">
             <label class="form-label">Marks</label>
-            <input  class="form-control" name="marks" placeholder="Marks"/>
+            <input  class="form-control" name="marks" placeholder="Marks" value="{{$content->marks}}"/>
             
         </div>
         <div class="form-group">
             <label class="form-label">Negative Marks</label>
-            <input  class="form-control" name="negative_marks" placeholder="Negative Marks"/>
+            <input  class="form-control" name="negative_marks" placeholder="Negative Marks" value="{{$content->negative_marks}}"/>
             
         </div>
 
@@ -102,7 +102,7 @@
                 <select class="select w-100 text-16" name="section" id="section" required="">
                 @foreach($sections as $opt)
                 <option value="">Select Section</option>
-                <option value="{{$opt->id}}">{{$opt->name}}</option>
+                <option value="{{$opt->id}}" >{{$opt->name}}</option>
 
                 @endforeach
 
