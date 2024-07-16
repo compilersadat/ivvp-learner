@@ -28,7 +28,7 @@
                     <label class="text-muted">Select Branches<font class="text-danger">*</font></label>
                     <select class="select w-100 text-16" name="branch" id="branch" >
                     @foreach($branch as $opt)
-                    <option value="{{$opt->branch_id}}" @if($questions->value('wrtb')->first()==$opt->branch_id) selected @endif>{{$opt->name}}</option>
+                    <option value="{{$opt->branch_id}}" @if($questions->value('wrtb')==$opt->branch_id) selected @endif>{{$opt->name}}</option>
 
                     @endforeach
 
