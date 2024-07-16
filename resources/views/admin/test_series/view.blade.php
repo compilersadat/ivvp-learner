@@ -34,6 +34,27 @@
                     </div>
                 </div>
                 <div class="card-body card-block">
+                    <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>SR NO</th>
+                                <th>Name</th>
+                            
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $i=1;?>
+                            @foreach($sections as $section)
+                            <tr>
+                             <td>{{$i}}</td>
+                             <td>{{isset($section->name) ? ($section->name) : '-'}}</td>
+                            
+                        
+                            </tr>
+                          <?php $i++?>
+                           @endforeach
+                        </tbody>
+                    </table>
                     <div class="card-header"><strong>Add new Section</strong></div>
                     <form method="POST" action="{{route('testseries.store.section')}}">
                         @csrf

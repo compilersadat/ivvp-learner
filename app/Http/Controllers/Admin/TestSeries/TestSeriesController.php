@@ -16,6 +16,7 @@ class TestSeriesController extends Controller
     public function index()
     {
         $tests=TestSeries::get();
+       
         return view('admin.test_series.index', compact('tests'));
     }
 
@@ -99,7 +100,8 @@ public function storeSection(Request $request){
     {
         $testseries=TestSeries::where('id', $id)->first();
         $tests=TestSeriesTest::where('testseries_id',$testseries->id)->get();
-        return view('admin.test_series.view', compact('testseries','tests'));
+        $sections = TestSection::where('test_series_id_',$testseries->id)->get();
+        return view('admin.test_series.view', compact('testseries','tests','sections'));
     }
     public function delete($id){
 
