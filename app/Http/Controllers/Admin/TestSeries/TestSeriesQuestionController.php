@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 use Illuminate\Support\Facades\Storage;
+use App\Models\TestSeriesTest;
+use App\Models\TestSeriesSection;
 
 
 class TestSeriesQuestionController extends Controller
@@ -95,10 +97,10 @@ class TestSeriesQuestionController extends Controller
      */
     public function edit($id)
     {
-        $content=TestSeriesQuestion::where('id', $id)->first();
-        $sections = TestSeriesSection::where('test_series_id',$test->test_seriesid)->get();
-
-        return view('admin.questions.edit', compact('content'));
+        $question=TestSeriesQuestion::where('id', $id)->first();
+        $test = TestSeriesTest::where('id',$content->test_id)->get();
+        $sections= TestSeriesSection::where('test_series_id',$test->test_seriesid)->get();
+        return view('admin.test_series_test.edit_questions', compact('content','test','sections'));
     }
 
     /**
