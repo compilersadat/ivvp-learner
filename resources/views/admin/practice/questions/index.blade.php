@@ -23,10 +23,11 @@
             @csrf
 
             
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class=" pt-2 ">
-                    <label class="text-muted">Select Branches<font class="text-danger">*</font></label>
+                    <label class="text-muted">Select Branch<font class="text-danger">*</font></label>
                     <select class="select w-100 text-16" name="branch" id="branch" >
+                        <option value="" >Select Branch</option>
                     @foreach($branch as $opt)
                     <option value="{{$opt->branch_id}}" @if($questions->value('wrtb')==$opt->branch_id) selected @endif>{{$opt->name}}</option>
 
