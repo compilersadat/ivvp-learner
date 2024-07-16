@@ -31,9 +31,7 @@
                     <th>Option D</th>
 
                     <th>Answer</th>
-                    <th>Marks</th>
-                    <th>Negative Marks</th>
-
+                 
                     <th>Action</th>
                 </tr>
             </thead>
