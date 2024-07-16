@@ -11,7 +11,7 @@ use App\Models\Branch;
 class QuestionController extends Controller{
 
     public function index(){
-     $questions = PracticeQuestion :: where('wrtb','BRC1')->get();
+     $questions = PracticeQuestion::where('wrtb','BRC1')->get();
      $branch = Branch::where('wrtf','FAC-1')->get();
      return view('admin.practice.questions.index', compact('questions','branch'));
     }

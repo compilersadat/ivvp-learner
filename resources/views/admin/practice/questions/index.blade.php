@@ -28,8 +28,7 @@
                     <label class="text-muted">Select Test Series <font class="text-danger">*</font></label>
                     <select class="select w-100 text-16" name="branch" id="branch" >
                     @foreach($branch as $opt)
-                    <option value="">Select Branch</option>
-                    <option value="{{$opt->id}}">{{$opt->question}}</option>
+                    <option value="{{$opt->branch_id}}">{{$opt->name}}</option>
 
                     @endforeach
 
