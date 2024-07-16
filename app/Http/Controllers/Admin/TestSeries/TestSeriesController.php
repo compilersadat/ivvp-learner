@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\TestSeries;
 
 use App\Models\TestSeries;
 use App\Models\TestSeriesTest;
+use App\Models\TestSeriesSection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
@@ -44,6 +45,19 @@ class TestSeriesController extends Controller
         return redirect()->route('testseries.index');
     }
 
+public function storeSection(Request $request){
+    $this->validate($request,[
+        'name'=> 'required',
+        'test_series_id' => 'required'
+    ]);
+    
+    $tests = TestSeriesSection::create([
+        'name' => isset($request->name) ? ($request->name) : '',
+        'test_series_id' => isset($request->test_series_id) ? ($request->test_series_id) : 0,
+    ]);
+    session()->flash('status', 'Test Series Create Successfully');
+    return redirect()->back();   
+}
 
     /**
      * Show the form for editing the specified resource.
