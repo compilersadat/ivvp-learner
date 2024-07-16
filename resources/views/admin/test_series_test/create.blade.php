@@ -35,7 +35,7 @@
                 <div class="col-md-12">
                     <div class=" pt-2 ">
                         <label class="text-muted">Select Test Series <font class="text-danger">*</font></label>
-                        <select class="select w-100 text-16" name="test_series_id" id="test_series_id" required="">
+                        <select class="select w-100 text-16" name="test_series_id" id="test_series_id" >
                         @foreach(@App\Models\TestSeries::all() as $opt)
                         <option value="">Select Test series</option>
                         <option value="{{$opt->id}}">{{$opt->name}}</option>
