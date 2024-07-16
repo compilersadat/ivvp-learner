@@ -22,7 +22,7 @@
         @include('partials.alerts')
       <div class="card-header"><strong>ADD NEW QUESTION</strong></div>
         <div class="card-body card-block">
-            <form method="POST" action="{{route('test.questions.update')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('test.questions.update',$content->id)}}" enctype="multipart/form-data">
                 @csrf
 
                <input type="hidden" name="exam" value="{{$test->id}}"/>
