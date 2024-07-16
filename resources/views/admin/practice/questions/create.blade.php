@@ -25,8 +25,6 @@
             <form method="POST" action="{{route('test.questions.store')}}" enctype="multipart/form-data">
                 @csrf
 
-               <input type="hidden" name="exam" value="{{$test->id}}"/>
-
         <div class="form-group">
             <label class="form-label">Question</label>
             <textarea id="editor1" class="form-control" name="question" rows="5" cols="40" placeholder="Description">
@@ -66,6 +64,37 @@
 
                 </select>
 
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-md-6">
+                <div class=" pt-2 ">
+                    <label class="text-muted">Select Branch<font class="text-danger">*</font></label>
+                    <select class="select w-100 text-16" name="wrtf" id="branch" >
+                        <option value="" >Select Branch</option>
+                    @foreach($branches as $opt)
+                    <option value="{{$opt->branch_id}}">{{$opt->name}}</option>
+
+                    @endforeach
+
+                    </select>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class=" pt-2 ">
+                    <label class="text-muted">Select Branch<font class="text-danger">*</font></label>
+                    <select class="select w-100 text-16" name="wrts" id="branch" >
+                        <option value="" >Select Branch</option>
+                    @foreach($subjects as $opt)
+                    <option value="{{$opt->subject_id}}">{{$opt->name}}</option>
+
+                    @endforeach
+
+                    </select>
+
+                </div>
             </div>
         </div>
     </div>
