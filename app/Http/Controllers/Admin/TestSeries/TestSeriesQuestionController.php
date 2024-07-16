@@ -99,6 +99,7 @@ class TestSeriesQuestionController extends Controller
     {
         $content=TestSeriesQuestion::where('id', $id)->first();
         $test = TestSeriesTest::where('id',$content->test_id)->get();
+        return $test;
         $sections= TestSeriesSection::where('test_series_id',$test->testseries_id)->get();
         return view('admin.test_series_test.edit_questions', compact('content','test','sections'));
     }
