@@ -22,7 +22,7 @@
         @include('partials.alerts')
       <div class="card-header"><strong>ADD NEW QUESTION</strong></div>
         <div class="card-body card-block">
-            <form method="POST" action="{{route('test.questions.store')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('practice.questions.store')}}" enctype="multipart/form-data">
                 @csrf
 
         <div class="form-group">
