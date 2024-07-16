@@ -171,3 +171,5 @@
     });
 
 </script>
+
+@endsection
