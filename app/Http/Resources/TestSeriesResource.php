@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Models\TestSeriesTest;
 use App\Http\Resources\TestResource;
-
+use App\Models\TestSeriesSection;
 class TestSeriesResource extends JsonResource
 {
      /**
@@ -21,7 +21,9 @@ class TestSeriesResource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->name,
             'number_of_tests' => $tests->count(),
-            'tests' => TestResource::collection($tests)
+            'tests' => TestResource::collection($tests),
+            'section_count' => TestSeriesSection::where('test_series_id',$this->id)->count(),
+            'setions' => TestSeriesSection::where('test_series_id',$this->id)->pluck('name')
         ];
     }
 }
