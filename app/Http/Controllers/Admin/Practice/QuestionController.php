@@ -96,8 +96,8 @@ class QuestionController extends Controller{
 
     public function get_questions($id){
         $questions = PracticeQuestion::where('wrts',$id)->get();
-    
-        return view('dmin.practice.questions.questions',compact('questions','subject_id'));
+        $subject_id = $id;
+        return view('admin.practice.questions.questions',compact('questions','subject_id'));
     }
 
     public function get_subjects($id){
