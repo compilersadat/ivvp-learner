@@ -67,7 +67,7 @@
             </div>
         </div>
        <input name="wrtb" value="{{$subject->wrtb}}" hidden>
-       <input name="wrts" value="{{$subject->subject_id}}" hidden>
+       <input name="wrts" value="{{$subject->sub_id}}" hidden>
        
     </div>
 
