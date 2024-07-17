@@ -84,7 +84,7 @@
             </div>
             <div class="col-md-6">
                 <div class=" pt-2 ">
-                    <label class="text-muted">Select Branch<font class="text-danger">*</font></label>
+                    <label class="text-muted">Select Subject<font class="text-danger">*</font></label>
                     <select class="select w-100 text-16" name="wrts" id="branch" >
                         <option value="" >Select Subject</option>
                     @foreach($subjects as $opt)
