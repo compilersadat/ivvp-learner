@@ -23,7 +23,7 @@ class TestSeriesResource extends JsonResource
             'number_of_tests' => $tests->count(),
             'tests' => TestResource::collection($tests),
             'section_count' => TestSeriesSection::where('test_series_id',$this->id)->count(),
-            'setions' => TestSeriesSection::where('test_series_id',$this->id)->pluck('name')
+            'sections' => TestSeriesSection::where('test_series_id',$this->id)->pluck('name')
         ];
     }
 }
