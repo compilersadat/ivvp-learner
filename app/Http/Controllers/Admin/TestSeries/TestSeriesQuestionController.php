@@ -69,7 +69,7 @@ class TestSeriesQuestionController extends Controller
             'answer' => isset($request->answer) ? ($request->answer) : '',
             'marks' => isset($request->marks) ? ($request->marks) : 0,
             'negative_marks' => isset($request->negative_marks) ? ($request->negative_marks) : 0,
-            'section' => isset($request->section) ? ($request->section) : 0
+            'test_series_section_id' => isset($request->section) ? ($request->section) : 0
 
         ]);
         session()->flash('status', 'Question added Successfully');
@@ -135,7 +135,7 @@ class TestSeriesQuestionController extends Controller
             'answer' => isset($request->answer) ? ($request->answer) : '',
             'marks' => isset($request->marks) ? ($request->marks) : 0,
             'negative_marks' => isset($request->negative_marks) ? ($request->negative_marks) : 0,
-            'section_id' => isset($request->section) ? ($request->section) : 0
+            'test_series_section_id' => isset($request->section) ? ($request->section) : 0
 
         ];
         TestSeriesQuestion::where('id', $id)->first()->update($content);
