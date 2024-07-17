@@ -61,10 +61,10 @@
                 <label class="text-muted">Answer <font class="text-danger">*</font></label>
 
                 <select class="select w-100 text-16" name="answer" id="answer" required="">
-                <option value="A" @if($question->answer=="A") selected @endif>A</option>
-                <option value="B" @if($question->answer=="B") selected @endif>B</option>
-                <option value="C" @if($question->answer=="C") selected @endif>C</option>
-                <option value="D" @if($question->answer=="D") selected @endif>D</option>
+                <option value="A" @if($question->ans=="A") selected @endif>A</option>
+                <option value="B" @if($question->ans=="B") selected @endif>B</option>
+                <option value="C" @if($question->ans=="C") selected @endif>C</option>
+                <option value="D" @if($question->answ=="D") selected @endif>D</option>
              
 
                 </select>
@@ -93,7 +93,7 @@
                     <select class="select w-100 text-16" name="wrts" id="branch" >
                         <option value="" >Select Subject</option>
                     @foreach($subjects as $opt)
-                    <option value="{{$opt->subject_id}}" @if($question->wrtb==$opt->subject_id) selected @endif>{{$opt->name}}</option>
+                    <option value="{{$opt->subject_id}}" @if($question->wrts==$opt->subject_id) selected @endif>{{$opt->name}}</option>
 
                     @endforeach
 
