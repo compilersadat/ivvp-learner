@@ -12,9 +12,10 @@ use App\Models\Subject;
 class QuestionController extends Controller{
 
     public function index(){
-     $questions = PracticeQuestion::where('wrtb','BRC1')->get();
-     $branch = Branch::where('wrtf','FAC-1')->get();
-     return view('admin.practice.questions.index', compact('questions','branch'));
+     
+     $trends=Branch::where('wrtf','FAC-1')->get();
+
+     return view('admin.practice.questions.index', compact('trends'));
     }
 
     public function filter(Request $request){
@@ -23,12 +24,10 @@ class QuestionController extends Controller{
         return view('admin.practice.questions.index', compact('questions','branch'));
     }
 
-    public function create()
+    public function create($id)
     {
-        $branches = Branch::where('wrtf','FAC-1')->get();
-        $branches_ids= Branch::where('wrtf','FAC-1')->pluck('branch_id');
-        $subjects = Subject::whereIn('wrtb',$branches_ids)->get();
-        return view('admin.practice.questions.create',compact('branches','subjects'));
+        $subject = Subject::whereIn('subject_id',$id)->first();    
+        return view('admin.practice.questions.create',compact('subject'));
     }
 
     public function store(Request $request)
@@ -95,4 +94,14 @@ class QuestionController extends Controller{
         return redirect()->back();
     }
 
+    public function get_questions($id){
+        $questions = PracticeQuestion::where('wrts',$id)->get();
+    
+        return view('dmin.practice.questions.questions',compact('questions','subject_id'));
+    }
+
+    public function get_subjects($id){
+        $sub=Subject::where('wrtb',$id)->get();
+        return view('admin.practice.questions.subjects',compact('sub'));
+    }
 }

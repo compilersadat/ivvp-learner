@@ -66,37 +66,9 @@
 
             </div>
         </div>
-
-        <div class="form-group row">
-            <div class="col-md-6">
-                <div class=" pt-2 ">
-                    <label class="text-muted">Select Branch<font class="text-danger">*</font></label>
-                    <select class="select w-100 text-16" name="wrtb" id="branch" >
-                        <option value="" >Select Branch</option>
-                    @foreach($branches as $opt)
-                    <option value="{{$opt->branch_id}}">{{$opt->name}}</option>
-
-                    @endforeach
-
-                    </select>
-
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class=" pt-2 ">
-                    <label class="text-muted">Select Subject<font class="text-danger">*</font></label>
-                    <select class="select w-100 text-16" name="wrts" id="branch" >
-                        <option value="" >Select Subject</option>
-                    @foreach($subjects as $opt)
-                    <option value="{{$opt->subject_id}}">{{$opt->name}}</option>
-
-                    @endforeach
-
-                    </select>
-
-                </div>
-            </div>
-        </div>
+       <input name="wrtb" value="{{$subject->wrtb}}" hidden>
+       <input name="wrts" value="{{$subject->subject_id}}" hidden>
+       
     </div>
 
 
