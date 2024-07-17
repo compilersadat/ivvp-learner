@@ -7,7 +7,7 @@
         @if($row->number!=0)
             <div class="col-md-3">
                 <div class="card  p-2 mb-3 align-self-center hoverable text-center serif " >
-                    <a href="{{route('practice.questions.question',$row->sub_id)}}" class="black-text">{{$row->name}}&ensp;<span class="badge badge-pill light-blue">{{App\PracticeQuestion::where('wrts',$row->sub_id)->count()}}</span></a>
+                    <a href="{{route('practice.questions.question',$row->sub_id)}}" class="black-text">{{$row->name}}&ensp;<span class="badge badge-pill light-blue">{{App\Models\PracticeQuestion::where('wrts',$row->sub_id)->count()}}</span></a>
                         
                     </div>
             </div>
