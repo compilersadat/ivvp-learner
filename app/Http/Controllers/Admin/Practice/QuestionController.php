@@ -26,7 +26,7 @@ class QuestionController extends Controller{
 
     public function create($id)
     {
-        $subject = Subject::whereIn('subject_id',$id)->first();    
+        $subject = Subject::where('subject_id',$id)->first();    
         return view('admin.practice.questions.create',compact('subject'));
     }
 
