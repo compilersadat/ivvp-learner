@@ -22,7 +22,7 @@ class QuestionResource extends JsonResource
             'option2'=>$this->option2,
             'option3'=>$this->option3,
             'option4'=>$this->option4,
-            'setion' => TestSeriesSection::where('id',$this->test_series_section_id)->value('name')
+            'section' => TestSeriesSection::where('id',$this->test_series_section_id)->value('name')
         ];
     }
 }
