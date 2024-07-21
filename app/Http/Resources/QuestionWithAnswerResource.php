@@ -29,7 +29,8 @@ class QuestionWithAnswerResource extends JsonResource
             'answer'=>$this->answer,
             'student_answer'=>$student_answer->answer==0?"Not Attempted":$ABCD[$student_answer->answer-1],
             'solution' => $this->solution,
-            'is_right'=>$this->answer==$student_answer->answer
+            'is_right'=>$this->answer==$student_answer->answer,
+            'section' => TestSeriesSection::where('id',$this->test_series_section_id)->value('name')
         ];
     }
 }
