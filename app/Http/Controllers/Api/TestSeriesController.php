@@ -36,6 +36,8 @@ class TestSeriesController extends ResponseController
                 $answerDb->attempt=$attempt->id;
                 $answerDb->save();
             }
+            $student_attempt=TestSeriesStudentAttempt::where('id',$attempt->id);
+            $success['data'] = new AnswerSheetResource($student_attempt);
             $success['message'] = "Exam Submitted.";
             return $this->sendResponse($success);   
         }
