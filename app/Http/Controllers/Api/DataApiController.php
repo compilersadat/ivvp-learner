@@ -41,7 +41,7 @@ class DataApiController extends ResponseController
                             $month_range= (array)$month_range+(array)$this->calculateRangeOfMonths($package->month,$st_package->number_of_months);
                         }
                     }
-                    $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$month_range)->get();
+                    $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$month_range)->orderBy('order_by','ASC')->get();
                     $current_month_videos=Content::where('branch',$student->branch)->where('year',$student->year)->where('month',$month_range[0])->where('type','video_lecture')->get();
                     $data['prime_content']=ContentResource::collection($prime_content);
                     $data['current_month_videos']=ContentResource::collection($current_month_videos);
