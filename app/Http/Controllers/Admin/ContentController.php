@@ -66,6 +66,7 @@ class ContentController extends Controller
             'year' => isset($request->year) ? ($request->year) : '',
             'status' => 1,
             'barcode'=>isset($request->barcode) ? ($request->barcode) : '',
+            'order_by' => $request->order_by,
             'thumbnail'=>$path
 
         ]);
@@ -133,7 +134,8 @@ class ContentController extends Controller
             'year' => isset($request->year) ? ($request->year) : '',
             'status' => 1,
             'barcode'=>isset($request->barcode) ? ($request->barcode) : '',
-            'thumbnail'=>$path
+            'thumbnail'=>$path,
+            'order_by' => $request->order_by
 
         ];
 

@@ -143,6 +143,13 @@
                     </div>
                 </div>
 
+                <div class="col-md-6 mt-2">
+                    <div class="form-group">
+                        <label for="pNO" class=" form-control-label">Order</label>
+                       <input type="text" id="order_by" name="order_by" placeholder="order_by" class="form-control">
+                    </div>
+                </div>
+
             </div>
 
         <div class="form-group">
