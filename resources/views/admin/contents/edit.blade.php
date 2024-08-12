@@ -44,7 +44,7 @@
                         <option>Select File</option>
                         @foreach(@App\Models\S3upload::all() as $opt)
 
-                        <option value="{{$opt->id}}" @if($content->file_url) selected @endif>{{$opt->title}}</option>
+                        <option value="{{$opt->id}}" @if($content->file_url==$opt->id) selected @endif>{{$opt->title}}</option>
 
                         @endforeach
 
