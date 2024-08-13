@@ -116,8 +116,8 @@ class ContentController extends Controller
             'month' => 'required',
             'year' => 'required',
         ]);
-        $path='';
         $cont=Content::where('id', $id)->first();
+        $path=$cont->thumbnail;
         if($request->thumbnail){
             if(isset($request->thumbnail)){
                 $path = Storage::disk('s3')->put('thumbnail', $request->thumbnail);
