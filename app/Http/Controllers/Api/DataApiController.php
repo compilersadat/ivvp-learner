@@ -52,13 +52,22 @@ class DataApiController extends ResponseController
                     $data['subscriptions']=PackageResource::collection(Package::whereNotIn('month',$month_range)->where('active',1)->get());
                     $data['month']=$month_range[0];
         }else{
+            /// Free one month
+            $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->where('month',9)->orderBy('order_by','ASC')->get();
+            $current_month_videos=Content::where('branch',$student->branch)->where('year',$student->year)->where('month',9)->where('type','video_lecture')->get();
+            $data['prime_content']=ContentResource::collection($prime_content);
+            $data['current_month_videos']=ContentResource::collection($current_month_videos);
+            $data['paid_plans']=StudentSubscriptionResource::collection($student_pro);
+           
             $free_content=Content::where('branch',$student->branch)->where('year',$student->year)->where(function($query){
                 $query->where('type','free_pdf')->orWhere('type','free_video');
             })->get();
              $data['study_materials']=StudyMaterial::collection(Faculty::all());
-             $data['free_content']=ContentResource::collection($free_content);   
-             $data['is_prime']=false;
-             $data['subscriptions']=PackageResource::collection(Package::where('active',1)->get());
+             $data['free_content']=ContentResource::collection($free_content);  
+             /// Free one month 
+             $data['is_prime']=true;
+             $data['subscriptions']=PackageResource::collection(Package::whereNotIn('month',$month_range)->where('active',1)->get());
+             $data['month']=9;
 
         }
 
