@@ -66,7 +66,7 @@ class DataApiController extends ResponseController
              $data['free_content']=ContentResource::collection($free_content);  
              /// Free one month 
              $data['is_prime']=true;
-             $data['subscriptions']=PackageResource::collection(Package::whereNotIn('month',$month_range)->where('active',1)->get());
+             $data['subscriptions']=PackageResource::collection(Package::whereNotIn('month',[9])->where('active',1)->get());
              $data['month']=9;
 
         }
