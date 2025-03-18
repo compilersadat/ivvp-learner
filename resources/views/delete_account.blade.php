@@ -43,7 +43,7 @@
     <h3>Option 1: In-App Request</h3>
     <ul>
         <li>Open <strong>iVVP I.T.I Learning App</strong> on your device.</li>
-        <li>Navigate to <strong>Settings &gt; Account &gt; Delete Account</strong>.</li>
+        <li>Navigate to <strong>My Account &gt; Delete Account</strong>.</li>
         <li>Follow the prompts to confirm your request.</li>
     </ul>
 
