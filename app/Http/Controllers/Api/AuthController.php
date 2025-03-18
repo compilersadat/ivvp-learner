@@ -187,7 +187,12 @@ class AuthController extends ResponseController
         $token=PersonalAccessToken::where('tokenable_id',$request->user()->id)->delete();
         $success['message']="Logged Out";
         return $this->sendResponse($success);
+    }
 
-
+    public function delete(Request $request){
+        Student::where('id',$request->user()->id)->delete();
+        $token=PersonalAccessToken::where('tokenable_id',$request->user()->id)->delete();
+        $success['message']="Account Deleted.";
+        return $this->sendResponse($success);
     }
 }
