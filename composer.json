@@ -7,15 +7,16 @@
     "require": {
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "^7.2",
+        "ixudra/curl": "^6.22",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "league/flysystem-aws-s3-v3": "^3.2",
-        "razorpay/razorpay": "2.*",
-        "maatwebsite/excel": "3.1.48",
+        "maatwebsite/excel": "*",
         "phpoffice/phpexcel": "^1.8",
-        "psr/simple-cache": "2.0"
+        "psr/simple-cache": "2.0",
+        "razorpay/razorpay": "2.*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
