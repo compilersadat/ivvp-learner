@@ -58,7 +58,7 @@
             <li>Reason for deletion (optional)</li>
         </ul>
     </div>
-    <p>We will verify your request and delete your account within <strong>[X] business days</strong>.</p>
+    <p>We will verify your request and delete your account within <strong>[2] business days</strong>.</p>
 
     <h2>What Happens When Your Account is Deleted?</h2>
     <p><strong>The following data will be permanently deleted:</strong></p>
