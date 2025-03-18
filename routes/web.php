@@ -34,6 +34,9 @@ use App\Http\Controllers\Admin\Practice\QuestionController as PracticeQuestionCo
 Route::get('/', function () {
     return view('auth.login');
 });
+Route::get('/account-deletion', function () {
+    return view('delete_account');
+});
 
 Auth::routes();
 
