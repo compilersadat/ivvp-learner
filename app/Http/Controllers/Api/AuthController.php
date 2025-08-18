@@ -98,6 +98,7 @@ class AuthController extends ResponseController
                         ['student_id' => $txn->student_id], // find by student
                         [
                             'package_id'        => $txn->package_id,
+                            'package_name'     => $txn->package_name,
                             'number_of_months'  => $txn->number_of_months,
                             'price'             => $txn->price,
                             'start_date'        => date('d-m-y'),
