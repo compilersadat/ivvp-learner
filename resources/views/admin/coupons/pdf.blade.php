@@ -42,20 +42,8 @@
             <div class="card">
                 <div class="code">{{ $c->code }}</div>
                 <div class="row">
-                    <span><span class="label">Discount:</span> {{ number_format($c->discount, 2) }}</span>
-                    <span>
-                        @if($c->is_used)
-                            <span class="badge badge-red">USED</span>
-                        @else
-                            <span class="badge badge-green">AVAILABLE</span>
-                        @endif
-                    </span>
-                </div>
-                <div class="row">
-                    <span><span class="label">Expires:</span> {{ $c->expires_at ? $c->expires_at->format('Y-m-d') : '—' }}</span>
                     <span><span class="label">Package:</span> {{ $c->package->name ?? '—' }}</span>
                 </div>
-                <div class="footer">ID: {{ $c->id }}</div>
             </div>
         @empty
             <p>No coupons found.</p>
