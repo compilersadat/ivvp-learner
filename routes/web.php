@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\TestSeries\TestSeriesController;
 use App\Http\Controllers\Admin\TestSeries\TestSeriesTestController;
 use App\Http\Controllers\Admin\TestSeries\TestSeriesQuestionController;
 use App\Http\Controllers\Admin\Practice\QuestionController as PracticeQuestionController;
+use App\Http\Controllers\CouponController;
 
 /*
 |--------------------------------------------------------------------------
@@ -144,6 +145,11 @@ Route::prefix('admin')->group(function () {
     Route::get('practice-tests/show/{id}',[PracticeQuestionController::class,'show'])->name('practice.questions.show');
     Route::get('/practice-tests/qtn-subjects/{id}', [PracticeQuestionController::class,'get_subjects'])->name('admin.sub.qtn');
     Route::get('/practice-tests/questions/{id}', [PracticeQuestionController::class,'get_questions'])->name('practice.questions.question');
+
+    Route::resource('coupons', CouponController::class);
+    // Optional quick delete route alias like your example:
+    Route::get('coupons/{coupon}/delete', [CouponController::class, 'destroy'])->name('coupons.delete');
+
 
 });
 

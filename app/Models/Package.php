@@ -11,4 +11,9 @@ class Package extends Model
     protected $guarded =['id'];
     protected $table = "packages";
 
+    public function coupons()
+    {
+        return $this->hasMany(Coupon::class);
+    }
+
 }
