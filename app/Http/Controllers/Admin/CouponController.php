@@ -112,4 +112,37 @@ class CouponController extends Controller
         }
         return $generated;
     }
+
+    public function exportUnusedPdf(Request $request)
+{
+    $query = Coupon::with('package')
+        ->where('is_used', false);
+
+    // Optional: also exclude expired coupons
+    if ($request->boolean('skip_expired', true)) {
+        $query->where(function ($q) {
+            $q->whereNull('expires_at')->orWhere('expires_at', '>=', now());
+        });
+    }
+
+    // Optional filter by package (?package_id=1)
+    if ($request->filled('package_id')) {
+        $query->where('package_id', $request->query('package_id'));
+    }
+
+    $coupons = $query->orderByDesc('id')->get();
+
+    $pdf = Pdf::loadView('coupons.pdf', [
+        'coupons'    => $coupons,
+        'exportedAt' => now(),
+        'package'    => $request->filled('package_id') ? Package::find($request->query('package_id')) : null,
+    ])->setPaper('a4', 'portrait');
+
+    $name = 'coupons_unused';
+    if ($request->filled('package_id')) $name .= '_pkg_'.$request->query('package_id');
+    $name .= '_'.now()->format('Ymd_His').'.pdf';
+
+    return $pdf->download($name.'.pdf');
+}
+
 }

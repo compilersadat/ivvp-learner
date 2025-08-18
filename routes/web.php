@@ -152,7 +152,7 @@ Route::prefix('admin')->group(function () {
 
     // routes/web.php
     Route::get('coupons/export/pdf/unused', [CouponController::class, 'exportUnusedPdf'])
-    ->name('coupons.export.pdf.unused');
+    ->name('coupons.export.pdf');
 
 
 
