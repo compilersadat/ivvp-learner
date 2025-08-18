@@ -3,10 +3,19 @@
 <div class="content">
   <div class="row">
     <div class="col-md-12 text-left mb-2">
-      <a href="{{ route('coupons.create') }}" class="btn btn-sm btn-primary">
-        <i class="fa fa-plus"></i> Generate Coupons
-      </a>
+        <a href="{{ route('coupons.create') }}" class="btn btn-sm btn-primary">
+            <i class="fa fa-plus"></i> Generate Coupons
+        </a>
+    
+        {{-- Export ALL coupons --}}
+        <a href="{{ route('coupons.export.pdf') }}" class="btn btn-sm btn-outline-secondary">
+            <i class="fa fa-file-pdf-o"></i> Download PDF
+        </a>
+    
+        {{-- Example: Export by package (if you pass ?package_id=) --}}
+        {{-- <a href="{{ route('coupons.export.pdf', ['package_id' => 1]) }}" class="btn btn-sm btn-outline-secondary">PDF (Pkg #1)</a> --}}
     </div>
+    
   </div>
 
   <div class="animated fadeIn">

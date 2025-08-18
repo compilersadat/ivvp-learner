@@ -150,6 +150,11 @@ Route::prefix('admin')->group(function () {
     // Optional quick delete route alias like your example:
     Route::get('coupons/{coupon}/delete', [CouponController::class, 'destroy'])->name('coupons.delete');
 
+    // routes/web.php
+    Route::get('coupons/export/pdf/unused', [CouponController::class, 'exportUnusedPdf'])
+    ->name('coupons.export.pdf.unused');
+
+
 
 });
 
