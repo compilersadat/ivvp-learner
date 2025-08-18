@@ -18,7 +18,7 @@ use App\Http\Controllers\Admin\TestSeries\TestSeriesController;
 use App\Http\Controllers\Admin\TestSeries\TestSeriesTestController;
 use App\Http\Controllers\Admin\TestSeries\TestSeriesQuestionController;
 use App\Http\Controllers\Admin\Practice\QuestionController as PracticeQuestionController;
-use App\Http\Controllers\CouponController;
+use App\Http\Controllers\Admin\CouponController;
 
 /*
 |--------------------------------------------------------------------------
