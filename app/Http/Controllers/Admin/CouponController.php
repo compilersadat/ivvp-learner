@@ -132,7 +132,7 @@ class CouponController extends Controller
 
     $coupons = $query->orderByDesc('id')->get();
 
-    $pdf = Pdf::loadView('coupons.pdf', [
+    $pdf = Pdf::loadView('admin.coupons.pdf', [
         'coupons'    => $coupons,
         'exportedAt' => now(),
         'package'    => $request->filled('package_id') ? Package::find($request->query('package_id')) : null,
