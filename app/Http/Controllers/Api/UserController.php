@@ -12,7 +12,6 @@ use Razorpay\Api\Api;
 use App\Models\Transaction;
 use Ixudra\Curl\Facades\Curl;
 
-
 class UserController extends ResponseController
 {
     //

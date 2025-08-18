@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Faculty;
 use App\Models\Branch;
 use App\Models\PersonalAccessToken;
+use App\Models\Package;      
+use App\Models\Transaction;
+use App\Models\StudentPackage;
 
 class AuthController extends ResponseController
 {
@@ -32,7 +35,8 @@ class AuthController extends ResponseController
             'district'=>'required',
             'year'=>'required',
             'm_toung'=>'required',
-            'instructor'=>'required'
+            'instructor'=>'required',
+            'coupon_code' => 'nullable|string',
 
         ]);
 
@@ -50,6 +54,69 @@ class AuthController extends ResponseController
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
         $user = Student::create($input);
+        if ($user && $request->filled('coupon_code')) {
+            DB::transaction(function () use ($request, $user) {
+                // 1) Find a valid, unused coupon with 100% discount
+                $coupon = Coupon::with('package') // needs Coupon->package() relation
+                    ->where('code', $request->coupon_code)
+                    ->where('is_used', false)
+                    ->where(function ($q) {
+                        $q->whereNull('expires_at')->orWhere('expires_at', '>=', now());
+                    })
+                    ->first();
+        
+                if (!$coupon) {
+                    // silently ignore invalid coupon on signup, or you can throw a validation error
+                    return;
+                }
+        
+                // Require 100% discount
+                if ((float)$coupon->discount !== 100.0) {
+                    return; // not a full-discount coupon; ignore at signup
+                }
+        
+                // Require that the coupon is tied to a package (so we know what to subscribe)
+                if (!$coupon->package) {
+                    return; // no package linked; ignore or log
+                }
+        
+                // 2) Create a zero-price Transaction for that package
+                $pkg = $coupon->package; // Package model instance
+        
+                $txn = new Transaction();
+                $txn->student_id       = $user->id;
+                $txn->package_id       = $pkg->id;
+                $txn->package_name     = $pkg->name ?? 'Subscription Package';
+                $txn->number_of_months = $pkg->number ?? ($pkg->months ?? null); // adjust to your schema
+                $txn->price            = 0;         // fully discounted
+                $txn->order_id         = md5(uniqid('', true));
+                $txn->status           = 'subscribed'; // or 'completed'
+                if ($txn->save()) {
+                    // ===== StudentPackage activation (your logic, simplified) =====
+                    $studentPackage = StudentPackage::updateOrCreate(
+                        ['student_id' => $txn->student_id], // find by student
+                        [
+                            'package_id'        => $txn->package_id,
+                            'number_of_months'  => $txn->number_of_months,
+                            'price'             => $txn->price,
+                            'start_date'        => date('d-m-y'),
+                            'start_month'       => date('m'),
+                            'status'            => 2,
+                            'payment_status'    => 'compeleted', // (spelling kept as provided)
+                        ]
+                    );
+                
+                    // 3) Mark coupon as used
+                    $coupon->is_used = true;
+                    // Optionally track usage:
+                    // $coupon->used_by = $user->id;
+                    // $coupon->used_at = now();
+                    $coupon->save();
+                }
+                
+            });
+        }
+        
         if($user){
             $success['token'] =  $user->createToken('token')->plainTextToken;
             $success['message'] = "Registration successfull..";
