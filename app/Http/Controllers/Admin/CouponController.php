@@ -6,6 +6,7 @@ use App\Models\Coupon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class CouponController extends Controller
 {
