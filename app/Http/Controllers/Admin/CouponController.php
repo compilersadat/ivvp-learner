@@ -13,12 +13,12 @@ class CouponController extends Controller
     public function index()
     {
         $datas = Coupon::orderByDesc('id')->paginate(50);
-        return view('coupons.index', compact('datas'));
+        return view('admin.coupons.index', compact('datas'));
     }
 
     public function create()
     {
-        return view('coupons.create');
+        return view('admin.coupons.create');
     }
 
     public function store(Request $request)
@@ -67,7 +67,7 @@ class CouponController extends Controller
     public function edit(Coupon $coupon)
     {
         $data = $coupon;
-        return view('coupons.edit', compact('data'));
+        return view('admin.coupons.edit', compact('data'));
     }
 
     public function update(Request $request, Coupon $coupon)
