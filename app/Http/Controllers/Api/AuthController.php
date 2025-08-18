@@ -18,6 +18,7 @@ use App\Models\PersonalAccessToken;
 use App\Models\Package;      
 use App\Models\Transaction;
 use App\Models\StudentPackage;
+use App\Models\Coupon;
 
 class AuthController extends ResponseController
 {
