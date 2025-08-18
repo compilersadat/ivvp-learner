@@ -1,6 +1,6 @@
 <?php
 // app/Http/Controllers/CouponController.php
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Coupon;
 use Illuminate\Http\Request;
