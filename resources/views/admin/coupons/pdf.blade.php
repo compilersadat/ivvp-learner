@@ -17,7 +17,7 @@
             border: 1px dashed #777; border-radius: 6px;
             padding: 6px; /* less padding */
             box-sizing: border-box; 
-            min-height: 80px; /* smaller card height */
+            min-height: 50px; /* smaller card height */
             display: flex; flex-direction: column; justify-content: space-between;
         }
         .code { font-size: 14px; font-weight: 700; letter-spacing: 0.5px; }
