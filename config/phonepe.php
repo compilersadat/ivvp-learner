@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'env' => env('PHONEPE_ENV', 'sandbox'),
+    'env' => env('PHONEPE_ENV', 'production'),
     'client_id' => env('PHONE_PE_MERCHANTID_PROD'),
     'client_secret' => env('PHONE_PE_SALT_KEY_PROD'),
     'client_version' => env('PHONEPE_CLIENT_VERSION', 1),
