@@ -2,8 +2,8 @@
 
 return [
     'env' => env('PHONEPE_ENV', 'sandbox'),
-    'client_id' => env('PHONEPE_CLIENT_ID'),
-    'client_secret' => env('PHONEPE_CLIENT_SECRET'),
+    'client_id' => env('PHONE_PE_MERCHANTID_PROD'),
+    'client_secret' => env('PHONE_PE_SALT_KEY_PROD'),
     'client_version' => env('PHONEPE_CLIENT_VERSION', 1),
     'token_safety' => (int) env('PHONEPE_TOKEN_SAFETY', 60),
 
