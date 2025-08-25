@@ -34,6 +34,18 @@ Route::middleware('auth:sanctum')->group(function(){
   Route::get('/fetch-result',[ExamController::class,'fetchResult']);
   Route::get('/logout',[AuthController::class,'logout']);
   Route::get('/delete-account',[AuthController::class,'delete']);
+  
+  // Create Order Token (backend only; your app uses the returned token with PhonePe Mobile SDK)
+  Route::post('/phonepe/orders', [PhonePeController::class, 'createOrderToken']);
+
+// Check Order Status
+Route::get('/phonepe/orders/{merchantOrderId}/status', [PhonePeController::class, 'orderStatus']);
+
+// Refund
+Route::post('/phonepe/refunds', [PhonePeController::class, 'refund']);
+
+// Refund Status
+Route::get('/phonepe/refunds/{merchantRefundId}/status', [PhonePeController::class, 'refundStatus']);
 });
 Route::post('/phonepe-callback',[UserController::class,'paymentCallback']);
 
