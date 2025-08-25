@@ -167,7 +167,7 @@ class UserController extends ResponseController
     
         } catch (\Throwable $e) {
             Log::error('PhonePe createOrderToken failed', ['ex' => $e]);
-            return $this->sendError('Payment initialization failed. Please try again.', 500);
+            return $this->sendError('Payment initialization failed. Please try again. '.$e, 500);
         }
     }
     
