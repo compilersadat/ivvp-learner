@@ -67,7 +67,6 @@ class PhonePeClient
     // === Create Order Token ===
     public function createOrderToken(array $payload): array
     {
-        return $this->getAccessToken();
         $urls = config('phonepe.base_urls');
         // Endpoint per docs: POST /checkout/v2/sdk/order
         $url = "{$urls['sandbox']['checkout']}/sdk/order";

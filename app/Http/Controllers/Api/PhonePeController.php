@@ -56,7 +56,7 @@ class PhonePeController extends Controller
         if (!isset($validated['paymentFlow'])) {
             $validated['paymentFlow'] = ['type' => 'PG_CHECKOUT'];
         }
-
+       return $validated;
         $resp = $this->client->createOrderToken($validated);
 
         return response()->json($resp, Response::HTTP_OK);
