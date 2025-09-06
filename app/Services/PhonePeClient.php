@@ -67,8 +67,9 @@ class PhonePeClient
     // === Create Order Token ===
     public function createOrderToken(array $payload): array
     {
+        $urls = config('phonepe.base_urls');
         // Endpoint per docs: POST /checkout/v2/sdk/order
-        $url = "{$this->urls['checkout']}/sdk/order";
+        $url = "{$urls['sandbox']['checkout']}/sdk/order";
 
         $response = Http::withHeaders($this->authHeaders())
             ->post($url, $payload)
@@ -80,9 +81,10 @@ class PhonePeClient
     // === Check Order Status ===
     public function getOrderStatus(string $merchantOrderId, bool $details = false, bool $errorContext = false): array
     {
+        $urls = config('phonepe.base_urls');
         // Endpoint per docs: GET /checkout/v2/order/{merchantOrderId}/status?details=&errorContext=
         $qs = http_build_query(['details' => $details ? 'true' : 'false', 'errorContext' => $errorContext ? 'true' : 'false']);
-        $url = "{$this->urls['checkout']}/order/{$merchantOrderId}/status?{$qs}";
+        $url = "{$urls['sandbox']['checkout']}/order/{$merchantOrderId}/status?{$qs}";
 
         $response = Http::withHeaders($this->authHeaders())
             ->get($url)
@@ -94,8 +96,9 @@ class PhonePeClient
     // === Initiate Refund ===
     public function initiateRefund(array $payload): array
     {
+        $urls = config('phonepe.base_urls');
         // Endpoint per docs: POST /payments/v2/refund
-        $url = "{$this->urls['payments']}/refund";
+        $url = "{$urls['sandbox']['payments']}/refund";
 
         $response = Http::withHeaders($this->authHeaders())
             ->post($url, $payload)
@@ -107,8 +110,9 @@ class PhonePeClient
     // === Refund Status ===
     public function getRefundStatus(string $merchantRefundId): array
     {
+        $urls = config('phonepe.base_urls');
         // Endpoint per docs: GET /payments/v2/refund/{merchantRefundId}/status
-        $url = "{$this->urls['payments']}/refund/{$merchantRefundId}/status";
+        $url = "{$urls['sandbox']}/refund/{$merchantRefundId}/status";
 
         $response = Http::withHeaders($this->authHeaders())
             ->get($url)
