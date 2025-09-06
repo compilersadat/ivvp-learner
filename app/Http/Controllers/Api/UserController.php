@@ -189,7 +189,7 @@ class UserController extends ResponseController
             // 2) NEW: Check status via PhonePe OAuth client
             // details/errorContext are optional; set true for richer data
             $pp = $this->phonePe->getOrderStatus($request->order_id, details: true, errorContext: true);
-    
+            return $pp;
             $success = (bool)($pp['success'] ?? false);
             $data    = $pp['data'] ?? [];
             $state   = strtoupper((string)($data['state'] ?? '')); // COMPLETED | FAILED | PENDING
