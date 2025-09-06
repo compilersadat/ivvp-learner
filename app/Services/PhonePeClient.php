@@ -39,6 +39,7 @@ class PhonePeClient
                 ])->throw();
 
             $data = $resp->json();
+            dd($data);
             $token = $data['access_token'] ?? '';
             $expiresAt = $data['expires_at'] ?? null; // epoch seconds
 
