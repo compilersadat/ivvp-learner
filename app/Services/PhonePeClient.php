@@ -28,6 +28,7 @@ class PhonePeClient
 
     public function getAccessToken(): string
     {
+        return $this->urls['oauth'];
         return Cache::remember('phonepe_access_token', 3600, function () {
             $resp = Http::asForm()
                 ->withHeaders(['Content-Type' => 'application/x-www-form-urlencoded'])
