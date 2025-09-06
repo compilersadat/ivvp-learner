@@ -28,31 +28,31 @@ class PhonePeClient
 
     public function getAccessToken(): string
     {
-        return Cache::remember('phonepe_access_token', 3600, function () {
-            $resp = Http::asForm()
-                ->withHeaders(['Content-Type' => 'application/x-www-form-urlencoded'])
-                ->post("https://api-preprod.phonepe.com/apis/pg-sandbox/v1/oauth/token", [
-                    'client_id'     => $this->clientId,
-                    'client_version'=> $this->clientVersion,
-                    'client_secret' => $this->clientSecret,
-                    'grant_type'    => 'client_credentials',
-                ])->throw();
-
-            $data = $resp->json();
-            $token = $data['access_token'] ?? '';
-            $expiresAt = $data['expires_at'] ?? null; // epoch seconds
-
-            if (!$token) {
-                throw new RequestException($resp);
+        return Cache::remember('phonepe_access_token', now()->addMinutes(50), function () {
+            $urls = config('phonepe.base_urls');
+    
+            $resp = Http::asForm()->post($urls['sandbox']['oauth'], [
+                'client_id'      => config('phonepe.client_id'),
+                'client_version' => config('phonepe.client_version'),
+                'client_secret'  => config('phonepe.client_secret'),
+                'grant_type'     => 'client_credentials',
+            ]);
+    
+            // Helpful error if 4xx/5xx
+            if (! $resp->successful()) {
+                throw new \RuntimeException(
+                    'PhonePe OAuth failed: '.$resp->status().' '.$resp->body()
+                );
             }
-
-            if ($expiresAt) {
-                // Cache only until (expiresAt - safety)
-                $ttl = max(60, $expiresAt - time() - $this->tokenSafety);
-                Cache::put('phonepe_access_token', $token, $ttl);
+    
+            $json = $resp->json();
+            // Prefer exact TTL from expires_at if provided (epoch seconds)
+            if (!empty($json['expires_at'])) {
+                $ttl = max(60, $json['expires_at'] - time() - 60); // refresh 1 min early
+                Cache::put('phonepe_access_token', $json['access_token'], now()->addSeconds($ttl));
             }
-
-            return $token;
+    
+            return $json['access_token'] ?? throw new \RuntimeException('No access_token in response');
         });
     }
 

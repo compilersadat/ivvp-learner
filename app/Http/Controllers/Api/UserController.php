@@ -14,7 +14,6 @@ use Ixudra\Curl\Facades\Curl;
 use App\Services\PhonePeClient;             // <-- add
 use Illuminate\Support\Facades\Log;         // <-- optional logging
 use Illuminate\Support\Str;   
-use Illuminate\Support\Facades\Config;
 
 class UserController extends ResponseController
 {
@@ -88,7 +87,6 @@ class UserController extends ResponseController
     
     public function subscribPackage(Request $request)
     {
-        return Config::get('phonepe.client_secret');
         $validator = Validator::make($request->all(), [
             'package_id'       => 'required|integer',
             'package_name'     => 'required|string|max:255',
