@@ -38,18 +38,7 @@ class PhonePeController extends Controller
     {
         $validated = $request->validate([
             'merchantOrderId' => ['required','string','max:63','regex:/^[A-Za-z0-9_-]+$/'],
-            'amount'          => ['required','integer','min:100'],
-            'expireAfter'     => ['sometimes','integer','min:300','max:3600'],
-            'metaInfo'        => ['sometimes','array'],
-            'metaInfo.udf1'   => ['sometimes','string','max:256'],
-            'metaInfo.udf2'   => ['sometimes','string','max:256'],
-            'metaInfo.udf3'   => ['sometimes','string','max:256'],
-            'metaInfo.udf4'   => ['sometimes','string','max:256'],
-            'metaInfo.udf5'   => ['sometimes','string','max:256'],
-            // Optional: paymentModeConfig (enabled/disabled payment modes)
-            'paymentFlow'     => ['sometimes','array'],
-            'paymentFlow.type'=> ['required_with:paymentFlow', Rule::in(['PG_CHECKOUT'])],
-            'paymentFlow.paymentModeConfig' => ['sometimes','array'],
+            'amount'          => ['required','integer','min:100']
         ]);
 
         // Ensure paymentFlow.type default
@@ -57,7 +46,7 @@ class PhonePeController extends Controller
             $validated['paymentFlow'] = ['type' => 'PG_CHECKOUT'];
         }
        return $validated;
-        $resp = $this->client->createOrderToken($validated);
+       $resp = $this->client->createOrderToken($validated);
 
         return response()->json($resp, Response::HTTP_OK);
     }
