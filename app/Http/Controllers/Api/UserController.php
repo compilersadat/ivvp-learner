@@ -134,9 +134,9 @@ class UserController extends ResponseController
                 ],
                 // 'expireAfter'   => 900, // optional: 300..3600 seconds
             ];
-    
+            
             $pp = $this->phonePe->createOrderToken($payload);
-    
+            return $pp;
             // PhonePe returns { success, code, data: { orderId, token, ... } }
             $ppData  = $pp['data'] ?? [];
             $orderId = $ppData['orderId'] ?? null;
