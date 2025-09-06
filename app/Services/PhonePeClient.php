@@ -31,7 +31,7 @@ class PhonePeClient
         return Cache::remember('phonepe_access_token', 3600, function () {
             $resp = Http::asForm()
                 ->withHeaders(['Content-Type' => 'application/x-www-form-urlencoded'])
-                ->post($this->urls['oauth'], [
+                ->post("https://api-preprod.phonepe.com/apis/pg-sandbox/v1/oauth/token", [
                     'client_id'     => $this->clientId,
                     'client_version'=> $this->clientVersion,
                     'client_secret' => $this->clientSecret,
@@ -39,7 +39,6 @@ class PhonePeClient
                 ])->throw();
 
             $data = $resp->json();
-            dd($data);
             $token = $data['access_token'] ?? '';
             $expiresAt = $data['expires_at'] ?? null; // epoch seconds
 
