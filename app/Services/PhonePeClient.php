@@ -70,7 +70,7 @@ class PhonePeClient
         $urls = config('phonepe.base_urls');
         // Endpoint per docs: POST /checkout/v2/sdk/order
         $url = "{$urls['sandbox']['checkout']}/sdk/order";
-        dd($this->authHeaders());
+       // dd($this->authHeaders());
         $response = Http::withHeaders($this->authHeaders())
             ->post($url, $payload)
             ->throw();
