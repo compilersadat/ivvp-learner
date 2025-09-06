@@ -136,11 +136,9 @@ class UserController extends ResponseController
             ];
             
             $pp = $this->phonePe->createOrderToken($payload);
-            return $pp;
             // PhonePe returns { success, code, data: { orderId, token, ... } }
-            $ppData  = $pp['data'] ?? [];
-            $orderId = $ppData['orderId'] ?? null;
-            $token   = $ppData['token']   ?? null;
+            $orderId = $pp['orderId'] ?? null;
+            $token   = $pp['token']   ?? null;
     
             if (!$orderId || !$token) {
                 Log::warning('PhonePe order token missing', ['resp' => $pp]);
