@@ -172,7 +172,7 @@ class UserController extends ResponseController
 
     public function updatePackage(Request $request)
     {
-        return $request;
+        
         $validator = Validator::make($request->all(), [
             'order_id' => 'required|string',
         ]);
