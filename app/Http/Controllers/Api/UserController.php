@@ -254,7 +254,7 @@ class UserController extends ResponseController
                 'order_id' => $request->order_id,
                 'ex'       => $e->getMessage(),
             ]);
-            return $this->sendError('Unable to verify payment at the moment. Please try again.', 500);
+            return $this->sendError('Unable to verify payment at the moment. Please try again.'.$e->getMessage(), 500);
         }
     }
     
