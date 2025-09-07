@@ -18,7 +18,7 @@ class PhonePeClient
 
     public function __construct()
     {
-        $this->env           = Config::get('phonepe.env', 'sandbox');
+        $this->env           = Config::get('phonepe.env', 'production');
         $this->urls          = Config::get("phonepe.base_urls.{$this->env}");
         $this->clientId      = Config::get('phonepe.client_id');
         $this->clientSecret  = Config::get('phonepe.client_secret');
@@ -31,7 +31,7 @@ class PhonePeClient
         return Cache::remember('phonepe_access_token', now()->addMinutes(50), function () {
             $urls = config('phonepe.base_urls');
     
-            $resp = Http::asForm()->post($urls['sandbox']['oauth'], [
+            $resp = Http::asForm()->post($urls['production']['oauth'], [
                 'client_id'      => config('phonepe.client_id'),
                 'client_version' => config('phonepe.client_version'),
                 'client_secret'  => config('phonepe.client_secret'),
@@ -69,7 +69,7 @@ class PhonePeClient
     {
         $urls = config('phonepe.base_urls');
         // Endpoint per docs: POST /checkout/v2/sdk/order
-        $url = "{$urls['sandbox']['checkout']}/sdk/order";
+        $url = "{$urls['production']['checkout']}/sdk/order";
        // dd($this->authHeaders());
         $response = Http::withHeaders($this->authHeaders())
             ->post($url, $payload)
@@ -84,7 +84,7 @@ class PhonePeClient
         $urls = config('phonepe.base_urls');
         // Endpoint per docs: GET /checkout/v2/order/{merchantOrderId}/status?details=&errorContext=
         $qs = http_build_query(['details' => $details ? 'true' : 'false']);
-        $url = "{$urls['sandbox']['checkout']}/order/{$merchantOrderId}/status?{$qs}";
+        $url = "{$urls['production']['checkout']}/order/{$merchantOrderId}/status?{$qs}";
 
         $response = Http::withHeaders($this->authHeaders())
             ->get($url)
@@ -98,7 +98,7 @@ class PhonePeClient
     {
         $urls = config('phonepe.base_urls');
         // Endpoint per docs: POST /payments/v2/refund
-        $url = "{$urls['sandbox']['payments']}/refund";
+        $url = "{$urls['production']['payments']}/refund";
 
         $response = Http::withHeaders($this->authHeaders())
             ->post($url, $payload)
@@ -112,7 +112,7 @@ class PhonePeClient
     {
         $urls = config('phonepe.base_urls');
         // Endpoint per docs: GET /payments/v2/refund/{merchantRefundId}/status
-        $url = "{$urls['sandbox']}/refund/{$merchantRefundId}/status";
+        $url = "{$urls['production']}/refund/{$merchantRefundId}/status";
 
         $response = Http::withHeaders($this->authHeaders())
             ->get($url)
