@@ -190,16 +190,14 @@ class UserController extends ResponseController
             // 2) NEW: Check status via PhonePe OAuth client
             // details/errorContext are optional; set true for richer data
             $pp = $this->phonePe->getOrderStatus($request->order_id, details: true, errorContext: true);
-            return $pp;
-            $success = (bool)($pp['success'] ?? false);
-            $data    = $pp['data'] ?? [];
+           
+            $data    = $pp ?? [];
             $state   = strtoupper((string)($data['state'] ?? '')); // COMPLETED | FAILED | PENDING
     
             // try a few places for transaction ids (varies by instrument)
-            $pgTxnId = $data['paymentInstrument']['pgTransactionId'] ?? null;
-            $txnId   = $data['transactionId'] ?? $pgTxnId;
+            $txnId   = $data['paymentDetails']['transactionId'] ?? "";
     
-            if ($success && $state === 'COMPLETED') {
+            if ($state === 'COMPLETED') {
                 // 3a) Mark transaction as completed (note: your code uses "compeleted")
                 $transaction->status = 'compeleted'; // keep existing spelling to avoid breaking other logic
                 if ($txnId) {
