@@ -83,7 +83,7 @@ class PhonePeClient
     {
         $urls = config('phonepe.base_urls');
         // Endpoint per docs: GET /checkout/v2/order/{merchantOrderId}/status?details=&errorContext=
-        $qs = http_build_query(['details' => $details ? 'true' : 'false', 'errorContext' => $errorContext ? 'true' : 'false']);
+        $qs = http_build_query(['details' => $details ? 'true' : 'false']);
         $url = "{$urls['sandbox']['checkout']}/order/{$merchantOrderId}/status?{$qs}";
 
         $response = Http::withHeaders($this->authHeaders())
