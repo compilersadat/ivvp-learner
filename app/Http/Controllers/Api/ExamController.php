@@ -67,15 +67,27 @@ class ExamController extends ResponseController
 
     
 
-    public function fetchResult(Request $request){
-        $result=StudentResult::where('student_id',$request->user()->id)->where('status','completed')->get();
-        $exams=ResultResource::collection($result);
-        $data['exams']=$exams;
-        $success['message'] = "Exam Submitted.";
-        $success['data']=$data;
+    public function fetchResult(Request $request)
+    {
+        $latestResults = StudentResult::where('student_id', $request->user()->id)
+            ->where('status', 'completed')
+            ->whereIn('id', function($query) use ($request) {
+                $query->selectRaw('MAX(id)')
+                      ->from('student_results')
+                      ->where('student_id', $request->user()->id)
+                      ->where('status', 'completed')
+                      ->groupBy('exam_id');
+            })
+            ->get();
+    
+        $exams = ResultResource::collection($latestResults);
+    
+        $data['exams'] = $exams;
+        $success['message'] = "Latest Exam Attempts Fetched.";
+        $success['data'] = $data;
+    
         return $this->sendResponse($success); 
-
-        
     }
+    
 
 }
