@@ -105,8 +105,8 @@ class DataApiController extends ResponseController
                             $month_range = (array)$month_range + (array)$this->calculateRangeOfMonths($package->month,$st_package->number_of_months);
                         }
                     }
-                    $exclude_exams=StudentResult::where('student_id',$request->user()->id)->where('status','completed')->pluck('exam_id');
-                    $data['exams']=ExamResource::collection(Exam::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$month_range)->whereNotIn('id',$exclude_exams)->get());
+                   // $exclude_exams=StudentResult::where('student_id',$request->user()->id)->where('status','completed')->pluck('exam_id');
+                    $data['exams']=ExamResource::collection(Exam::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$month_range)->get());
                     $success['message'] = "Here is data";
                     $success['data']=$data;
                     return $this->sendResponse($success);
