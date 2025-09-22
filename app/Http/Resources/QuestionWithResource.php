@@ -16,10 +16,12 @@ class QuestionWithResource extends JsonResource
      public function toArray($request)
      {
          $ABCD = ["A","B","C","D"];
-         $student_answer = StudentAnswer::where('exam_id',$this->exam_id)
-             ->where('student_id',$request->user()->id)
-             ->where('question_id',$this->id)
-             ->first();
+         $student_answer = StudentAnswer::where('exam_id', $this->exam_id)
+            ->where('student_id', $request->user()->id)
+            ->where('question_id', $this->id)
+            ->latest()   // orders by created_at desc
+            ->first();
+
      
          $studentAnswerValue = null;
          $isRight = false;
