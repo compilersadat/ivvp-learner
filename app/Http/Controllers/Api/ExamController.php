@@ -27,11 +27,7 @@ class ExamController extends ResponseController
         if($student_pro){
             if($student_pro->status==2){
                 $exam=Exam::where('id',$request->exam_id)->first();
-                $student_result=StudentResult::where('exam_id',$exam->id)->where('student_id',$request->user()->id)->first();
-                if($student_result){
-                    $success['message'] = "Already Stared or Submitted.";
-                    return $this->sendResponse($success);
-                }else{
+               
                     $result=new StudentResult();
                     $result->exam_id=$exam->id;
                     $result->student_id=$request->user()->id;
@@ -40,7 +36,6 @@ class ExamController extends ResponseController
                         $success['message'] = "Exam Stared.";
                         return $this->sendResponse($success);   
                     }
-                }
             }else{
                 $success['message'] = "Please Subscribe.";
                 return $this->sendResponse($success);  
