@@ -8,6 +8,7 @@ use App\Models\Slider;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\ResponseController as ResponseController;
 use App\Models\Faculty;
+use App\Models\Branch;
 use App\Http\Resources\StudyMaterial;
 use App\Http\Resources\StudyMaterialFolderResource;
 use App\Http\Resources\PackageResource;
@@ -23,6 +24,7 @@ use App\Http\Resources\TestSeriesResource;
 use App\Models\Exam;
 use App\Models\StudentResult;
 use App\Models\Student;
+use App\Models\Institute;
 use App\Models\AppUpdate;
 use App\Models\StudyMaterialFolder;
 class DataApiController extends ResponseController
@@ -75,6 +77,52 @@ class DataApiController extends ResponseController
 
         $success['message'] = "Here is data";
         $success['data']=$data;
+        return $this->sendResponse($success);
+    }
+
+    public function instituteHomeData(Request $request)
+    {
+        if (! $request->user() instanceof Institute) {
+            return $this->sendError('Only institutes can access this resource.', 403);
+        }
+
+        $contents = Content::whereNotNull('branch')
+            ->whereNotNull('year')
+            ->orderBy('branch')
+            ->orderBy('year')
+            ->orderBy('order_by')
+            ->get()
+            ->groupBy('branch');
+
+        $branchIds = $contents->keys()
+            ->filter(function ($branchId) {
+                return ! is_null($branchId);
+            })
+            ->all();
+
+        $branchNames = Branch::whereIn('branch_id', $branchIds)->pluck('name', 'branch_id');
+
+        $branches = $contents->map(function ($branchContents, $branchId) use ($branchNames) {
+            $years = $branchContents->groupBy('year')->sortKeys();
+
+            return [
+                'branch_id' => $branchId,
+                'branch_name' => $branchNames[$branchId] ?? null,
+                'years' => $years->map(function ($yearContents, $year) {
+                    return [
+                        'year' => $year,
+                        'contents' => ContentResource::collection($yearContents),
+                    ];
+                })->values(),
+            ];
+        })->values();
+
+        $success['message'] = "Here is data";
+        $success['data'] = [
+            'sliders' => SlidersResource::collection(Slider::get()),
+            'branches' => $branches,
+        ];
+
         return $this->sendResponse($success);
     }
 

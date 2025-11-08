@@ -24,6 +24,7 @@ use App\Http\Controllers\Api\StudyMaterialController as StudyMaterialApiControll
 Route::post('/get-updates',[DataApiController::class,'appUpdate']);
 Route::middleware('auth:sanctum,institute')->group(function(){
   Route::get('/home-data',[DataApiController::class,'homeData']);
+  Route::get('/institutes/home-data',[DataApiController::class,'instituteHomeData']);
   Route::get('/prime-content',[DataApiController::class,'primeContent']);
   Route::get('/fetch-exams',[DataApiController::class,'fetchExams']);
   Route::post('/update-profile',[UserController::class,'updateStudent']);
