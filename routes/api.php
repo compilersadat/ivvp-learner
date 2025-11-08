@@ -22,7 +22,7 @@ use App\Http\Controllers\Api\StudyMaterialController as StudyMaterialApiControll
 */
 
 Route::post('/get-updates',[DataApiController::class,'appUpdate']);
-Route::middleware('auth:sanctum')->group(function(){
+Route::middleware('auth:sanctum,institute')->group(function(){
   Route::get('/home-data',[DataApiController::class,'homeData']);
   Route::get('/prime-content',[DataApiController::class,'primeContent']);
   Route::get('/fetch-exams',[DataApiController::class,'fetchExams']);
@@ -59,7 +59,7 @@ Route::post('/institutes/login',[AuthController::class,'loginInstitute']);
 Route::prefix('test-series')->group(function () {
     Route::post('/login',[AuthController::class,'loginTestSeriesUser']);
     Route::post('/register',[AuthController::class,'signupTestSeriesUser']);
-    Route::middleware(['auth:sanctum'])->group(function(){
+    Route::middleware(['auth:sanctum,institute'])->group(function(){
         Route::get('/home-data',[DataApiController::class,'testSeriesHomData']);
         Route::get('/questions/{id}',[TestSeriesController::class,'fetchQuestion']);
         Route::post('/submit-exam',[TestSeriesController::class,'submitExam']);
