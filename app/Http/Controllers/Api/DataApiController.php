@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\ResponseController as ResponseController;
 use App\Models\Faculty;
 use App\Http\Resources\StudyMaterial;
+use App\Http\Resources\StudyMaterialFolderResource;
 use App\Http\Resources\PackageResource;
 use App\Http\Resources\StudentSubscriptionResource;
 use App\Models\Package;
@@ -23,6 +24,7 @@ use App\Models\Exam;
 use App\Models\StudentResult;
 use App\Models\Student;
 use App\Models\AppUpdate;
+use App\Models\StudyMaterialFolder;
 class DataApiController extends ResponseController
 {
     public function homeData(Request $request){
@@ -51,6 +53,7 @@ class DataApiController extends ResponseController
                     $data['free_content']=[];
                     $data['subscriptions']=PackageResource::collection(Package::whereNotIn('month',$month_range)->where('active',1)->get());
                     $data['month']=$month_range[0];
+                    $data['common_study_materials']=$this->getCommonStudyMaterials($student);
         }else{
             /// Free one month
             $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->where('month',9)->orderBy('order_by','ASC')->get();
@@ -68,7 +71,6 @@ class DataApiController extends ResponseController
              $data['is_prime']=true;
              $data['subscriptions']=PackageResource::collection(Package::whereNotIn('month',[9])->where('active',1)->get());
              $data['month']=9;
-
         }
 
         $success['message'] = "Here is data";
@@ -88,6 +90,7 @@ class DataApiController extends ResponseController
         }
         $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$month_range)->get();
         $data['prime_content']=ContentResource::collection($prime_content);
+        $data['common_study_materials']=$this->getCommonStudyMaterials($student);
         $success['message'] = "Here is data";
         $success['data']=$data;
         return $this->sendResponse($success);
@@ -141,6 +144,20 @@ class DataApiController extends ResponseController
             $next_month=$next_month+1;
         }
         return $range;
+    }
+
+    protected function getCommonStudyMaterials(Student $student)
+    {
+        $folders = StudyMaterialFolder::with(['documents' => function ($query) {
+                $query->active();
+            }])
+            ->active()
+            ->where('branch_id', $student->branch)
+            ->where('year', $student->year)
+            ->orderBy('name')
+            ->get();
+
+        return StudyMaterialFolderResource::collection($folders);
     }
 
     public function appUpdate(Request $request){
