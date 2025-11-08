@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\DataApiController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ExamController;
 use App\Http\Controllers\Api\TestSeriesController;
+use App\Http\Controllers\Api\StudyMaterialController as StudyMaterialApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,7 @@ Route::middleware('auth:sanctum')->group(function(){
   Route::get('/fetch-result',[ExamController::class,'fetchResult']);
   Route::get('/logout',[AuthController::class,'logout']);
   Route::get('/delete-account',[AuthController::class,'delete']);
+  Route::get('/study-materials',[StudyMaterialApiController::class,'index']);
   
   // Create Order Token (backend only; your app uses the returned token with PhonePe Mobile SDK)
   Route::post('/phonepe/orders', [PhonePeController::class, 'createOrderToken']);

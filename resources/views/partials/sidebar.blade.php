@@ -16,6 +16,9 @@
                         <a href="{{ route('content.index')}}"> <i class="menu-icon fa fa-database"></i>Contents</a>
                     </li>
                     <li>
+                        <a href="{{ route('study-materials.index')}}"> <i class="menu-icon fa fa-folder"></i>Study Materials</a>
+                    </li>
+                    <li>
                         <a href="{{ route('coupons.index')}}"> <i class="menu-icon fa fa-database"></i>Coupons</a>
                     </li>
                     <li>

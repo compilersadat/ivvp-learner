@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\CollageController;
 use App\Http\Controllers\Admin\InstructorController;
 use App\Http\Controllers\Admin\InstituteController;
+use App\Http\Controllers\Admin\StudyMaterialController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\StudentPurchaseController;
@@ -79,6 +80,16 @@ Route::prefix('admin')->group(function () {
     Route::get('packages/delete/{id}',[PackageController::class,'delete'])->name('packages.delete');
     Route::get('packages/edit/{id}',[PackageController::class,'edit'])->name('packages.edit');
     Route::post('packages/update/{id}',[PackageController::class,'update'])->name('packages.update');
+
+    Route::get('study-materials',[StudyMaterialController::class,'index'])->name('study-materials.index');
+    Route::get('study-materials/create',[StudyMaterialController::class,'create'])->name('study-materials.create');
+    Route::post('study-materials/store',[StudyMaterialController::class,'store'])->name('study-materials.store');
+    Route::get('study-materials/edit/{studyMaterial}',[StudyMaterialController::class,'edit'])->name('study-materials.edit');
+    Route::post('study-materials/update/{studyMaterial}',[StudyMaterialController::class,'update'])->name('study-materials.update');
+    Route::get('study-materials/delete/{studyMaterial}',[StudyMaterialController::class,'delete'])->name('study-materials.delete');
+    Route::get('study-materials/{studyMaterial}/documents',[StudyMaterialController::class,'documents'])->name('study-materials.documents');
+    Route::post('study-materials/{studyMaterial}/documents',[StudyMaterialController::class,'storeDocument'])->name('study-materials.documents.store');
+    Route::get('study-materials/documents/delete/{document}',[StudyMaterialController::class,'deleteDocument'])->name('study-materials.documents.delete');
 
     Route::get('institutes',[InstituteController::class,'index'])->name('institutes.index');
     Route::get('institutes/create',[InstituteController::class,'create'])->name('institutes.create');
