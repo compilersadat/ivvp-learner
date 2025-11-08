@@ -47,6 +47,10 @@ return [
         'testseriesapi'=>[
             'driver'=>'session',
             'provider'=>'test_series_users'
+        ],
+        'institute'=>[
+            'driver'=>'session',
+            'provider'=>'institutes'
         ]
     ],
 
@@ -75,6 +79,10 @@ return [
         'students' => [
             'driver' => 'eloquent',
             'model' => App\Models\Student::class,
+        ],
+        'institutes' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Institute::class,
         ],
 
         // 'users' => [

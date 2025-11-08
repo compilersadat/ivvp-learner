@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\PackageController;
 use App\Http\Controllers\Admin\CollageController;
 use App\Http\Controllers\Admin\InstructorController;
+use App\Http\Controllers\Admin\InstituteController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\StudentPurchaseController;
@@ -78,6 +79,14 @@ Route::prefix('admin')->group(function () {
     Route::get('packages/delete/{id}',[PackageController::class,'delete'])->name('packages.delete');
     Route::get('packages/edit/{id}',[PackageController::class,'edit'])->name('packages.edit');
     Route::post('packages/update/{id}',[PackageController::class,'update'])->name('packages.update');
+
+    Route::get('institutes',[InstituteController::class,'index'])->name('institutes.index');
+    Route::get('institutes/create',[InstituteController::class,'create'])->name('institutes.create');
+    Route::post('institutes/store',[InstituteController::class,'store'])->name('institutes.store');
+    Route::get('institutes/edit/{institute}',[InstituteController::class,'edit'])->name('institutes.edit');
+    Route::post('institutes/update/{institute}',[InstituteController::class,'update'])->name('institutes.update');
+    Route::get('institutes/delete/{institute}',[InstituteController::class,'delete'])->name('institutes.delete');
+    Route::get('institutes/status/{institute}',[InstituteController::class,'toggleStatus'])->name('institutes.status');
 
     Route::get('collages',[CollageController::class,'index'])->name('collages.index');
     Route::get('collages/create',[CollageController::class,'create'])->name('collages.create');

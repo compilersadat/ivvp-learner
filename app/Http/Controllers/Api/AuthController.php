@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
+use App\Models\Institute;
 use App\Models\Student;
 use App\Models\TestSeriesUser;
 use Illuminate\Support\Facades\Validator;
@@ -231,6 +232,44 @@ class AuthController extends ResponseController
         $user =  Auth::guard('testseriesapi')->user();
         $success['token'] =  $user->createToken('token')->plainTextToken;
         $success['user'] = $user;
+        return $this->sendResponse($success);
+    }
+
+    public function loginInstitute(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|string|email|exists:institutes,email',
+            'password' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->toArray();
+            $error = '';
+            foreach ($errors as $key => $e) {
+                foreach ($errors[$key] as $se) {
+                    $error = $error . ' ' . $se;
+                }
+            }
+
+            return $this->sendError(trim($error), 422);
+        }
+
+        $credentials = $request->only('email', 'password');
+        $credentials['is_active'] = 1;
+
+        if (! Auth::guard('institute')->attempt($credentials)) {
+            $error = 'Wrong email or password, or account inactive.';
+
+            return $this->sendError($error, 401);
+        }
+
+        /** @var Institute $institute */
+        $institute = Auth::guard('institute')->user();
+        $institute->update(['last_login_at' => now()]);
+
+        $success['token'] = $institute->createToken('institute-token')->plainTextToken;
+        $success['institute'] = $institute;
+
         return $this->sendResponse($success);
     }
 

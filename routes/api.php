@@ -51,6 +51,7 @@ Route::post('/phonepe-callback',[UserController::class,'paymentCallback']);
 
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/register',[AuthController::class,'signup']);
+Route::post('/institutes/login',[AuthController::class,'loginInstitute']);
 
 // Test series
 Route::prefix('test-series')->group(function () {
