@@ -25,6 +25,9 @@
                         <a href="{{ route('instructors.index')}}"> <i class="menu-icon fa fa-database"></i>Instructors</a>
                     </li>
                     <li>
+                        <a href="{{ route('institutes.index')}}"> <i class="menu-icon fa fa-university"></i>Institutes</a>
+                    </li>
+                    <li>
                         <a href="{{ route('collages.index')}}"> <i class="menu-icon fa fa-database"></i>Collages</a>
                     </li>
                     <li>
