@@ -87,41 +87,8 @@ class DataApiController extends ResponseController
             return $this->sendError('Only institutes can access this resource.', 403);
         }
 
-        $branches = Cache::remember('institute_home_branches_v1', now()->addMinutes(10), function () {
-            $contents = Content::with('fileUpload')->whereNotNull('branch')
-                ->whereNotNull('year')
-                ->orderBy('branch')
-                ->orderBy('year')
-                ->orderBy('order_by')
-                ->get()
-                ->groupBy('branch');
-
-            if ($contents->isEmpty()) {
-                return [];
-            }
-
-            $branchIds = $contents->keys()
-                ->filter(function ($branchId) {
-                    return ! is_null($branchId);
-                })
-                ->all();
-
-            $branchNames = Branch::whereIn('branch_id', $branchIds)->pluck('name', 'branch_id');
-
-            return $contents->map(function ($branchContents, $branchId) use ($branchNames) {
-                $years = $branchContents->groupBy('year')->sortKeys();
-
-                return [
-                    'branch_id' => $branchId,
-                    'branch_name' => $branchNames[$branchId] ?? null,
-                    'years' => $years->map(function ($yearContents, $year) {
-                        return [
-                            'year' => $year,
-                            'contents' => ContentResource::collection($yearContents)->resolve(),
-                        ];
-                    })->values()->all(),
-                ];
-            })->values()->all();
+        $branches = Cache::remember('institute_home_branches_v2', now()->addMinutes(10), function () {
+            return $this->buildInstituteHomeBranches();
         });
 
         $success['message'] = "Here is data";
@@ -130,6 +97,84 @@ class DataApiController extends ResponseController
         ];
 
         return $this->sendResponse($success);
+    }
+
+    protected function buildInstituteHomeBranches(): array
+    {
+        $contents = Content::query()
+            ->select([
+                'id',
+                'title',
+                'description',
+                'type',
+                'file_url',
+                'thumbnail',
+                'month',
+                'branch',
+                'year',
+                'order_by',
+            ])
+            ->with(['fileUpload:id,url'])
+            ->whereNotNull('branch')
+            ->whereNotNull('year')
+            ->orderBy('branch')
+            ->orderBy('year')
+            ->orderBy('order_by')
+            ->get();
+
+        if ($contents->isEmpty()) {
+            return [];
+        }
+
+        $branchIds = $contents->pluck('branch')->filter()->unique()->all();
+        $branchNames = Branch::whereIn('branch_id', $branchIds)->pluck('name', 'branch_id');
+        $thumbnailBase = env('S3_STORAGE_BASE_URL');
+        $months = [
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December',
+        ];
+
+        return $contents
+            ->groupBy('branch')
+            ->map(function ($branchContents, $branchId) use ($branchNames, $thumbnailBase, $months) {
+                $years = $branchContents->groupBy('year')->sortKeys();
+
+                return [
+                    'branch_id' => $branchId,
+                    'branch_name' => $branchNames[$branchId] ?? null,
+                    'years' => $years->map(function ($yearContents, $year) use ($thumbnailBase, $months) {
+                        $payload = $yearContents->map(function ($content) use ($thumbnailBase, $months) {
+                            $monthIndex = ($content->month ?? 1) - 1;
+
+                            return [
+                                'title' => $content->title,
+                                'description' => $content->description,
+                                'type' => $content->type,
+                                'file_url' => optional($content->fileUpload)->url,
+                                'thumbnail' => $thumbnailBase . $content->thumbnail,
+                                'month' => $months[$monthIndex] ?? $content->month,
+                            ];
+                        })->values()->all();
+
+                        return [
+                            'year' => $year,
+                            'contents' => $payload,
+                        ];
+                    })->values()->all(),
+                ];
+            })
+            ->values()
+            ->all();
     }
 
     public function primeContent(Request $request){
