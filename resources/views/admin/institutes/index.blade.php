@@ -52,6 +52,11 @@
                                             <a href="{{ route('institutes.delete', $institute) }}" onclick="return confirm('Are you sure you want to delete this institute?');" class="label">
                                                 <i class="fa fa-trash fa-1x" style="color:#000"></i>
                                             </a>
+                                            @if($institute->usb_identifier)
+                                                <a href="{{ route('institutes.downloadUsbKey', $institute) }}" class="label" title="Download key file">
+                                                    <i class="fa fa-download fa-1x" style="color:#000"></i>
+                                                </a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

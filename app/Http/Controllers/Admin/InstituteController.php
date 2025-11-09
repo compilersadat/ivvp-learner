@@ -120,4 +120,29 @@ class InstituteController extends Controller
             'key' => $key,
         ]);
     }
+
+    public function downloadUsbKey(Institute $institute)
+    {
+        if (! $institute->usb_identifier) {
+            return redirect()
+                ->back()
+                ->with('unsuccess', 'Institute does not have a USB identifier yet.');
+        }
+
+        try {
+            $payload = $this->usbKeyService->buildDownloadPayload($institute);
+        } catch (\Throwable $exception) {
+            report($exception);
+
+            return redirect()
+                ->back()
+                ->with('unsuccess', 'Unable to prepare the USB key file for download.');
+        }
+
+        return response()->streamDownload(function () use ($payload) {
+            echo $payload['contents'];
+        }, $payload['filename'], [
+            'Content-Type' => 'text/plain',
+        ]);
+    }
 }

@@ -99,6 +99,7 @@ Route::prefix('admin')->group(function () {
     Route::get('institutes/delete/{institute}',[InstituteController::class,'delete'])->name('institutes.delete');
     Route::get('institutes/status/{institute}',[InstituteController::class,'toggleStatus'])->name('institutes.status');
     Route::get('institutes/usb-key',[InstituteController::class,'generateUsbKey'])->name('institutes.generateUsbKey');
+    Route::get('institutes/{institute}/usb-key/download',[InstituteController::class,'downloadUsbKey'])->name('institutes.downloadUsbKey');
 
     Route::get('collages',[CollageController::class,'index'])->name('collages.index');
     Route::get('collages/create',[CollageController::class,'create'])->name('collages.create');

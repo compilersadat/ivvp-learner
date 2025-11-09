@@ -67,6 +67,23 @@ class InstituteUsbKeyService
         ];
     }
 
+    /**
+     * Build an in-memory representation of the key for downloads.
+     *
+     * @return array{filename: string, contents: string}
+     */
+    public function buildDownloadPayload(Institute $institute): array
+    {
+        if (! $institute->usb_identifier) {
+            throw new \InvalidArgumentException('Institute is missing a USB identifier.');
+        }
+
+        return [
+            'filename' => $this->buildFileName($institute),
+            'contents' => $this->buildFileContents($institute),
+        ];
+    }
+
     protected function buildFileName(Institute $institute): string
     {
         $pattern = (string) config('institutes.usb_key.filename_pattern', 'institute-:id.key');
