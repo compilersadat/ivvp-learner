@@ -25,6 +25,7 @@ use App\Models\Exam;
 use App\Models\StudentResult;
 use App\Models\Student;
 use App\Models\Institute;
+use Illuminate\Support\Facades\Cache;
 use App\Models\AppUpdate;
 use App\Models\StudyMaterialFolder;
 class DataApiController extends ResponseController
@@ -86,40 +87,45 @@ class DataApiController extends ResponseController
             return $this->sendError('Only institutes can access this resource.', 403);
         }
 
-        $contents = Content::whereNotNull('branch')
-            ->whereNotNull('year')
-            ->orderBy('branch')
-            ->orderBy('year')
-            ->orderBy('order_by')
-            ->get()
-            ->groupBy('branch');
+        $branches = Cache::remember('institute_home_branches_v1', now()->addMinutes(10), function () {
+            $contents = Content::whereNotNull('branch')
+                ->whereNotNull('year')
+                ->orderBy('branch')
+                ->orderBy('year')
+                ->orderBy('order_by')
+                ->get()
+                ->groupBy('branch');
 
-        $branchIds = $contents->keys()
-            ->filter(function ($branchId) {
-                return ! is_null($branchId);
-            })
-            ->all();
+            if ($contents->isEmpty()) {
+                return [];
+            }
 
-        $branchNames = Branch::whereIn('branch_id', $branchIds)->pluck('name', 'branch_id');
+            $branchIds = $contents->keys()
+                ->filter(function ($branchId) {
+                    return ! is_null($branchId);
+                })
+                ->all();
 
-        $branches = $contents->map(function ($branchContents, $branchId) use ($branchNames) {
-            $years = $branchContents->groupBy('year')->sortKeys();
+            $branchNames = Branch::whereIn('branch_id', $branchIds)->pluck('name', 'branch_id');
 
-            return [
-                'branch_id' => $branchId,
-                'branch_name' => $branchNames[$branchId] ?? null,
-                'years' => $years->map(function ($yearContents, $year) {
-                    return [
-                        'year' => $year,
-                        'contents' => ContentResource::collection($yearContents),
-                    ];
-                })->values(),
-            ];
-        })->values();
+            return $contents->map(function ($branchContents, $branchId) use ($branchNames) {
+                $years = $branchContents->groupBy('year')->sortKeys();
+
+                return [
+                    'branch_id' => $branchId,
+                    'branch_name' => $branchNames[$branchId] ?? null,
+                    'years' => $years->map(function ($yearContents, $year) {
+                        return [
+                            'year' => $year,
+                            'contents' => ContentResource::collection($yearContents)->resolve(),
+                        ];
+                    })->values()->all(),
+                ];
+            })->values()->all();
+        });
 
         $success['message'] = "Here is data";
         $success['data'] = [
-            'sliders' => SlidersResource::collection(Slider::get()),
             'branches' => $branches,
         ];
 
