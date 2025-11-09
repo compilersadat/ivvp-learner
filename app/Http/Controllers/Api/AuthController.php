@@ -273,6 +273,40 @@ class AuthController extends ResponseController
         return $this->sendResponse($success);
     }
 
+    public function loginInstituteWithUsb(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'usb_identifier' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            $errors = $validator->errors()->toArray();
+            $error = '';
+            foreach ($errors as $key => $messages) {
+                foreach ($messages as $message) {
+                    $error .= ' ' . $message;
+                }
+            }
+
+            return $this->sendError(trim($error), 422);
+        }
+
+        $institute = Institute::where('usb_identifier', $request->usb_identifier)
+            ->where('is_active', true)
+            ->first();
+
+        if (! $institute) {
+            return $this->sendError('USB key not recognized or account inactive.', 401);
+        }
+
+        $institute->update(['last_login_at' => now()]);
+
+        $success['token'] = $institute->createToken('institute-token')->plainTextToken;
+        $success['institute'] = $institute;
+
+        return $this->sendResponse($success);
+    }
+
 
     //getuser
     public function getUser(Request $request)

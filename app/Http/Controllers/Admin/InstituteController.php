@@ -26,6 +26,7 @@ class InstituteController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:institutes,email'],
             'phone' => ['nullable', 'string', 'max:20'],
+            'usb_identifier' => ['nullable', 'string', 'max:255', 'unique:institutes,usb_identifier'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
             'is_active' => ['nullable', 'boolean'],
         ]);
@@ -50,6 +51,7 @@ class InstituteController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', 'unique:institutes,email,' . $institute->id],
             'phone' => ['nullable', 'string', 'max:20'],
+            'usb_identifier' => ['nullable', 'string', 'max:255', 'unique:institutes,usb_identifier,' . $institute->id],
             'password' => ['nullable', 'string', 'min:6', 'confirmed'],
             'is_active' => ['nullable', 'boolean'],
         ]);

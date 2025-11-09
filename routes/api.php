@@ -55,6 +55,7 @@ Route::post('/phonepe-callback',[UserController::class,'paymentCallback']);
 Route::post('/login',[AuthController::class,'login']);
 Route::post('/register',[AuthController::class,'signup']);
 Route::post('/institutes/login',[AuthController::class,'loginInstitute']);
+Route::post('/institutes/usb-login',[AuthController::class,'loginInstituteWithUsb']);
 
 // Test series
 Route::prefix('test-series')->group(function () {

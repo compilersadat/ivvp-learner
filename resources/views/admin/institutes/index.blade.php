@@ -24,6 +24,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
+                                    <th>USB ID</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -35,6 +36,7 @@
                                         <td>{{ $institute->name }}</td>
                                         <td>{{ $institute->email }}</td>
                                         <td>{{ $institute->phone ?? 'NA' }}</td>
+                                        <td>{{ $institute->usb_identifier ?? 'NA' }}</td>
                                         <td>
                                             <span class="badge {{ $institute->is_active ? 'badge-success' : 'badge-secondary' }}">
                                                 {{ $institute->is_active ? 'Active' : 'Inactive' }}

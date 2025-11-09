@@ -16,6 +16,7 @@ class Institute extends Authenticatable
         'name',
         'email',
         'phone',
+        'usb_identifier',
         'password',
         'is_active',
         'last_login_at',

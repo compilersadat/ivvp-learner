@@ -38,6 +38,11 @@
                     <input type="text" id="phone" name="phone" value="{{ old('phone') }}" class="form-control">
                 </div>
                 <div class="form-group">
+                    <label for="usb_identifier" class="form-control-label">USB Identifier</label>
+                    <input type="text" id="usb_identifier" name="usb_identifier" value="{{ old('usb_identifier') }}" class="form-control" placeholder="Unique ID embedded on the USB device">
+                    <small class="form-text text-muted">Used for institutes that authenticate via USB keys.</small>
+                </div>
+                <div class="form-group">
                     <label for="password" class="form-control-label">Password</label>
                     <input type="password" id="password" name="password" class="form-control" required>
                 </div>
