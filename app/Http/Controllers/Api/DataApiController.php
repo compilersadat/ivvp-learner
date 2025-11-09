@@ -46,8 +46,8 @@ class DataApiController extends ResponseController
                             $month_range= (array)$month_range+(array)$this->calculateRangeOfMonths($package->month,$st_package->number_of_months);
                         }
                     }
-                    $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$month_range)->orderBy('order_by','ASC')->get();
-                    $current_month_videos=Content::where('branch',$student->branch)->where('year',$student->year)->where('month',$month_range[0])->where('type','video_lecture')->get();
+                    $prime_content=Content::with('fileUpload')->where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$month_range)->orderBy('order_by','ASC')->get();
+                    $current_month_videos=Content::with('fileUpload')->where('branch',$student->branch)->where('year',$student->year)->where('month',$month_range[0])->where('type','video_lecture')->get();
                     $data['prime_content']=ContentResource::collection($prime_content);
                     $data['current_month_videos']=ContentResource::collection($current_month_videos);
                     $data['paid_plans']=StudentSubscriptionResource::collection($student_pro);
@@ -59,13 +59,13 @@ class DataApiController extends ResponseController
                     $data['common_study_materials']=$this->getCommonStudyMaterials($student);
         }else{
             /// Free one month
-            $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->where('month',9)->orderBy('order_by','ASC')->get();
-            $current_month_videos=Content::where('branch',$student->branch)->where('year',$student->year)->where('month',9)->where('type','video_lecture')->get();
+            $prime_content=Content::with('fileUpload')->where('branch',$student->branch)->where('year',$student->year)->where('month',9)->orderBy('order_by','ASC')->get();
+            $current_month_videos=Content::with('fileUpload')->where('branch',$student->branch)->where('year',$student->year)->where('month',9)->where('type','video_lecture')->get();
             $data['prime_content']=ContentResource::collection($prime_content);
             $data['current_month_videos']=ContentResource::collection($current_month_videos);
             $data['paid_plans']=[];
            
-            $free_content=Content::where('branch',$student->branch)->where('year',$student->year)->where(function($query){
+            $free_content=Content::with('fileUpload')->where('branch',$student->branch)->where('year',$student->year)->where(function($query){
                 $query->where('type','free_pdf')->orWhere('type','free_video');
             })->get();
              $data['study_materials']=StudyMaterial::collection(Faculty::all());
@@ -88,7 +88,7 @@ class DataApiController extends ResponseController
         }
 
         $branches = Cache::remember('institute_home_branches_v1', now()->addMinutes(10), function () {
-            $contents = Content::whereNotNull('branch')
+            $contents = Content::with('fileUpload')->whereNotNull('branch')
                 ->whereNotNull('year')
                 ->orderBy('branch')
                 ->orderBy('year')
@@ -142,7 +142,7 @@ class DataApiController extends ResponseController
                 $month_range= (array)$month_range+(array)$this->calculateRangeOfMonths($package->month,$st_package->number_of_months);
             }
         }
-        $prime_content=Content::where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$month_range)->get();
+        $prime_content=Content::with('fileUpload')->where('branch',$student->branch)->where('year',$student->year)->whereIn('month',$month_range)->get();
         $data['prime_content']=ContentResource::collection($prime_content);
         $data['common_study_materials']=$this->getCommonStudyMaterials($student);
         $success['message'] = "Here is data";

@@ -29,11 +29,18 @@ class ContentResource extends JsonResource
             'November',
             'December'
             ];
+        $fileUpload = $this->whenLoaded('fileUpload');
+        $fileUrl = optional($fileUpload)->url;
+
+        if (is_null($fileUrl) && $this->file_url) {
+            $fileUrl = S3upload::where('id', $this->file_url)->value('url');
+        }
+
         return [
             "title"=>$this->title,
             "description"=>$this->description,
             "type"=>$this->type,
-            "file_url"=>S3upload::where('id',$this->file_url)->value("url"),
+            "file_url"=>$fileUrl,
             "thumbnail"=>env('S3_STORAGE_BASE_URL').$this->thumbnail,
             "month"=>$months[$this->month-1]
         ];
