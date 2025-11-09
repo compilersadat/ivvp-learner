@@ -4,12 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Institute;
+use App\Services\InstituteUsbKeyService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class InstituteController extends Controller
 {
+    public function __construct(
+        private InstituteUsbKeyService $usbKeyService,
+    ) {
+    }
+
     public function index()
     {
         $institutes = Institute::latest()->get();
@@ -35,11 +41,23 @@ class InstituteController extends Controller
 
         $validated['is_active'] = $request->boolean('is_active');
 
-        Institute::create($validated);
+        $institute = Institute::create($validated);
+
+        $message = 'Institute created successfully.';
+
+        if ($institute->usb_identifier) {
+            $result = $this->usbKeyService->writeKeyFile($institute);
+
+            if ($result['success'] && $result['path']) {
+                $message .= ' USB key file saved to ' . $result['path'] . '.';
+            } elseif (! $result['success'] && $result['message']) {
+                $message .= ' USB key file could not be saved: ' . $result['message'];
+            }
+        }
 
         return redirect()
             ->route('institutes.index')
-            ->with('success', 'Institute created successfully.');
+            ->with('success', $message);
     }
 
     public function edit(Institute $institute)
