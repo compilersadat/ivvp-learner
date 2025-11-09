@@ -39,8 +39,15 @@
                 </div>
                 <div class="form-group">
                     <label for="usb_identifier" class="form-control-label">USB Identifier</label>
-                    <input type="text" id="usb_identifier" name="usb_identifier" value="{{ old('usb_identifier') }}" class="form-control" placeholder="Unique ID embedded on the USB device">
-                    <small class="form-text text-muted">Used for institutes that authenticate via USB keys.</small>
+                    <div class="input-group">
+                        <input type="text" id="usb_identifier" name="usb_identifier" value="{{ old('usb_identifier') }}" class="form-control" placeholder="Unique ID embedded on the USB device">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-secondary" id="generate-usb-key" data-endpoint="{{ route('institutes.generateUsbKey') }}">
+                                Create Key
+                            </button>
+                        </div>
+                    </div>
+                    <small class="form-text text-muted">Connect the USB device, then click "Create Key" to generate and store a hardware-bound identifier.</small>
                 </div>
                 <div class="form-group">
                     <label for="password" class="form-control-label">Password</label>
@@ -64,3 +71,49 @@
     </div>
 </div>
 @endsection
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const button = document.getElementById('generate-usb-key');
+    if (!button) {
+        return;
+    }
+
+    const input = document.getElementById('usb_identifier');
+    const endpoint = button.dataset.endpoint;
+
+    button.addEventListener('click', function () {
+        if (!endpoint) {
+            return;
+        }
+
+        const originalText = button.innerText;
+        button.disabled = true;
+        button.innerText = 'Generating...';
+
+        fetch(endpoint, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Unable to create key');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.key) {
+                    input.value = data.key;
+                }
+            })
+            .catch(() => {
+                alert('Failed to create USB key. Please try again.');
+            })
+            .finally(() => {
+                button.disabled = false;
+                button.innerText = originalText;
+            });
+    });
+});
+</script>

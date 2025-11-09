@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Institute;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class InstituteController extends Controller
 {
@@ -88,5 +90,16 @@ class InstituteController extends Controller
         return redirect()
             ->route('institutes.index')
             ->with('success', $message);
+    }
+
+    public function generateUsbKey(): JsonResponse
+    {
+        do {
+            $key = Str::upper(Str::uuid()->toString());
+        } while (Institute::where('usb_identifier', $key)->exists());
+
+        return response()->json([
+            'key' => $key,
+        ]);
     }
 }
