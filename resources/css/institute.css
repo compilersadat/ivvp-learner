@@ -1,0 +1,414 @@
+:root {
+    --portal-bg: #05060a;
+    --portal-accent: #ff8b37;
+    --portal-accent-dark: #d66b1d;
+    --portal-card: #ffffff;
+    --portal-text: #1f2933;
+    --portal-muted: #5b6470;
+    --portal-border: rgba(15, 23, 42, 0.08);
+    --portal-radius: 16px;
+    --portal-shadow: 0 25px 45px rgba(15, 23, 42, 0.15);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body.portal-body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--portal-bg);
+    color: var(--portal-text);
+}
+
+body.portal-body--accent {
+    background: radial-gradient(circle at top right, #1a202f, #05060a 60%);
+    color: #e2e8f0;
+}
+
+body.portal-body--light {
+    background: #f2f5fb;
+}
+
+.portal-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    padding: 2.5rem 1.5rem;
+}
+
+.portal-grid {
+    max-width: 1200px;
+    width: 100%;
+    display: grid;
+    gap: 2rem;
+    align-items: stretch;
+}
+
+.portal-grid--split {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.portal-hero {
+    border-radius: var(--portal-radius);
+    background: linear-gradient(135deg, rgba(255, 139, 55, 0.18), rgba(10, 17, 39, 0.75));
+    padding: 3rem;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+.portal-hero__badge {
+    display: inline-flex;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.2);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+}
+
+.portal-hero__title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin: 0 0 1rem;
+    color: #fff;
+}
+
+.portal-hero__copy {
+    color: rgba(255, 255, 255, 0.82);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+}
+
+.portal-hero__list {
+    margin: 0;
+    padding-left: 1.25rem;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.portal-card {
+    background: var(--portal-card);
+    border-radius: var(--portal-radius);
+    padding: 2rem;
+    box-shadow: var(--portal-shadow);
+}
+
+.portal-card--form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.portal-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.portal-card__header--compact {
+    align-items: center;
+}
+
+.portal-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.75rem;
+    margin: 0 0 0.35rem;
+    color: var(--portal-muted);
+}
+
+.portal-link {
+    font-weight: 600;
+    color: var(--portal-accent);
+    text-decoration: none;
+}
+
+.portal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.portal-form__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.portal-form__group label {
+    font-weight: 600;
+    color: var(--portal-muted);
+}
+
+.portal-form__group input {
+    border-radius: 12px;
+    border: 1px solid var(--portal-border);
+    padding: 0.85rem 1rem;
+    font-size: 1rem;
+    background: #f9fafc;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.portal-form__group input:focus {
+    outline: none;
+    border-color: var(--portal-accent);
+    box-shadow: 0 0 0 3px rgba(255, 139, 55, 0.15);
+}
+
+.portal-btn {
+    appearance: none;
+    border: none;
+    border-radius: 14px;
+    padding: 0.85rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.portal-btn--compact {
+    font-size: 0.875rem;
+    padding: 0.6rem 1.1rem;
+}
+
+.portal-btn--primary {
+    background: var(--portal-accent);
+    color: #fff;
+    box-shadow: 0 20px 35px rgba(255, 139, 55, 0.35);
+}
+
+.portal-btn--primary:hover {
+    transform: translateY(-1px);
+    background: var(--portal-accent-dark);
+}
+
+.portal-btn--ghost {
+    background: rgba(15, 23, 42, 0.04);
+    color: var(--portal-text);
+    border: 1px solid rgba(15, 23, 42, 0.1);
+}
+
+.btn-spinner {
+    width: 1rem;
+    height: 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    display: none;
+}
+
+.portal-btn.is-loading .btn-label {
+    opacity: 0.5;
+}
+
+.portal-btn.is-loading .btn-spinner {
+    display: inline-block;
+}
+
+.portal-btn.is-loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.portal-form__hint {
+    margin: 0;
+    color: var(--portal-muted);
+    font-size: 0.875rem;
+}
+
+.portal-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--portal-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 0.75rem;
+}
+
+.portal-divider::before,
+.portal-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--portal-border);
+}
+
+.portal-alert {
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    font-weight: 600;
+    border: 1px solid transparent;
+}
+
+.portal-alert--error {
+    background: rgba(220, 38, 38, 0.12);
+    border-color: rgba(220, 38, 38, 0.4);
+    color: #b91c1c;
+}
+
+.d-none {
+    display: none !important;
+}
+
+.portal-shell {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    background: var(--portal-card);
+    border-radius: var(--portal-radius);
+    padding: 2rem;
+    box-shadow: var(--portal-shadow);
+    min-height: 80vh;
+}
+
+.portal-topbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--portal-border);
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.portal-text-sm {
+    color: var(--portal-muted);
+    margin: 0.5rem 0 0;
+}
+
+.portal-user {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.portal-user__name {
+    margin: 0;
+    font-weight: 700;
+}
+
+.portal-user__email,
+.portal-user__phone {
+    margin: 0;
+    color: var(--portal-muted);
+}
+
+.portal-home {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.portal-accordion {
+    border: 1px solid var(--portal-border);
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.portal-accordion__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    background: #f9fafc;
+}
+
+.portal-accordion__title {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.portal-accordion__body {
+    padding: 0 1.5rem 1.5rem;
+}
+
+.portal-year {
+    margin-top: 1rem;
+}
+
+.portal-year__title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    color: var(--portal-muted);
+}
+
+.portal-content-list {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+
+.portal-content-card {
+    border: 1px solid var(--portal-border);
+    border-radius: 16px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.portal-content-card__meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    color: var(--portal-muted);
+}
+
+.portal-tag {
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.05);
+    text-transform: capitalize;
+}
+
+.portal-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--portal-muted);
+}
+
+.spinner {
+    width: 2rem;
+    height: 2rem;
+    border: 3px solid rgba(15, 23, 42, 0.1);
+    border-top-color: var(--portal-accent);
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@media (max-width: 768px) {
+    .portal-page {
+        padding: 1.25rem;
+    }
+
+    .portal-card,
+    .portal-shell {
+        padding: 1.5rem;
+    }
+
+    .portal-topbar {
+        flex-direction: column;
+    }
+}

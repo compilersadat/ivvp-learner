@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\TestSeries\TestSeriesTestController;
 use App\Http\Controllers\Admin\TestSeries\TestSeriesQuestionController;
 use App\Http\Controllers\Admin\Practice\QuestionController as PracticeQuestionController;
 use App\Http\Controllers\Admin\CouponController;
+use App\Http\Controllers\InstitutePortalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,11 @@ Route::get('/account-deletion', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class,'index'])->name('home');
+
+Route::prefix('institutes')->name('institutes.portal.')->group(function () {
+    Route::get('/login', [InstitutePortalController::class, 'showLogin'])->name('login');
+    Route::get('/home', [InstitutePortalController::class, 'showHome'])->name('home');
+});
 
 
 Route::prefix('admin')->group(function () {

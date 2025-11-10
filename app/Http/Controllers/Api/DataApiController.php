@@ -87,7 +87,7 @@ class DataApiController extends ResponseController
             return $this->sendError('Only institutes can access this resource.', 403);
         }
 
-        $branches = Cache::remember('institute_home_branches_v2', now()->addMinutes(10), function () {
+        $branches = Cache::remember('institute_home_branches_v3', now()->addMinutes(10), function () {
             return $this->buildInstituteHomeBranches();
         });
 
@@ -160,7 +160,7 @@ class DataApiController extends ResponseController
                                 'title' => $content->title,
                                 'description' => $content->description,
                                 'type' => $content->type,
-                                'file_url' => optional($content->fileUpload)->url,
+                                'download_url' => route('institutes.contents.download', ['content' => $content->id]),
                                 'thumbnail' => $thumbnailBase . $content->thumbnail,
                                 'month' => $months[$monthIndex] ?? $content->month,
                             ];

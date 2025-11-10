@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ExamController;
 use App\Http\Controllers\Api\TestSeriesController;
 use App\Http\Controllers\Api\StudyMaterialController as StudyMaterialApiController;
+use App\Http\Controllers\Api\InstituteContentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::post('/get-updates',[DataApiController::class,'appUpdate']);
 Route::middleware('auth:sanctum,institute')->group(function(){
   Route::get('/home-data',[DataApiController::class,'homeData']);
   Route::get('/institutes/home-data',[DataApiController::class,'instituteHomeData']);
+  Route::get('/institutes/contents/{content}/download',[InstituteContentController::class,'download'])->name('institutes.contents.download');
   Route::get('/prime-content',[DataApiController::class,'primeContent']);
   Route::get('/fetch-exams',[DataApiController::class,'fetchExams']);
   Route::post('/update-profile',[UserController::class,'updateStudent']);
