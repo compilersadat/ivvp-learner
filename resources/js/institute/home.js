@@ -16,6 +16,7 @@ const viewerBody = document.querySelector('[data-viewer-body]');
 const viewerCloseTriggers = document.querySelectorAll('[data-viewer-close]');
 
 const token = localStorage.getItem(TOKEN_KEY);
+let activeObjectUrl = null;
 
 const redirectToLogin = () => window.location.replace(LOGIN_URL);
 
@@ -95,6 +96,11 @@ const closeViewer = () => {
     viewer.setAttribute('aria-hidden', 'true');
     viewerBody.innerHTML = '';
 
+    if (activeObjectUrl) {
+        window.URL.revokeObjectURL(activeObjectUrl);
+        activeObjectUrl = null;
+    }
+
 };
 
 viewerCloseTriggers.forEach((trigger) => {
@@ -123,13 +129,42 @@ const openVideoViewer = (src, title) => {
     viewer.setAttribute('aria-hidden', 'false');
 };
 
+const extractFilename = (headerValue, fallback) => {
+    if (!headerValue) {
+        return fallback;
+    }
+
+    const match = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/.exec(headerValue);
+    if (match?.[1]) {
+        return match[1].replace(/['"]/g, '') || fallback;
+    }
+
+    return fallback;
+};
+
+const fetchContentBlob = async (downloadUrl) => {
+    const response = await window.axios.get(downloadUrl, {
+        responseType: 'blob',
+    });
+
+    const filename = extractFilename(
+        response.headers['content-disposition'],
+        'ivvp-resource'
+    );
+
+    return {
+        blob: response.data,
+        filename,
+    };
+};
+
 const handleContentActivation = async (event) => {
     const card = event.currentTarget;
-    const streamUrl = card.dataset.streamUrl;
+    const downloadUrl = card.dataset.downloadUrl;
     const mediaCategory = card.dataset.mediaCategory ?? 'file';
     const title = card.dataset.title ?? 'Resource';
 
-    if (!streamUrl) {
+    if (!downloadUrl) {
         alert('Preview is not available for this file yet.');
         return;
     }
@@ -137,20 +172,29 @@ const handleContentActivation = async (event) => {
     card.classList.add('is-loading');
 
     try {
+        const { blob, filename } = await fetchContentBlob(downloadUrl);
+
         if (mediaCategory === MEDIA_VIDEO) {
-            openVideoViewer(streamUrl, title);
+            const blobUrl = window.URL.createObjectURL(blob);
+            activeObjectUrl = blobUrl;
+            openVideoViewer(blobUrl, title);
             return;
         }
 
+        const objectUrl = window.URL.createObjectURL(blob);
+
         if (mediaCategory === MEDIA_PDF) {
-            const pdfWindow = window.open(streamUrl, '_blank', 'noopener');
+            const pdfWindow = window.open(objectUrl, '_blank', 'noopener');
             if (!pdfWindow) {
                 alert('Please allow pop-ups to view this PDF.');
             }
+
+            setTimeout(() => window.URL.revokeObjectURL(objectUrl), 60 * 1000);
             return;
         }
 
-        window.open(streamUrl, '_blank', 'noopener');
+        window.URL.revokeObjectURL(objectUrl);
+        alert('This content type cannot be previewed yet.');
     } catch (error) {
         if (error.response?.status === 401) {
             clearSession();
@@ -167,13 +211,11 @@ const handleContentActivation = async (event) => {
 const createContentCard = (content) => {
     const card = document.createElement('article');
     card.className = 'portal-content-card portal-content-card--interactive';
+    card.dataset.downloadUrl = content.download_url ?? '';
     card.dataset.mediaCategory = content.media_category ?? 'file';
     card.dataset.title = content.title ?? 'Resource';
-    card.dataset.streamUrl = content.stream_url ?? '';
 
-    const hasDirectStream = Boolean(content.stream_url);
-
-    if (!hasDirectStream) {
+    if (!content.download_url) {
         card.classList.add('is-disabled');
     }
 
@@ -213,7 +255,7 @@ const createContentCard = (content) => {
     card.appendChild(thumbnail);
     card.appendChild(body);
 
-    if (hasDirectStream) {
+    if (content.download_url) {
         card.addEventListener('click', handleContentActivation);
     }
 
