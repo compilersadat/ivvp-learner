@@ -26,6 +26,7 @@ use App\Models\StudentResult;
 use App\Models\Student;
 use App\Models\Institute;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 use App\Models\AppUpdate;
 use App\Models\StudyMaterialFolder;
 class DataApiController extends ResponseController
@@ -87,7 +88,7 @@ class DataApiController extends ResponseController
             return $this->sendError('Only institutes can access this resource.', 403);
         }
 
-        $branches = Cache::remember('institute_home_branches_v3', now()->addMinutes(10), function () {
+        $branches = Cache::remember('institute_home_branches_v4', now()->addMinutes(10), function () {
             return $this->buildInstituteHomeBranches();
         });
 
@@ -128,7 +129,7 @@ class DataApiController extends ResponseController
 
         $branchIds = $contents->pluck('branch')->filter()->unique()->all();
         $branchNames = Branch::whereIn('branch_id', $branchIds)->pluck('name', 'branch_id');
-        $thumbnailBase = env('S3_STORAGE_BASE_URL');
+        $thumbnailBase = (string) env('S3_STORAGE_BASE_URL');
         $months = [
             'January',
             'February',
@@ -153,28 +154,94 @@ class DataApiController extends ResponseController
                     'branch_id' => $branchId,
                     'branch_name' => $branchNames[$branchId] ?? null,
                     'years' => $years->map(function ($yearContents, $year) use ($thumbnailBase, $months) {
-                        $payload = $yearContents->map(function ($content) use ($thumbnailBase, $months) {
-                            $monthIndex = ($content->month ?? 1) - 1;
-
-                            return [
-                                'title' => $content->title,
-                                'description' => $content->description,
-                                'type' => $content->type,
-                                'download_url' => route('institutes.contents.download', ['content' => $content->id]),
-                                'thumbnail' => $thumbnailBase . $content->thumbnail,
-                                'month' => $months[$monthIndex] ?? $content->month,
-                            ];
-                        })->values()->all();
+                        $monthsGroup = $yearContents->groupBy('month')->sortKeys();
 
                         return [
                             'year' => $year,
-                            'contents' => $payload,
+                            'months' => $monthsGroup->map(function ($monthContents, $month) use ($thumbnailBase, $months) {
+                                $safeMonth = (int) $month ?: 0;
+                                $monthIndex = $safeMonth > 0 ? $safeMonth - 1 : 0;
+                                $label = $month
+                                    ? ($months[$monthIndex] ?? $month)
+                                    : 'Unscheduled';
+
+                                $payload = $monthContents->map(function ($content) use ($thumbnailBase, $months) {
+                                    return $this->transformInstituteContent($content, $thumbnailBase, $months);
+                                })->values()->all();
+
+                                return [
+                                    'month' => $month,
+                                    'label' => $label,
+                                    'contents' => $payload,
+                                ];
+                            })->values()->all(),
                         ];
                     })->values()->all(),
                 ];
             })
             ->values()
             ->all();
+    }
+
+    protected function transformInstituteContent(Content $content, string $thumbnailBase, array $months): array
+    {
+        $monthIndex = max(0, ((int) ($content->month ?? 1)) - 1);
+        $thumbnail = $content->thumbnail
+            ? $thumbnailBase . ltrim($content->thumbnail, '/')
+            : null;
+        $fileUpload = $content->fileUpload;
+        $downloadUrl = $fileUpload ? route('institutes.contents.download', ['content' => $content->id]) : null;
+        $extension = $this->extractExtension(optional($fileUpload)->url);
+
+        return [
+            'id' => $content->id,
+            'title' => $content->title,
+            'description' => $content->description,
+            'type' => $content->type,
+            'type_label' => $this->prettifyType($content->type),
+            'month_label' => $months[$monthIndex] ?? $content->month,
+            'download_url' => $downloadUrl,
+            'thumbnail_url' => $thumbnail,
+            'file_extension' => $extension,
+            'media_category' => $this->inferMediaCategory($content->type, $extension),
+        ];
+    }
+
+    protected function extractExtension(?string $path): ?string
+    {
+        if (! $path) {
+            return null;
+        }
+
+        $normalized = parse_url($path, PHP_URL_PATH) ?: $path;
+        $extension = pathinfo($normalized, PATHINFO_EXTENSION);
+
+        return $extension ? strtolower($extension) : null;
+    }
+
+    protected function inferMediaCategory(?string $type, ?string $extension): string
+    {
+        $typeString = strtolower((string) $type);
+        $ext = strtolower((string) $extension);
+
+        if (Str::contains($typeString, ['video', 'lecture']) || in_array($ext, ['mp4', 'mov', 'm4v', 'webm', 'mkv'])) {
+            return 'video';
+        }
+
+        if (Str::contains($typeString, ['pdf']) || $ext === 'pdf') {
+            return 'pdf';
+        }
+
+        return 'file';
+    }
+
+    protected function prettifyType(?string $type): string
+    {
+        if (! $type) {
+            return 'Resource';
+        }
+
+        return Str::of($type)->replace('_', ' ')->title();
     }
 
     public function primeContent(Request $request){

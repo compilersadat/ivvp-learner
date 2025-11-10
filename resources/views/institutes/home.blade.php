@@ -27,6 +27,16 @@
                 <p>Gathering your institute data…</p>
             </div>
         </section>
+
+        <div id="portal-viewer" class="portal-viewer" aria-hidden="true">
+            <div class="portal-viewer__backdrop" data-viewer-close></div>
+            <div class="portal-viewer__dialog" role="dialog" aria-modal="true">
+                <button type="button" class="portal-viewer__close" data-viewer-close>&times;</button>
+                <div class="portal-viewer__body" data-viewer-body>
+                    <p class="portal-text-sm">Choose a video to preview it here.</p>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
