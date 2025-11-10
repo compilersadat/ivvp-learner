@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 use App\Models\AppUpdate;
 use App\Models\StudyMaterialFolder;
+use App\Models\S3upload;
 class DataApiController extends ResponseController
 {
     public function homeData(Request $request){
@@ -189,9 +190,9 @@ class DataApiController extends ResponseController
         $thumbnail = $content->thumbnail
             ? $thumbnailBase . ltrim($content->thumbnail, '/')
             : null;
-        $fileUpload = $content->fileUpload;
-        $downloadUrl = $fileUpload ? route('institutes.contents.download', ['content' => $content->id]) : null;
-        $extension = $this->extractExtension(optional($fileUpload)->url);
+        $fileUrl = $this->resolveContentUrl($content);
+        $downloadUrl = $fileUrl ? route('institutes.contents.download', ['content' => $content->id]) : null;
+        $extension = $this->extractExtension($fileUrl);
 
         return [
             'id' => $content->id,
@@ -205,6 +206,27 @@ class DataApiController extends ResponseController
             'file_extension' => $extension,
             'media_category' => $this->inferMediaCategory($content->type, $extension),
         ];
+    }
+
+    protected function resolveContentUrl(Content $content): ?string
+    {
+        if ($content->relationLoaded('fileUpload') && $content->fileUpload && $content->fileUpload->url) {
+            return $content->fileUpload->url;
+        }
+
+        if ($content->fileUpload && $content->fileUpload->url) {
+            return $content->fileUpload->url;
+        }
+
+        if (! $content->file_url) {
+            return null;
+        }
+
+        if (filter_var($content->file_url, FILTER_VALIDATE_URL)) {
+            return $content->file_url;
+        }
+
+        return S3upload::where('id', $content->file_url)->value('url');
     }
 
     protected function extractExtension(?string $path): ?string
