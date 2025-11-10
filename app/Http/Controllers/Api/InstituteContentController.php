@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Content;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -14,7 +15,7 @@ class InstituteContentController extends Controller
     /**
      * Stream the requested content file without leaking the underlying S3 URL.
      */
-    public function download(Content $content): Response
+    public function download(Request $request, Content $content): Response
     {
         $upload = $content->fileUpload;
 
@@ -44,7 +45,14 @@ class InstituteContentController extends Controller
         }
 
         if (filter_var($upload->url, FILTER_VALIDATE_URL)) {
-            $remote = Http::withOptions(['stream' => true])->get($upload->url);
+            $headers = [];
+            if ($range = $request->header('Range')) {
+                $headers['Range'] = $range;
+            }
+
+            $remote = Http::withOptions(['stream' => true])
+                ->withHeaders($headers)
+                ->get($upload->url);
 
             if ($remote->successful()) {
                 $mimeType = $remote->header('content-type') ?? 'application/octet-stream';
@@ -54,11 +62,14 @@ class InstituteContentController extends Controller
                     while (! $psrStream->eof()) {
                         echo $psrStream->read(1024 * 32);
                     }
-                }, Response::HTTP_OK, [
+                }, $remote->status(), array_filter([
                     'Content-Type' => $mimeType,
                     'Content-Disposition' => 'inline; filename="' . $fileName . '"',
                     'Cache-Control' => 'private, max-age=0, must-revalidate',
-                ]);
+                    'Content-Length' => $remote->header('content-length'),
+                    'Content-Range' => $remote->header('content-range'),
+                    'Accept-Ranges' => $remote->header('accept-ranges'),
+                ]));
             }
         }
 
