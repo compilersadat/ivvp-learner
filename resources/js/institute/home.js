@@ -192,13 +192,8 @@ const handleContentActivation = async (event) => {
             return;
         }
 
-        const anchor = document.createElement('a');
-        anchor.href = objectUrl;
-        anchor.download = filename;
-        document.body.appendChild(anchor);
-        anchor.click();
-        anchor.remove();
         window.URL.revokeObjectURL(objectUrl);
+        alert('This content type cannot be previewed yet.');
     } catch (error) {
         if (error.response?.status === 401) {
             clearSession();

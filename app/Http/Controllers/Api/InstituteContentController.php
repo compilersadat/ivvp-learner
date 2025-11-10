@@ -36,8 +36,11 @@ class InstituteContentController extends Controller
         $extension = pathinfo($path, PATHINFO_EXTENSION);
         $baseName = Str::slug($content->title ?? 'content');
         $fileName = $extension ? "{$baseName}.{$extension}" : $baseName;
+        $mimeType = $disk->mimeType($path) ?: 'application/octet-stream';
 
         return $disk->response($path, $fileName, [
+            'Content-Type' => $mimeType,
+            'Content-Disposition' => 'inline; filename="' . $fileName . '"',
             'Cache-Control' => 'private, max-age=0, must-revalidate',
         ]);
     }
