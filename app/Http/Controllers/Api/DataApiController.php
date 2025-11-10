@@ -191,7 +191,6 @@ class DataApiController extends ResponseController
             ? $thumbnailBase . ltrim($content->thumbnail, '/')
             : null;
         $fileUrl = $this->resolveContentUrl($content);
-        $downloadUrl = $fileUrl ? route('institutes.contents.download', ['content' => $content->id]) : null;
         $extension = $this->extractExtension($fileUrl);
 
         return [
@@ -201,7 +200,7 @@ class DataApiController extends ResponseController
             'type' => $content->type,
             'type_label' => $this->prettifyType($content->type),
             'month_label' => $months[$monthIndex] ?? $content->month,
-            'download_url' => $downloadUrl,
+            'stream_url' => $fileUrl,
             'thumbnail_url' => $thumbnail,
             'file_extension' => $extension,
             'media_category' => $this->inferMediaCategory($content->type, $extension),
