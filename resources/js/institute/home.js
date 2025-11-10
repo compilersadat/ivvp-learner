@@ -160,17 +160,31 @@ const fetchContentBlob = async (downloadUrl) => {
 const handleContentActivation = async (event) => {
     const card = event.currentTarget;
     const downloadUrl = card.dataset.downloadUrl;
-
-    if (!downloadUrl) {
-        return;
-    }
-
+    const streamUrl = card.dataset.streamUrl;
     const mediaCategory = card.dataset.mediaCategory ?? 'file';
     const title = card.dataset.title ?? 'Resource';
 
     card.classList.add('is-loading');
 
     try {
+        if (mediaCategory === MEDIA_VIDEO && streamUrl) {
+            openVideoViewer(streamUrl, title);
+            return;
+        }
+
+        if (mediaCategory === MEDIA_PDF && streamUrl) {
+            const pdfWindow = window.open(streamUrl, '_blank', 'noopener');
+            if (!pdfWindow) {
+                alert('Please allow pop-ups to view this PDF.');
+            }
+            return;
+        }
+
+        if (!downloadUrl) {
+            alert('Preview is not available for this file.');
+            return;
+        }
+
         const { blob, filename } = await fetchContentBlob(downloadUrl);
 
         if (mediaCategory === MEDIA_VIDEO) {
@@ -213,8 +227,12 @@ const createContentCard = (content) => {
     card.dataset.downloadUrl = content.download_url ?? '';
     card.dataset.mediaCategory = content.media_category ?? 'file';
     card.dataset.title = content.title ?? 'Resource';
+    card.dataset.streamUrl = content.stream_url ?? '';
 
-    if (!content.download_url) {
+    const hasDirectStream = Boolean(content.stream_url);
+    const hasFallbackDownload = Boolean(content.download_url);
+
+    if (!hasDirectStream && !hasFallbackDownload) {
         card.classList.add('is-disabled');
     }
 
@@ -254,7 +272,7 @@ const createContentCard = (content) => {
     card.appendChild(thumbnail);
     card.appendChild(body);
 
-    if (content.download_url) {
+    if (hasDirectStream || hasFallbackDownload) {
         card.addEventListener('click', handleContentActivation);
     }
 
