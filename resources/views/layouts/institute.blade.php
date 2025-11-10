@@ -8,7 +8,7 @@
     @vite('resources/css/institute.css')
     @stack('head')
 </head>
-<body class="@yield('body_class', 'portal-body')">
+<body class="@yield('body_class', 'portal-body')" oncontextmenu="return false">
     <main class="portal-page">
         @yield('content')
     </main>
