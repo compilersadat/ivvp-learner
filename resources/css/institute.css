@@ -304,6 +304,83 @@ body.portal-body--light {
     color: var(--portal-muted);
 }
 
+.portal-spotlight {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+    border-radius: 20px;
+    background: radial-gradient(circle at top left, rgba(255, 139, 55, 0.15), rgba(15, 23, 42, 0.85));
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+
+.portal-spotlight h2 {
+    margin: 0.35rem 0 0.75rem;
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
+}
+
+.portal-spotlight__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.portal-spotlight__badge {
+    align-self: center;
+    padding: 1.25rem;
+    border-radius: 18px;
+    background: rgba(15, 23, 42, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(5, 6, 10, 0.25);
+}
+
+.portal-spotlight__badge span {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.15);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.5rem;
+}
+
+.portal-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.portal-stat-card {
+    padding: 1.25rem 1.5rem;
+    border: 1px solid var(--portal-border);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+}
+
+.portal-stat-label {
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    font-size: 0.7rem;
+    color: var(--portal-muted);
+    margin: 0 0 0.4rem;
+}
+
+.portal-stat-value {
+    font-size: 2.2rem;
+    margin: 0;
+    font-weight: 700;
+    color: var(--portal-text);
+}
+
+.portal-stat-hint {
+    margin: 0.35rem 0 0;
+    color: var(--portal-muted);
+}
+
 .portal-home {
     display: flex;
     flex-direction: column;
@@ -618,6 +695,10 @@ body.portal-body--light {
     }
 
     .portal-topbar {
+        flex-direction: column;
+    }
+
+    .portal-spotlight__actions {
         flex-direction: column;
     }
 }

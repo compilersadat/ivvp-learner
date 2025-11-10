@@ -11,6 +11,9 @@ const logoutButton = document.querySelector('[data-logout]');
 const nameEl = document.querySelector('[data-institute-name]');
 const emailEl = document.querySelector('[data-institute-email]');
 const phoneEl = document.querySelector('[data-institute-phone]');
+const statBranches = document.querySelector('[data-stat-branches]');
+const statYears = document.querySelector('[data-stat-years]');
+const statAssets = document.querySelector('[data-stat-assets]');
 const viewer = document.getElementById('portal-viewer');
 const viewerBody = document.querySelector('[data-viewer-body]');
 const viewerCloseTriggers = document.querySelectorAll('[data-viewer-close]');
@@ -69,6 +72,31 @@ const renderState = (type, message) => {
             <p>${message}</p>
         </div>
     `;
+};
+
+const formatNumber = (value) => {
+    return new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(value);
+};
+
+const updateStats = (branches) => {
+    if (!statBranches || !statYears || !statAssets) {
+        return;
+    }
+
+    const totalBranches = branches.length;
+    const totalYears = branches.reduce((sum, branch) => sum + (branch.years?.length ?? 0), 0);
+    const totalAssets = branches.reduce((sum, branch) => {
+        const yearCount = branch.years?.reduce((innerSum, year) => {
+            const monthCount = year.months?.reduce((monthSum, month) => monthSum + (month.contents?.length ?? 0), 0) ?? 0;
+            return innerSum + monthCount;
+        }, 0) ?? 0;
+
+        return sum + yearCount;
+    }, 0);
+
+    statBranches.textContent = formatNumber(totalBranches);
+    statYears.textContent = formatNumber(totalYears);
+    statAssets.textContent = formatNumber(totalAssets);
 };
 
 const fetchHomeData = async () => {
@@ -360,6 +388,7 @@ const boot = async () => {
 
     try {
         const branches = await fetchHomeData();
+        updateStats(branches);
         renderBranches(branches);
     } catch (error) {
         renderState('error', error.message);

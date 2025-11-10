@@ -21,6 +21,40 @@
             </div>
         </header>
 
+        <section class="portal-spotlight">
+            <div>
+                <p class="portal-kicker">Weekly highlight</p>
+                <h2>Plan lessons faster with the curated dropboard</h2>
+                <p class="portal-text-sm">Pick a branch, lock a year, and the system stacks all videos, PDFs, and tests in one place. Use it as your ready-to-teach queue.</p>
+                <div class="portal-spotlight__actions">
+                    <a href="mailto:support@ivvp.co.in" class="portal-btn portal-btn--primary">Ask for new content</a>
+                    <a href="https://www.ivvp.co.in" target="_blank" rel="noopener" class="portal-btn portal-btn--ghost">Visit ivvp.co.in</a>
+                </div>
+            </div>
+            <div class="portal-spotlight__badge">
+                <span>NEW</span>
+                <p>Smart month accordions keep everything tidy—no spreadsheets needed.</p>
+            </div>
+        </section>
+
+        <section class="portal-stats">
+            <article class="portal-stat-card">
+                <p class="portal-stat-label">Branches on-boarded</p>
+                <p class="portal-stat-value" data-stat-branches>0</p>
+                <p class="portal-stat-hint">Unique institute streams</p>
+            </article>
+            <article class="portal-stat-card">
+                <p class="portal-stat-label">Academic years</p>
+                <p class="portal-stat-value" data-stat-years>0</p>
+                <p class="portal-stat-hint">Mapped to your syllabi</p>
+            </article>
+            <article class="portal-stat-card">
+                <p class="portal-stat-label">Resources live</p>
+                <p class="portal-stat-value" data-stat-assets>0</p>
+                <p class="portal-stat-hint">Videos • PDFs • Tests</p>
+            </article>
+        </section>
+
         <section id="institute-home-root" class="portal-home">
             <div class="portal-state" data-state="loading">
                 <span class="spinner"></span>
